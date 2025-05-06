@@ -2,6 +2,7 @@
 let Damage = 1;
 let AttackSpeed = 1;
 let Health = 100;
+let MaxHealth = 100;
 let Level = 1;
 let Experience = 0;
 let NeededExperience = 100;
@@ -18,13 +19,21 @@ let ExplodingProjectiles = false;
 let explosionsize = 1;
 let ProjectileRichochet = false;
 
-
 // --- Game State ---
 let gamestarted = false;
 let gambling = false;
 let Difficulty = 0;
 let upgradeQueue = 0;
 let inRound = true;
+
+// --- Canvas/Player ---
+let canvas, ctx;
+const player = {
+  x: 400,
+  y: 300,
+  radius: 20,
+  color: "blue"
+};
 
 // --- Pre-game Cheat Check ---
 checkCheats();
@@ -40,14 +49,15 @@ function startGame() {
   enterFullscreen();
 
   // Canvas setup
-  const canvas = document.createElement("canvas");
+  canvas = document.createElement("canvas");
   canvas.id = "gameCanvas";
   canvas.width = 800;
   canvas.height = 600;
   canvas.style.border = "1px solid black";
   document.body.appendChild(canvas);
+  ctx = canvas.getContext("2d");
 
-  // Add pause button
+  // Pause Button
   const pauseButton = document.createElement("button");
   pauseButton.id = "pauseButton";
   pauseButton.innerText = "Pause";
@@ -55,10 +65,9 @@ function startGame() {
   pauseButton.style.top = "10px";
   pauseButton.style.right = "10px";
   document.body.appendChild(pauseButton);
-
   pauseButton.addEventListener("click", pauseGame);
 
-  setInterval(gameLoop, 500);
+  setInterval(gameLoop, 100); // Faster loop for smoother updates
   console.log("Game started!");
 }
 
@@ -73,10 +82,9 @@ function gameLoop() {
     Experience = 0;
     NeededExperience = Math.floor(NeededExperience * 1.5);
     upgradeQueue += 1;
-    console.log(`Leveled up to ${Level}`);
   }
 
-  updateStats();
+  updateCanvas();
 
   if (roundOver()) {
     inRound = false;
@@ -86,12 +94,11 @@ function gameLoop() {
 
 // --- Round End Logic ---
 function handleRoundEnd() {
-  coins += 50; // Example reward
+  coins += 50;
   coins += Math.floor((coins * Interest) / 100);
 
   for (let i = 0; i < upgradeQueue; i++) {
     console.log(`Upgrade choice #${i + 1} shown (placeholder)`);
-    // Show upgrade UI here
   }
 
   showShop();
@@ -102,12 +109,38 @@ function handleRoundEnd() {
 
   upgradeQueue = 0;
 
-  // Continue after delay
   setTimeout(() => {
     inRound = true;
-    console.log("Next round starts");
     luck += 1;
   }, 3000);
+}
+
+// --- Update Canvas ---
+function updateCanvas() {
+  if (!ctx) return;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Health Bar
+  const barWidth = 200;
+  const barHeight = 20;
+  ctx.fillStyle = "red";
+  ctx.fillRect(10, 10, barWidth, barHeight);
+  ctx.fillStyle = "green";
+  ctx.fillRect(10, 10, (Health / MaxHealth) * barWidth, barHeight);
+  ctx.strokeStyle = "black";
+  ctx.strokeRect(10, 10, barWidth, barHeight);
+
+  // Player
+  ctx.fillStyle = player.color;
+  ctx.beginPath();
+  ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+// --- Pause ---
+function pauseGame() {
+  console.log("Game paused - show stats/settings here");
 }
 
 // --- Shop Placeholder ---
@@ -118,17 +151,6 @@ function showShop() {
 // --- Gambling Placeholder ---
 function showGamblingMachine() {
   console.log("Gambling activated: Showing slot machine (placeholder)");
-}
-
-// --- Pause ---
-function pauseGame() {
-  console.log("Game paused - show stats/settings here");
-  // Toggle pause logic can be added
-}
-
-// --- Update Display ---
-function updateStats() {
-  console.log(`Stats - Level: ${Level}, XP: ${Experience}, Coins: ${coins}`);
 }
 
 // --- Cheat Detection ---
@@ -148,6 +170,5 @@ function enterFullscreen() {
 
 // --- Dummy Round Checker ---
 function roundOver() {
-  // Replace with enemy death checking later
-  return Math.random() < 0.01; // 1% chance each loop as placeholder
+  return Math.random() < 0.01;
 }
