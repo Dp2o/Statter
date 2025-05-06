@@ -3,13 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title id="header">Statter</title>
+    <title>Statter</title>
     <link rel="stylesheet" href="src/style.css" />
   </head>
   <body>
-    <h1 id="StatterH1">Statter</h1>
+    <!-- Title -->
+    <h1 id="header">Statter</h1>
+
+    <!-- Play Button -->
     <button id="PlayButton">Play</button>
-    <script src="src/script.js"></script>
+
+    <!-- Stat Display -->
+    <div id="stats">
+      <p>Damage: <span id="damage">1</span></p>
+      <p>Health: <span id="health">100</span></p>
+      <p>Level: <span id="level">1</span></p>
+      <p>Experience: <span id="experience">0</span></p>
+    </div>
+
+    <!-- Canvas Container -->
     <div id="gameContainer"></div>
+
+    <!-- Game Script -->
+    <script src="src/script.js"></script>
   </body>
 </html>
