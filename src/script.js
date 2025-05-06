@@ -72,7 +72,8 @@ function startGame() {
 
   pauseButton.addEventListener("click", pauseGame);
 
-  setInterval(gameLoop, 500);
+  // Start game loop with requestAnimationFrame
+  requestAnimationFrame(gameLoop);
   console.log("Game started!");
 }
 
@@ -90,7 +91,6 @@ function gameLoop() {
   if (!inRound) return;
 
   handleMovement(); // Handle movement based on key input
-
   Experience += 1;
 
   if (Experience >= NeededExperience) {
@@ -106,6 +106,9 @@ function gameLoop() {
     inRound = false;
     handleRoundEnd();
   }
+
+  // Call gameLoop recursively for smooth animation
+  requestAnimationFrame(gameLoop);
 }
 
 // --- Handle Movement ---
@@ -137,7 +140,7 @@ function updateCanvas() {
   // Draw Player in the center of canvas (world position is offset)
   ctx.fillStyle = player.color;
   ctx.beginPath();
-  ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+  ctx.arc(player.x - worldOffsetX, player.y - worldOffsetY, player.radius, 0, Math.PI * 2);
   ctx.fill();
 }
 
