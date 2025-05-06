@@ -16,6 +16,8 @@ let Interest = 5;
 let TrackingProjectiles = false;
 let ExplodingProjectiles = false;
 let explosionsize = 1;
+let ProjectileRichochet = false;
+
 
 // --- Game State ---
 let gamestarted = false;
