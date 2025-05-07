@@ -61,10 +61,12 @@ function startGame() {
 // --- Game Loop ---
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawMapDots();
+
+  drawGridMap(); // Draw the static grid map
+  drawMapDots(); // Draw moving star effect
   drawPlayer();
   drawCoins();
-  
+
   if (inRound) {
     Experience += 0.05; // Slower XP gain
 
@@ -74,7 +76,7 @@ function gameLoop() {
       NeededExperience = Math.floor(NeededExperience * 1.5);
       upgradeQueue += 1;
     }
-    
+
     updateStats();
   } else {
     showUpgradeMenu();
@@ -106,6 +108,19 @@ function drawCoins() {
   ctx.fillStyle = "white";
   ctx.textAlign = "right";
   ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
+}
+
+// --- Draw Brotato-Style Grid Map ---
+function drawGridMap() {
+  ctx.fillStyle = "grey";
+  const gridSize = 50; // Distance between dots in the grid
+  for (let x = 0; x < canvas.width; x += gridSize) {
+    for (let y = 0; y < canvas.height; y += gridSize) {
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2); // Small grey dots
+      ctx.fill();
+    }
+  }
 }
 
 // --- Draw Map Dots ---
