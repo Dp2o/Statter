@@ -89,10 +89,10 @@ function gameLoop() {
 document.addEventListener("keydown", (e) => {
   if (!inRound) return;
   switch (e.key) {
-    case "ArrowUp": player.y += player.speed; break;
-    case "ArrowDown": player.y -= player.speed; break;
-    case "ArrowLeft": player.x += player.speed; break;
-    case "ArrowRight": player.x -= player.speed; break;
+    case "W": player.y += player.speed; break;
+    case "A": player.y -= player.speed; break;
+    case "S": player.x += player.speed; break;
+    case "D": player.x -= player.speed; break;
   }
 });
 
