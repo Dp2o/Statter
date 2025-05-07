@@ -8,7 +8,7 @@ let Experience = 0;
 let NeededExperience = 100;
 let coins = 100;
 
-// --- Secondary Stats (placeholders) ---
+// --- Secondary Stats ---
 let luck = 0;
 let CritChance = 0;
 let ProjectileDamageMultiplier = 1;
@@ -85,20 +85,23 @@ function gameLoop() {
       handleRoundEnd();
     }
   }
-  requestAnimationFrame(gameLoop); // Ensures it NEVER stops
+  requestAnimationFrame(gameLoop);
 }
 
 // --- Movement Handler ---
 function handleMovement() {
-  if (keysPressed["w"]) worldOffsetY -= playerSpeed; // Reversed
-  if (keysPressed["s"]) worldOffsetY += playerSpeed;
-  if (keysPressed["a"]) worldOffsetX -= playerSpeed;
-  if (keysPressed["d"]) worldOffsetX += playerSpeed;
+  if (keysPressed["w"]) worldOffsetY += playerSpeed; // Move map down
+  if (keysPressed["s"]) worldOffsetY -= playerSpeed; // Move map up
+  if (keysPressed["a"]) worldOffsetX += playerSpeed; // Move map right
+  if (keysPressed["d"]) worldOffsetX -= playerSpeed; // Move map left
 }
 
 // --- Experience & Leveling ---
 function tickExperience() {
+  if (!inRound) return;
+
   Experience += 1;
+
   if (Experience >= NeededExperience) {
     Level++;
     Experience = 0;
@@ -158,7 +161,7 @@ function handleRoundEnd() {
   }, 3000);
 }
 
-// --- Pause (stub) ---
+// --- Pause ---
 function pauseGame() {
   inRound = !inRound;
   console.log(inRound ? "Game Resumed." : "Game Paused.");
