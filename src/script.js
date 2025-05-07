@@ -25,6 +25,8 @@ let gambling = false;
 let Difficulty = 0;
 let upgradeQueue = 0;
 let inRound = true;
+let Itemlist = [];
+let Weaponlist [];
 let upgrades = [];
 let shopItems = [];
 let starDots = []; // Star dots
