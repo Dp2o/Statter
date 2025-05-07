@@ -86,15 +86,43 @@ function gameLoop() {
 }
 
 // --- Movement ---
+let keysPressed = {}; // Track which keys are currently pressed
+
+// Listen for keydown events
 document.addEventListener("keydown", (e) => {
-  if (!inRound) return;
-  switch (e.key) {
-    case "W": player.y += player.speed; break;
-    case "A": player.y -= player.speed; break;
-    case "S": player.x += player.speed; break;
-    case "D": player.x -= player.speed; break;
-  }
+  keysPressed[e.key.toLowerCase()] = true; // Mark key as pressed
 });
+
+// Listen for keyup events
+document.addEventListener("keyup", (e) => {
+  delete keysPressed[e.key.toLowerCase()]; // Remove key from pressed keys
+});
+
+// Continuous movement loop
+setInterval(() => {
+  if (!inRound) return; // Do nothing if not in a round
+
+  if (keysPressed["w"]) {
+    mapDots.forEach(dot => dot.y += player.speed); // Move dots down (player moves up)
+  }
+  if (keysPressed["a"]) {
+    mapDots.forEach(dot => dot.x += player.speed); // Move dots right (player moves left)
+  }
+  if (keysPressed["s"]) {
+    mapDots.forEach(dot => dot.y -= player.speed); // Move dots up (player moves down)
+  }
+  if (keysPressed["d"]) {
+    mapDots.forEach(dot => dot.x -= player.speed); // Move dots left (player moves right)
+  }
+
+  // Ensure dots wrap around the screen
+  mapDots.forEach(dot => {
+    if (dot.x > canvas.width) dot.x = 0;
+    if (dot.x < 0) dot.x = canvas.width;
+    if (dot.y > canvas.height) dot.y = 0;
+    if (dot.y < 0) dot.y = canvas.height;
+  });
+}, 16); // Run the loop every 16ms (~60 frames per second)
 
 // --- Draw Player ---
 function drawPlayer() {
@@ -137,8 +165,6 @@ function generateMapDots() {
 function drawMapDots() {
   ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
   mapDots.forEach((dot) => {
-    dot.x -= 0.5;
-    if (dot.x < 0) dot.x = canvas.width;
     ctx.beginPath();
     ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
     ctx.fill();
