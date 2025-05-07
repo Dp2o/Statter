@@ -20,17 +20,33 @@ let ProjectileRichochet = false;
 
 // --- Game State ---
 let gamestarted = false;
-let gambling = true;
+let gambling = false;
 let Difficulty = 0;
 let upgradeQueue = 0;
 let inRound = true;
-let showShopMenu = false;
-let showGamblingMenu = false;
+let upgrades = [];
 let shopItems = [];
-let spinCount = 0;
-let gameTimer = 0;
+let mapDots = [];
 
 // --- Canvas Setup ---
+const canvas = document.createElement("canvas");
+canvas.id = "gameCanvas";
+canvas.width = 800;
+canvas.height = 600;
+document.body.appendChild(canvas);
+const ctx = canvas.getContext("2d");
+
+// --- Player Setup ---
+let player = {
+  x: canvas.width / 2,
+  y: canvas.height / 2,
+  width: 30,
+  height: 30,
+  color: "blue",
+  speed: 3,
+};
+
+// --- Start Button ---
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
 function startGame() {
@@ -38,153 +54,159 @@ function startGame() {
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   enterFullscreen();
-
-  const canvas = document.createElement("canvas");
-  canvas.id = "gameCanvas";
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  document.body.appendChild(canvas);
-
-  setInterval(gameLoop, 16); // 60 FPS
-  console.log("Game started!");
+  generateMapDots();
+  gameLoop();
 }
 
 // --- Game Loop ---
 function gameLoop() {
-  if (!inRound) return;
-  const canvas = document.getElementById("gameCanvas");
-  const ctx = canvas.getContext("2d");
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawPlayer(ctx, canvas);
-  drawHealthBar(ctx);
-  drawCoins(ctx, canvas);
+  drawMapDots();
+  drawPlayer();
+  drawCoins();
+  
+  if (inRound) {
+    Experience += 0.05; // Slower XP gain
 
-  // Experience and Level Up Logic
-  Experience += 0.1;
-  if (Experience >= NeededExperience) {
-    Level++;
-    Experience = 0;
-    NeededExperience = Math.floor(NeededExperience * 1.5);
-    upgradeQueue++;
-    console.log(`Leveled up to ${Level}`);
+    if (Experience >= NeededExperience) {
+      Level += 1;
+      Experience = 0;
+      NeededExperience = Math.floor(NeededExperience * 1.5);
+      upgradeQueue += 1;
+    }
+    
+    updateStats();
+  } else {
+    showUpgradeMenu();
   }
 
-  // Round Timer
-  gameTimer += 16; // 16ms per frame
-  if (gameTimer >= 60000) { // 1 minute
-    inRound = false;
-    gameTimer = 0;
-    handleRoundEnd();
-  }
+  requestAnimationFrame(gameLoop);
 }
+
+// --- Movement ---
+document.addEventListener("keydown", (e) => {
+  if (!inRound) return;
+  switch (e.key) {
+    case "ArrowUp": player.y += player.speed; break;
+    case "ArrowDown": player.y -= player.speed; break;
+    case "ArrowLeft": player.x += player.speed; break;
+    case "ArrowRight": player.x -= player.speed; break;
+  }
+});
 
 // --- Draw Player ---
-function drawPlayer(ctx, canvas) {
-  ctx.fillStyle = "blue";
-  ctx.fillRect(canvas.width / 2 - 25, canvas.height / 2 - 25, 50, 50);
-}
-
-// --- Draw Health Bar ---
-function drawHealthBar(ctx) {
-  ctx.fillStyle = "red";
-  ctx.fillRect(20, 20, 200 * (Health / 100), 20);
-  ctx.strokeStyle = "black";
-  ctx.strokeRect(20, 20, 200, 20);
+function drawPlayer() {
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
 }
 
 // --- Draw Coins ---
-function drawCoins(ctx, canvas) {
-  ctx.fillStyle = "gold";
+function drawCoins() {
   ctx.font = "20px Arial";
+  ctx.fillStyle = "white";
   ctx.textAlign = "right";
-  ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 40);
+  ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
 }
 
-// --- Round End Logic ---
-function handleRoundEnd() {
-  showShopMenu = true;
-  showShop();
+// --- Draw Map Dots ---
+function generateMapDots() {
+  for (let i = 0; i < 100; i++) {
+    mapDots.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 3,
+    });
+  }
 }
 
-// --- Shop Display ---
-function showShop() {
-  const canvas = document.getElementById("gameCanvas");
-  const ctx = canvas.getContext("2d");
-  
-  ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "white";
-  ctx.font = "30px Arial";
-  ctx.textAlign = "center";
-  ctx.fillText("Shop - Choose an item", canvas.width / 2, 100);
-
-  shopItems = generateShopItems();
-  shopItems.forEach((item, index) => {
-    ctx.fillStyle = "grey";
-    ctx.fillRect(150 + index * 100, 200, 80, 80);
-    ctx.fillStyle = "white";
-    ctx.fillText(item.name, 150 + index * 100 + 40, 250);
+function drawMapDots() {
+  ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+  mapDots.forEach((dot) => {
+    dot.x -= 0.5;
+    if (dot.x < 0) dot.x = canvas.width;
+    ctx.beginPath();
+    ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+    ctx.fill();
   });
+}
 
-  // Continue Button
-  ctx.fillStyle = "green";
-  ctx.fillRect(canvas.width / 2 - 100, canvas.height - 100, 200, 50);
+// --- Upgrade Menu ---
+function showUpgradeMenu() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+  ctx.fillRect(100, 100, 600, 400);
+
   ctx.fillStyle = "white";
-  ctx.fillText("Continue", canvas.width / 2, canvas.height - 65);
+  ctx.font = "24px Arial";
+  ctx.fillText("Choose an Upgrade:", 300, 150);
 
-  canvas.addEventListener("click", handleShopClick);
+  if (upgrades.length === 0) {
+    generateUpgrades();
+  }
+
+  upgrades.forEach((upgrade, index) => {
+    ctx.fillStyle = "#333";
+    ctx.fillRect(120 + index * 110, 200, 100, 150);
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(120 + index * 110, 200, 100, 150);
+    
+    ctx.fillStyle = "white";
+    ctx.font = "16px Arial";
+    ctx.fillText(upgrade.name, 130 + index * 110, 250);
+    ctx.fillText(`+${upgrade.value}`, 130 + index * 110, 280);
+  });
 }
 
-// --- Shop Items Generation ---
-function generateShopItems() {
-  return [
-    { name: "Damage +1", effect: () => Damage++ },
-    { name: "Health +10", effect: () => Health += 10 },
-    { name: "Attack Speed +0.1", effect: () => AttackSpeed += 0.1 },
-    { name: "Crit Chance +5%", effect: () => CritChance += 5 },
-    { name: "Interest +1%", effect: () => Interest++ },
-    { name: "Coins +50", effect: () => coins += 50 },
-    { name: "Luck +1", effect: () => luck++ },
-    { name: "Projectile Damage +0.1", effect: () => ProjectileDamageMultiplier += 0.1 },
-    { name: "Melee Damage +0.1", effect: () => MeleeDamageMultiplier += 0.1 },
-    { name: "Health Regen +1", effect: () => Health += 1 }
+// --- Generate Upgrades ---
+function generateUpgrades() {
+  upgrades = [];
+  let possibleUpgrades = [
+    { name: "Damage", value: Math.floor(Math.random() * 5) + 1 },
+    { name: "Health", value: Math.floor(Math.random() * 20) + 10 },
+    { name: "Crit Chance", value: Math.floor(Math.random() * 5) + 1 },
+    { name: "Attack Speed", value: Math.floor(Math.random() * 0.5) + 0.1 },
+    { name: "Luck", value: Math.floor(Math.random() * 5) + 1 },
   ];
-}
 
-// --- Shop Interaction ---
-function handleShopClick(event) {
-  const canvas = document.getElementById("gameCanvas");
-  const rect = canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
-
-  if (y > canvas.height - 100 && y < canvas.height - 50 && x > canvas.width / 2 - 100 && x < canvas.width / 2 + 100) {
-    showShopMenu = false;
-    if (gambling) {
-      showGambling();
-    } else {
-      startNextRound();
+  while (upgrades.length < 5) {
+    let upgrade = possibleUpgrades[Math.floor(Math.random() * possibleUpgrades.length)];
+    if (Math.random() < (0.5 + luck / 1000)) {
+      upgrades.push(upgrade);
     }
   }
 }
 
-// --- Gambling Display ---
-function showGambling() {
-  console.log("Gambling started (template).");
-  startNextRound();
-}
+// --- Choose Upgrade ---
+canvas.addEventListener("click", (e) => {
+  if (!inRound) {
+    let x = e.offsetX, y = e.offsetY;
+    upgrades.forEach((upgrade, index) => {
+      if (x > 120 + index * 110 && x < 220 + index * 110 && y > 200 && y < 350) {
+        applyUpgrade(upgrade);
+        inRound = true;
+        upgrades = [];
+      }
+    });
+  }
+});
 
-// --- Start Next Round ---
-function startNextRound() {
-  inRound = true;
-  coins += Math.floor(coins * (Interest / 100));
-  console.log("Next round starts!");
+// --- Apply Upgrade ---
+function applyUpgrade(upgrade) {
+  switch (upgrade.name) {
+    case "Damage": Damage += upgrade.value; break;
+    case "Health": Health += upgrade.value; break;
+    case "Crit Chance": CritChance += upgrade.value; break;
+    case "Attack Speed": AttackSpeed += upgrade.value; break;
+    case "Luck": luck += upgrade.value; break;
+  }
 }
 
 // --- Fullscreen ---
 function enterFullscreen() {
-  const docEl = document.documentElement;
-  if (docEl.requestFullscreen) docEl.requestFullscreen();
+  if (canvas.requestFullscreen) canvas.requestFullscreen();
+}
+
+// --- Update Stats ---
+function updateStats() {
+  console.log(`Level: ${Level}, XP: ${Experience.toFixed(1)}, Coins: ${coins}`);
 }
