@@ -2,7 +2,6 @@
 let Damage = 1;
 let AttackSpeed = 1;
 let Health = 100;
-let MaxHealth = 100;
 let Level = 1;
 let Experience = 0;
 let NeededExperience = 100;
@@ -21,87 +20,48 @@ let ProjectileRichochet = false;
 
 // --- Game State ---
 let gamestarted = false;
-let gambling = false;
+let gambling = true;
 let Difficulty = 0;
 let upgradeQueue = 0;
 let inRound = true;
+let showShopMenu = false;
+let showGamblingMenu = false;
+let shopItems = [];
+let spinCount = 0;
+let gameTimer = 0;
 
-// --- Player & Camera ---
-const player = { x: 400, y: 300, radius: 20, color: "blue" };
-let worldOffsetX = 0;
-let worldOffsetY = 0;
-const playerSpeed = 2;
-let keysPressed = {};
-let canvas, ctx;
-
-// --- Pre-game Cheat Check ---
-checkCheats();
-
-// --- Setup Key Listeners ---
-document.addEventListener("keydown", (e) => (keysPressed[e.key.toLowerCase()] = true));
-document.addEventListener("keyup", (e) => (keysPressed[e.key.toLowerCase()] = false));
-
-// --- Start Button Listener ---
+// --- Canvas Setup ---
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
-// --- Start Game ---
 function startGame() {
   gamestarted = true;
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   enterFullscreen();
 
-  // Create and append canvas
-  canvas = document.createElement("canvas");
+  const canvas = document.createElement("canvas");
   canvas.id = "gameCanvas";
-  canvas.width = 800;
-  canvas.height = 600;
-  canvas.style.border = "1px solid black";
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
   document.body.appendChild(canvas);
-  ctx = canvas.getContext("2d");
 
-  // Add Pause button (optional)
-  const pauseButton = document.createElement("button");
-  pauseButton.innerText = "Pause";
-  pauseButton.style.position = "absolute";
-  pauseButton.style.top = "10px";
-  pauseButton.style.right = "10px";
-  document.body.appendChild(pauseButton);
-  pauseButton.addEventListener("click", pauseGame);
-
-  // Start the animation loop
-  requestAnimationFrame(gameLoop);
+  setInterval(gameLoop, 16); // 60 FPS
   console.log("Game started!");
 }
 
-// --- Main Loop ---
+// --- Game Loop ---
 function gameLoop() {
-  if (inRound) {
-    handleMovement();
-    tickExperience();
-    drawScene();
-    if (roundOver()) {
-      inRound = false;
-      handleRoundEnd();
-    }
-  }
-  requestAnimationFrame(gameLoop);
-}
-
-// --- Movement Handler ---
-function handleMovement() {
-  if (keysPressed["w"]) worldOffsetY += playerSpeed; // Move map down
-  if (keysPressed["s"]) worldOffsetY -= playerSpeed; // Move map up
-  if (keysPressed["a"]) worldOffsetX += playerSpeed; // Move map right
-  if (keysPressed["d"]) worldOffsetX -= playerSpeed; // Move map left
-}
-
-// --- Experience & Leveling ---
-function tickExperience() {
   if (!inRound) return;
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
 
-  Experience += 1;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawPlayer(ctx, canvas);
+  drawHealthBar(ctx);
+  drawCoins(ctx, canvas);
 
+  // Experience and Level Up Logic
+  Experience += 0.1;
   if (Experience >= NeededExperience) {
     Level++;
     Experience = 0;
@@ -109,79 +69,122 @@ function tickExperience() {
     upgradeQueue++;
     console.log(`Leveled up to ${Level}`);
   }
+
+  // Round Timer
+  gameTimer += 16; // 16ms per frame
+  if (gameTimer >= 60000) { // 1 minute
+    inRound = false;
+    gameTimer = 0;
+    handleRoundEnd();
+  }
 }
 
-// --- Draw Everything ---
-function drawScene() {
-  // Clear
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+// --- Draw Player ---
+function drawPlayer(ctx, canvas) {
+  ctx.fillStyle = "blue";
+  ctx.fillRect(canvas.width / 2 - 25, canvas.height / 2 - 25, 50, 50);
+}
 
-  // Draw grid background
-  const gridSize = 50;
-  ctx.fillStyle = "#222";
+// --- Draw Health Bar ---
+function drawHealthBar(ctx) {
+  ctx.fillStyle = "red";
+  ctx.fillRect(20, 20, 200 * (Health / 100), 20);
+  ctx.strokeStyle = "black";
+  ctx.strokeRect(20, 20, 200, 20);
+}
+
+// --- Draw Coins ---
+function drawCoins(ctx, canvas) {
+  ctx.fillStyle = "gold";
+  ctx.font = "20px Arial";
+  ctx.textAlign = "right";
+  ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 40);
+}
+
+// --- Round End Logic ---
+function handleRoundEnd() {
+  showShopMenu = true;
+  showShop();
+}
+
+// --- Shop Display ---
+function showShop() {
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+  
+  ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#444";
-  for (let x = (worldOffsetX % gridSize) - gridSize; x < canvas.width; x += gridSize) {
-    for (let y = (worldOffsetY % gridSize) - gridSize; y < canvas.height; y += gridSize) {
-      ctx.fillRect(x, y, 2, 2);
+
+  ctx.fillStyle = "white";
+  ctx.font = "30px Arial";
+  ctx.textAlign = "center";
+  ctx.fillText("Shop - Choose an item", canvas.width / 2, 100);
+
+  shopItems = generateShopItems();
+  shopItems.forEach((item, index) => {
+    ctx.fillStyle = "grey";
+    ctx.fillRect(150 + index * 100, 200, 80, 80);
+    ctx.fillStyle = "white";
+    ctx.fillText(item.name, 150 + index * 100 + 40, 250);
+  });
+
+  // Continue Button
+  ctx.fillStyle = "green";
+  ctx.fillRect(canvas.width / 2 - 100, canvas.height - 100, 200, 50);
+  ctx.fillStyle = "white";
+  ctx.fillText("Continue", canvas.width / 2, canvas.height - 65);
+
+  canvas.addEventListener("click", handleShopClick);
+}
+
+// --- Shop Items Generation ---
+function generateShopItems() {
+  return [
+    { name: "Damage +1", effect: () => Damage++ },
+    { name: "Health +10", effect: () => Health += 10 },
+    { name: "Attack Speed +0.1", effect: () => AttackSpeed += 0.1 },
+    { name: "Crit Chance +5%", effect: () => CritChance += 5 },
+    { name: "Interest +1%", effect: () => Interest++ },
+    { name: "Coins +50", effect: () => coins += 50 },
+    { name: "Luck +1", effect: () => luck++ },
+    { name: "Projectile Damage +0.1", effect: () => ProjectileDamageMultiplier += 0.1 },
+    { name: "Melee Damage +0.1", effect: () => MeleeDamageMultiplier += 0.1 },
+    { name: "Health Regen +1", effect: () => Health += 1 }
+  ];
+}
+
+// --- Shop Interaction ---
+function handleShopClick(event) {
+  const canvas = document.getElementById("gameCanvas");
+  const rect = canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  if (y > canvas.height - 100 && y < canvas.height - 50 && x > canvas.width / 2 - 100 && x < canvas.width / 2 + 100) {
+    showShopMenu = false;
+    if (gambling) {
+      showGambling();
+    } else {
+      startNextRound();
     }
   }
-
-  // Health Bar (top-left)
-  const barW = 200, barH = 20;
-  ctx.fillStyle = "red";
-  ctx.fillRect(10, 10, barW, barH);
-  ctx.fillStyle = "lime";
-  ctx.fillRect(10, 10, (Health / MaxHealth) * barW, barH);
-  ctx.strokeStyle = "black";
-  ctx.strokeRect(10, 10, barW, barH);
-
-  // Draw player (always center)
-  ctx.fillStyle = player.color;
-  ctx.beginPath();
-  ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
-  ctx.fill();
 }
 
-// --- Round End & Rewards ---
-function handleRoundEnd() {
-  coins += 50 + Math.floor(coins * Interest / 100);
-  console.log(`Round ended. Coins: ${coins}`);
-
-  for (let i = 0; i < upgradeQueue; i++) {
-    console.log(`Upgrade option #${i + 1}`);
-  }
-  if (gambling) console.log("Show slot machine");
-
-  upgradeQueue = 0;
-  setTimeout(() => {
-    inRound = true;
-    luck++;
-    console.log("New round begins.");
-  }, 3000);
+// --- Gambling Display ---
+function showGambling() {
+  console.log("Gambling started (template).");
+  startNextRound();
 }
 
-// --- Pause ---
-function pauseGame() {
-  inRound = !inRound;
-  console.log(inRound ? "Game Resumed." : "Game Paused.");
+// --- Start Next Round ---
+function startNextRound() {
+  inRound = true;
+  coins += Math.floor(coins * (Interest / 100));
+  console.log("Next round starts!");
 }
 
-// --- Cheat Detection ---
-function checkCheats() {
-  if (Health !== MaxHealth) console.log("Cheat: Health");
-  if (Damage !== 1) console.log("Cheat: Damage");
-  if (Level !== 1) console.log("Cheat: Level");
-  if (Experience !== 0) console.log("Cheat: Experience");
-  if (NeededExperience !== 100) console.log("Cheat: Needed XP");
-}
-
-// --- Fullscreen Request ---
+// --- Fullscreen ---
 function enterFullscreen() {
-  document.documentElement.requestFullscreen?.();
-}
-
-// --- Dummy Round Checker ---
-function roundOver() {
-  return Math.random() < 0.005; // ~0.5% chance per frame
+  const docEl = document.documentElement;
+  if (docEl.requestFullscreen) docEl.requestFullscreen();
 }
