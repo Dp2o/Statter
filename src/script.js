@@ -37,8 +37,10 @@ const canvas = document.createElement("canvas");
 canvas.id = "gameCanvas";
 canvas.width = 800;
 canvas.height = 600;
+canvas.style.display = "none";
 document.body.appendChild(canvas);
 const ctx = canvas.getContext("2d");
+
 
 // --- Player Setup ---
 let player = {
@@ -51,10 +53,11 @@ let player = {
 };
 
 // --- Start Button ---
-document.getElementById("gamecanvas").style.display = "none";
+document.getElementById("gamecontainer").style.display = "none";
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
 function startGame() {
+  document.getElementById("gamecontainer").style.display = true;
   gamestarted = true;
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("header").style.display = "none";
