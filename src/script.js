@@ -44,7 +44,7 @@ let player = {
   width: 30,
   height: 30,
   color: "blue",
-  speed: 3,
+  speed: 3, // Speed for WASD movement
 };
 
 // --- Start Button ---
@@ -64,9 +64,8 @@ function startGame() {
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  moveGridDots(); // New: Move grid dots
-  moveStarDots(); // Restore slow gliding motion of star dots
-  drawGridDots(); // New: Draw moving grid dots
+  moveStarDots(); // Keep star dots gliding
+  drawGridDots(); // Draw moving grid dots
   drawStarDots(); // Draw moving star dots
   drawPlayer();
   drawCoins();
@@ -102,13 +101,31 @@ document.addEventListener("keyup", (e) => {
   delete keysPressed[e.key.toLowerCase()]; // Remove key from pressed keys
 });
 
-// Continuous movement loop
+// Continuous movement for grid dots
 setInterval(() => {
   if (!inRound) return; // Do nothing if not in a round
 
-  if (keysPressed["w"] || keysPressed["a"] || keysPressed["s"] || keysPressed["d"]) {
-    // Movement logic can be added for player or other elements if needed
+  // Move grid dots based on WASD input
+  if (keysPressed["w"]) {
+    gridDots.forEach(dot => dot.y += player.speed); // Move down (player moves up)
   }
+  if (keysPressed["a"]) {
+    gridDots.forEach(dot => dot.x += player.speed); // Move right (player moves left)
+  }
+  if (keysPressed["s"]) {
+    gridDots.forEach(dot => dot.y -= player.speed); // Move up (player moves down)
+  }
+  if (keysPressed["d"]) {
+    gridDots.forEach(dot => dot.x -= player.speed); // Move left (player moves right)
+  }
+
+  // Wrap grid dots around the screen
+  gridDots.forEach(dot => {
+    if (dot.x > canvas.width) dot.x = 0;
+    if (dot.x < 0) dot.x = canvas.width;
+    if (dot.y > canvas.height) dot.y = 0;
+    if (dot.y < 0) dot.y = canvas.height;
+  });
 }, 16); // Run the loop every 16ms (~60 frames per second)
 
 // --- Draw Player ---
@@ -125,7 +142,7 @@ function drawCoins() {
   ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
 }
 
-// --- Grid Dots (New) ---
+// --- Grid Dots ---
 function generateGridDots() {
   const gridSize = 50; // Distance between dots in the grid
   for (let x = 0; x < canvas.width; x += gridSize) {
@@ -133,13 +150,6 @@ function generateGridDots() {
       gridDots.push({ x, y });
     }
   }
-}
-
-function moveGridDots() {
-  gridDots.forEach(dot => {
-    dot.x -= 0.5; // Move left slowly
-    if (dot.x < 0) dot.x = canvas.width; // Wrap around horizontally
-  });
 }
 
 function drawGridDots() {
@@ -151,7 +161,7 @@ function drawGridDots() {
   });
 }
 
-// --- Star Dots (Restored) ---
+// --- Star Dots ---
 function generateStarDots() {
   for (let i = 0; i < 100; i++) {
     starDots.push({
