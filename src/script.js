@@ -220,10 +220,11 @@ function generateUpgrades() {
   upgrades = [];
   let possibleUpgrades = [
     { name: "Damage", value: Math.floor(Math.random() * 5) + 1 },
-    { name: "Health", value: Math.floor(Math.random() * 20) + 10 },
+    { name: "Health", value: Math.floor(Math.random() * 10) + 10 },
     { name: "Crit Chance", value: Math.floor(Math.random() * 5) + 1 },
     { name: "Attack Speed", value: Math.floor(Math.random() * 0.5) + 0.1 },
     { name: "Luck", value: Math.floor(Math.random() * 5) + 1 },
+    { name: "Interest", value: Math.floor(Math.random() * 5) + 1},
   ];
 
   while (upgrades.length < 5) {
