@@ -51,6 +51,7 @@ let player = {
 };
 
 // --- Start Button ---
+document.getElementById("gamecanvas").style.display = "none";
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
 function startGame() {
