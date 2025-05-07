@@ -30,17 +30,16 @@ let inRound = true;
 const player = { x: 400, y: 300, radius: 20, color: "blue" };
 let worldOffsetX = 0;
 let worldOffsetY = 0;
-const playerSpeed = 2;        // slower for better control
-let keysPressed = {};          // track key states
-
+const playerSpeed = 2;
+let keysPressed = {};
 let canvas, ctx;
 
 // --- Pre-game Cheat Check ---
 checkCheats();
 
 // --- Setup Key Listeners ---
-document.addEventListener("keydown",  e => keysPressed[e.key.toLowerCase()] = true);
-document.addEventListener("keyup",    e => keysPressed[e.key.toLowerCase()] = false);
+document.addEventListener("keydown", (e) => (keysPressed[e.key.toLowerCase()] = true));
+document.addEventListener("keyup", (e) => (keysPressed[e.key.toLowerCase()] = false));
 
 // --- Start Button Listener ---
 document.getElementById("PlayButton").addEventListener("click", startGame);
@@ -55,7 +54,7 @@ function startGame() {
   // Create and append canvas
   canvas = document.createElement("canvas");
   canvas.id = "gameCanvas";
-  canvas.width  = 800;
+  canvas.width = 800;
   canvas.height = 600;
   canvas.style.border = "1px solid black";
   document.body.appendChild(canvas);
@@ -70,7 +69,7 @@ function startGame() {
   document.body.appendChild(pauseButton);
   pauseButton.addEventListener("click", pauseGame);
 
-  // Kick off the loop
+  // Start the animation loop
   requestAnimationFrame(gameLoop);
   console.log("Game started!");
 }
@@ -86,15 +85,15 @@ function gameLoop() {
       handleRoundEnd();
     }
   }
-  requestAnimationFrame(gameLoop);
+  requestAnimationFrame(gameLoop); // Ensures it NEVER stops
 }
 
 // --- Movement Handler ---
 function handleMovement() {
-  if (keysPressed["w"]) worldOffsetY += playerSpeed;
-  if (keysPressed["s"]) worldOffsetY -= playerSpeed;
-  if (keysPressed["a"]) worldOffsetX += playerSpeed;
-  if (keysPressed["d"]) worldOffsetX -= playerSpeed;
+  if (keysPressed["w"]) worldOffsetY -= playerSpeed; // Reversed
+  if (keysPressed["s"]) worldOffsetY += playerSpeed;
+  if (keysPressed["a"]) worldOffsetX -= playerSpeed;
+  if (keysPressed["d"]) worldOffsetX += playerSpeed;
 }
 
 // --- Experience & Leveling ---
@@ -114,15 +113,14 @@ function drawScene() {
   // Clear
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw grid background so movement is visible
+  // Draw grid background
   const gridSize = 50;
   ctx.fillStyle = "#222";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#444";
-  // start at offset mod gridSize, draw small dots
-  for (let x = -worldOffsetX % gridSize; x < canvas.width; x += gridSize) {
-    for (let y = -worldOffsetY % gridSize; y < canvas.height; y += gridSize) {
-      ctx.fillRect(x + gridSize/2 - 2, y + gridSize/2 - 2, 4, 4);
+  for (let x = (worldOffsetX % gridSize) - gridSize; x < canvas.width; x += gridSize) {
+    for (let y = (worldOffsetY % gridSize) - gridSize; y < canvas.height; y += gridSize) {
+      ctx.fillRect(x, y, 2, 2);
     }
   }
 
@@ -131,25 +129,25 @@ function drawScene() {
   ctx.fillStyle = "red";
   ctx.fillRect(10, 10, barW, barH);
   ctx.fillStyle = "lime";
-  ctx.fillRect(10, 10, (Health / MaxHealth)*barW, barH);
+  ctx.fillRect(10, 10, (Health / MaxHealth) * barW, barH);
   ctx.strokeStyle = "black";
   ctx.strokeRect(10, 10, barW, barH);
 
-  // Draw player *always* in center
+  // Draw player (always center)
   ctx.fillStyle = player.color;
   ctx.beginPath();
-  ctx.arc(player.x, player.y, player.radius, 0, Math.PI*2);
+  ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
   ctx.fill();
 }
 
 // --- Round End & Rewards ---
 function handleRoundEnd() {
-  coins += 50 + Math.floor(coins * Interest/100);
+  coins += 50 + Math.floor(coins * Interest / 100);
   console.log(`Round ended. Coins: ${coins}`);
 
-  // Placeholder for upgrades/shop/gamble
-  for (let i=0; i<upgradeQueue; i++)
-    console.log(`Upgrade option #${i+1}`);
+  for (let i = 0; i < upgradeQueue; i++) {
+    console.log(`Upgrade option #${i + 1}`);
+  }
   if (gambling) console.log("Show slot machine");
 
   upgradeQueue = 0;
@@ -162,17 +160,17 @@ function handleRoundEnd() {
 
 // --- Pause (stub) ---
 function pauseGame() {
-  inRound = false;
-  console.log("Game paused.");
+  inRound = !inRound;
+  console.log(inRound ? "Game Resumed." : "Game Paused.");
 }
 
 // --- Cheat Detection ---
 function checkCheats() {
-  if (Health !== MaxHealth)       console.log("Cheat: Health");
-  if (Damage !== 1)               console.log("Cheat: Damage");
-  if (Level !== 1)                console.log("Cheat: Level");
-  if (Experience !== 0)           console.log("Cheat: Experience");
-  if (NeededExperience !== 100)   console.log("Cheat: Needed XP");
+  if (Health !== MaxHealth) console.log("Cheat: Health");
+  if (Damage !== 1) console.log("Cheat: Damage");
+  if (Level !== 1) console.log("Cheat: Level");
+  if (Experience !== 0) console.log("Cheat: Experience");
+  if (NeededExperience !== 100) console.log("Cheat: Needed XP");
 }
 
 // --- Fullscreen Request ---
@@ -182,5 +180,5 @@ function enterFullscreen() {
 
 // --- Dummy Round Checker ---
 function roundOver() {
-  return Math.random() < 0.005;  // ~0.5% chance per frame
+  return Math.random() < 0.005; // ~0.5% chance per frame
 }
