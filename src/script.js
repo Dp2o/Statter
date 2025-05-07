@@ -6,6 +6,7 @@ let Level = 1;
 let Experience = 0;
 let NeededExperience = 100;
 let coins = 100;
+let Walkspeed = 1;
 
 // --- Secondary Stats ---
 let luck = 0;
@@ -26,7 +27,7 @@ let upgradeQueue = 0;
 let inRound = true;
 let upgrades = [];
 let shopItems = [];
-let starDots = []; // Star dots (renamed from mapDots)
+let starDots = []; // Star dots
 let gridDots = []; // New: Data structure for moving grid dots
 
 // --- Canvas Setup ---
@@ -44,7 +45,7 @@ let player = {
   width: 30,
   height: 30,
   color: "blue",
-  speed: 3, // Speed for WASD movement
+  speed: 1 * Walkspeed, // Speed for WASD movement
 };
 
 // --- Start Button ---
@@ -105,7 +106,7 @@ document.addEventListener("keyup", (e) => {
 setInterval(() => {
   if (!inRound) return; // Do nothing if not in a round
 
-  // Move grid dots based on WASD input
+  // Move grid dots based on WASD input (Do not change)
   if (keysPressed["w"]) {
     gridDots.forEach(dot => dot.y += player.speed); // Move down (player moves up)
   }
