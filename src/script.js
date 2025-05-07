@@ -26,7 +26,8 @@ let upgradeQueue = 0;
 let inRound = true;
 let upgrades = [];
 let shopItems = [];
-let mapDots = [];
+let starDots = []; // Star dots (renamed from mapDots)
+let gridDots = []; // New: Data structure for moving grid dots
 
 // --- Canvas Setup ---
 const canvas = document.createElement("canvas");
@@ -54,7 +55,8 @@ function startGame() {
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   enterFullscreen();
-  generateMapDots();
+  generateStarDots();
+  generateGridDots(); // New: Generate grid dots
   gameLoop();
 }
 
@@ -62,8 +64,10 @@ function startGame() {
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  drawGridMap(); // Draw the static grid map
-  drawMapDots(); // Draw moving star effect
+  moveGridDots(); // New: Move grid dots
+  moveStarDots(); // Restore slow gliding motion of star dots
+  drawGridDots(); // New: Draw moving grid dots
+  drawStarDots(); // Draw moving star dots
   drawPlayer();
   drawCoins();
 
@@ -102,26 +106,9 @@ document.addEventListener("keyup", (e) => {
 setInterval(() => {
   if (!inRound) return; // Do nothing if not in a round
 
-  if (keysPressed["w"]) {
-    mapDots.forEach(dot => dot.y += player.speed); // Move dots down (player moves up)
+  if (keysPressed["w"] || keysPressed["a"] || keysPressed["s"] || keysPressed["d"]) {
+    // Movement logic can be added for player or other elements if needed
   }
-  if (keysPressed["a"]) {
-    mapDots.forEach(dot => dot.x += player.speed); // Move dots right (player moves left)
-  }
-  if (keysPressed["s"]) {
-    mapDots.forEach(dot => dot.y -= player.speed); // Move dots up (player moves down)
-  }
-  if (keysPressed["d"]) {
-    mapDots.forEach(dot => dot.x -= player.speed); // Move dots left (player moves right)
-  }
-
-  // Ensure dots wrap around the screen
-  mapDots.forEach(dot => {
-    if (dot.x > canvas.width) dot.x = 0;
-    if (dot.x < 0) dot.x = canvas.width;
-    if (dot.y > canvas.height) dot.y = 0;
-    if (dot.y < 0) dot.y = canvas.height;
-  });
 }, 16); // Run the loop every 16ms (~60 frames per second)
 
 // --- Draw Player ---
@@ -138,23 +125,36 @@ function drawCoins() {
   ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
 }
 
-// --- Draw Brotato-Style Grid Map ---
-function drawGridMap() {
-  ctx.fillStyle = "grey";
+// --- Grid Dots (New) ---
+function generateGridDots() {
   const gridSize = 50; // Distance between dots in the grid
   for (let x = 0; x < canvas.width; x += gridSize) {
     for (let y = 0; y < canvas.height; y += gridSize) {
-      ctx.beginPath();
-      ctx.arc(x, y, 2, 0, Math.PI * 2); // Small grey dots
-      ctx.fill();
+      gridDots.push({ x, y });
     }
   }
 }
 
-// --- Draw Map Dots ---
-function generateMapDots() {
+function moveGridDots() {
+  gridDots.forEach(dot => {
+    dot.x -= 0.5; // Move left slowly
+    if (dot.x < 0) dot.x = canvas.width; // Wrap around horizontally
+  });
+}
+
+function drawGridDots() {
+  ctx.fillStyle = "grey";
+  gridDots.forEach(dot => {
+    ctx.beginPath();
+    ctx.arc(dot.x, dot.y, 2, 0, Math.PI * 2); // Small grey dots
+    ctx.fill();
+  });
+}
+
+// --- Star Dots (Restored) ---
+function generateStarDots() {
   for (let i = 0; i < 100; i++) {
-    mapDots.push({
+    starDots.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size: Math.random() * 3,
@@ -162,9 +162,16 @@ function generateMapDots() {
   }
 }
 
-function drawMapDots() {
+function moveStarDots() {
+  starDots.forEach(dot => {
+    dot.x -= 0.5; // Move left slowly
+    if (dot.x < 0) dot.x = canvas.width; // Wrap around horizontally
+  });
+}
+
+function drawStarDots() {
   ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
-  mapDots.forEach((dot) => {
+  starDots.forEach(dot => {
     ctx.beginPath();
     ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
     ctx.fill();
