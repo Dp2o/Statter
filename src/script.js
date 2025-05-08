@@ -26,7 +26,7 @@ let Difficulty = 0;
 let upgradeQueue = 0;
 let inRound = true;
 let Itemlist = [];
-let Weaponlist [];
+let Weaponlist = [];
 let upgrades = [];
 let shopItems = [];
 let starDots = []; // Star dots
@@ -57,7 +57,7 @@ document.getElementById("gamecontainer").style.display = "none";
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
 function startGame() {
-  document.getElementById("gamecontainer").style.display = true;
+  document.getElementById("gamecontainer").style.display = "block";
   gamestarted = true;
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("header").style.display = "none";
