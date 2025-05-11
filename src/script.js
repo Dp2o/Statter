@@ -271,8 +271,3 @@ function applyUpgrade(upgrade) {
 function enterFullscreen() {
   if (canvas.requestFullscreen) canvas.requestFullscreen();
 }
-
-// --- Update Stats ---
-function updateStats() {
-  console.log(`Level: ${Level}, XP: ${Experience.toFixed(1)}, Coins: ${coins}`);
-}
