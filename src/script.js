@@ -53,7 +53,6 @@ let player = {
 };
 
 // --- Start Button ---
-document.getElementById("gamecontainer").style.display = "none";
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
 function startGame() {
