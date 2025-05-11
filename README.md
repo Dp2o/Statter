@@ -8,3 +8,13 @@ This version contains mostly nothing, I am working on the base of the game. Then
 - added new stats
 - changed map
 - changed movement
+
+# Bugs
+
+# Later Updates
+
+- more bug fixes
+- enemies
+- weapons
+- shop
+- upgrades
