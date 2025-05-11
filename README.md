@@ -10,6 +10,7 @@ This version contains mostly nothing, I am working on the base of the game. Then
 - changed movement
 
 # Bugs
+*No bugs to be found*
 
 # Later Updates
 
