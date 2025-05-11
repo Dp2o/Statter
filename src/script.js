@@ -87,7 +87,7 @@ function gameLoop() {
       upgradeQueue += 1;
     }
 
-    updateStats();
+    updatestats();
   } else {
     showUpgradeMenu();
   }
@@ -270,4 +270,8 @@ function applyUpgrade(upgrade) {
 // --- Fullscreen ---
 function enterFullscreen() {
   if (canvas.requestFullscreen) canvas.requestFullscreen();
+}
+
+function updatestats() {
+  // console.log -- stats // I removed this because it was annoying (:
 }
