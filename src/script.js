@@ -95,9 +95,7 @@ document.addEventListener("keyup", (event) => {
 });
 
 // --- Game Loop ---
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear canvas every frame
-
+function gameLoop() 
   moveGridDotsWithKeys(); // Add this to move grid dots with WASD keys
   drawGridDots();
   moveStarDots();
