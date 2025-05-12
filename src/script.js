@@ -89,34 +89,16 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// --- Fullscreen ---
-function enterFullscreen() {
-  if (canvas.requestFullscreen) canvas.requestFullscreen();
-}
-
-// --- Coins Display ---
-function drawCoins() {
-  ctx.font = "20px Arial";
-  ctx.fillStyle = "white";
-  ctx.textAlign = "right";
-  ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
-}
-
 // --- Star Dots ---
-function generateStarDots() {
-  for (let i = 0; i < 100; i++) {
-    starDots.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 3
-    });
-  }
-}
-
 function moveStarDots() {
   starDots.forEach(dot => {
-    dot.x -= 0.5;
+    dot.x += dot.speedX || 0.5;
+    dot.y += dot.speedY || 0.5;
+
+    if (dot.x > canvas.width) dot.x = 0;
     if (dot.x < 0) dot.x = canvas.width;
+    if (dot.y > canvas.height) dot.y = 0;
+    if (dot.y < 0) dot.y = canvas.height;
   });
 }
 
@@ -124,21 +106,12 @@ function drawStarDots() {
   ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
   starDots.forEach(dot => {
     ctx.beginPath();
-    ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+    ctx.arc(dot.x, dot.y, dot.size || 3, 0, Math.PI * 2);
     ctx.fill();
   });
 }
 
 // --- Grid Dots ---
-function generateGridDots() {
-  const gridSize = 50;
-  for (let x = 0; x < canvas.width; x += gridSize) {
-    for (let y = 0; y < canvas.height; y += gridSize) {
-      gridDots.push({ x, y });
-    }
-  }
-}
-
 function drawGridDots() {
   ctx.fillStyle = "grey";
   gridDots.forEach(dot => {
@@ -146,4 +119,9 @@ function drawGridDots() {
     ctx.arc(dot.x, dot.y, 2, 0, Math.PI * 2);
     ctx.fill();
   });
+}
+
+function drawPlayer() {
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
 }
