@@ -56,7 +56,7 @@ document.getElementById("PlayButton").addEventListener("click", startGame);
 
 function startGame() {
   gamestarted = true;
-  canvas.style.display = "block";
+  canvas.style.display = "block";  // Make canvas visible
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   enterFullscreen();
@@ -67,7 +67,8 @@ function startGame() {
 
 // --- Game Loop ---
 function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear canvas every frame
+
   drawGridDots();
   moveStarDots();
   drawStarDots();
@@ -143,6 +144,7 @@ function drawGridDots() {
 
 // --- Draw Player ---
 function drawPlayer() {
+  console.log(`Player Position: x=${player.x}, y=${player.y}`);
   ctx.fillStyle = player.color;
   ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
 }
@@ -153,4 +155,9 @@ function drawCoins() {
   ctx.font = "20px Arial";
   ctx.textAlign = "right";
   ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
+}
+
+// --- Fullscreen ---
+function enterFullscreen() {
+  if (canvas.requestFullscreen) canvas.requestFullscreen();
 }
