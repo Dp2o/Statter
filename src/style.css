@@ -26,6 +26,12 @@ body {
   button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
+#gamecontainer {
+  width: 100%;
+  height: 100%;
+  display: none; /* Initially hidden */
+  background: black; /* Optional: Add a background color */
+}
   
   button:active {
     transform: scale(0.90);
