@@ -137,7 +137,7 @@ function generateGridDots() {
 
 function moveGridDotsWithKeys() { 
   gridDots.forEach((dot) => {
-    if (keyState.w) dot.y += walkspeed; // Move up
+    if (keyState.w) dot.y += walkSpeed; // Move up
     if (keyState.a) dot.x += walkSpeed; // Move left
     if (keyState.s) dot.y -= walkSpeed; // Move down
     if (keyState.d) dot.x -= walkSpeed; // Move right
