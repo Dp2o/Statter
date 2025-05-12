@@ -70,10 +70,34 @@ function startGame() {
   gameLoop();
 }
 
+// --- Key States ---
+let keyState = {
+  w: false,
+  a: false,
+  s: false,
+  d: false
+};
+
+// Event listeners for key presses
+document.addEventListener("keydown", (event) => {
+  if (event.key === "w") keyState.w = true;
+  if (event.key === "a") keyState.a = true;
+  if (event.key === "s") keyState.s = true;
+  if (event.key === "d") keyState.d = true;
+});
+
+document.addEventListener("keyup", (event) => {
+  if (event.key === "w") keyState.w = false;
+  if (event.key === "a") keyState.a = false;
+  if (event.key === "s") keyState.s = false;
+  if (event.key === "d") keyState.d = false;
+});
+
 // --- Game Loop ---
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear canvas every frame
 
+  moveGridDotsWithKeys(); // Add this to move grid dots with WASD keys
   drawGridDots();
   moveStarDots();
   drawStarDots();
@@ -93,6 +117,46 @@ function gameLoop() {
   }
 
   requestAnimationFrame(gameLoop);
+}
+
+// --- Grid Dots ---
+function generateGridDots() {
+  for (let x = 0; x < canvas.width; x += 50) {
+    for (let y = 0; y < canvas.height; y += 50) {
+      gridDots.push({
+        x,
+        y,
+        speedX: (Math.random() - 0.5) * 0.5, // Horizontal speed
+        speedY: (Math.random() - 0.5) * 0.5  // Vertical speed
+      });
+    }
+  }
+}
+
+function moveGridDotsWithKeys() {
+  let speed = 2; // Adjust speed of movement as needed
+
+  gridDots.forEach((dot) => {
+    if (keyState.w) dot.y -= speed; // Move up
+    if (keyState.a) dot.x -= speed; // Move left
+    if (keyState.s) dot.y += speed; // Move down
+    if (keyState.d) dot.x += speed; // Move right
+
+    // Wrap around the canvas boundaries
+    if (dot.x > canvas.width) dot.x = 0;
+    if (dot.x < 0) dot.x = canvas.width;
+    if (dot.y > canvas.height) dot.y = 0;
+    if (dot.y < 0) dot.y = canvas.height;
+  });
+}
+
+function drawGridDots() {
+  ctx.fillStyle = "grey";
+  gridDots.forEach(dot => {
+    ctx.beginPath();
+    ctx.arc(dot.x, dot.y, 2, 0, Math.PI * 2);
+    ctx.fill();
+  });
 }
 
 // --- Star Dots ---
@@ -125,24 +189,6 @@ function drawStarDots() {
   starDots.forEach(dot => {
     ctx.beginPath();
     ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
-    ctx.fill();
-  });
-}
-
-// --- Grid Dots ---
-function generateGridDots() {
-  for (let x = 0; x < canvas.width; x += 50) {
-    for (let y = 0; y < canvas.height; y += 50) {
-      gridDots.push({ x, y });
-    }
-  }
-}
-
-function drawGridDots() {
-  ctx.fillStyle = "grey";
-  gridDots.forEach(dot => {
-    ctx.beginPath();
-    ctx.arc(dot.x, dot.y, 2, 0, Math.PI * 2);
     ctx.fill();
   });
 }
