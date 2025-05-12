@@ -95,7 +95,8 @@ document.addEventListener("keyup", (event) => {
 });
 
 // --- Game Loop ---
-function gameLoop() 
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas every frame
   moveGridDotsWithKeys(); // Add this to move grid dots with WASD keys
   drawGridDots();
   moveStarDots();
@@ -135,12 +136,12 @@ function generateGridDots() {
   }
 }
 
-function moveGridDotsWithKeys() { 
+function moveGridDotsWithKeys() {
   gridDots.forEach((dot) => {
-    if (keyState.w) dot.y += walkSpeed; // Move up
-    if (keyState.a) dot.x += walkSpeed; // Move left
-    if (keyState.s) dot.y -= walkSpeed; // Move down
-    if (keyState.d) dot.x -= walkSpeed; // Move right
+    if (keyState.w) dot.y += Walkspeed; // Move up
+    if (keyState.a) dot.x += Walkspeed; // Move left
+    if (keyState.s) dot.y -= Walkspeed; // Move down
+    if (keyState.d) dot.x -= Walkspeed; // Move right
 
     // Wrap around the canvas boundaries
     if (dot.x > canvas.width) dot.x = 0;
@@ -202,7 +203,6 @@ function drawPlayer() {
 function drawEnemies() {
   // draws Enemies on the map.
 }
-  
 
 // --- Draw Coins ---
 function drawCoins() {
@@ -220,7 +220,7 @@ function drawTimer() {
 }
 
 function changeTimer() {
-  timer -= 1
+  timer -= 1;
 }
 
 setInterval(changeTimer, 1000);
