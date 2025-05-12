@@ -273,5 +273,7 @@ function enterFullscreen() {
 }
 
 function updatestats() {
+  console.log("Star Dots: ", starDots);
+  console.log("Grid Dots: ", gridDots);
   // console.log -- stats // I removed this because it was annoying (:
 }
