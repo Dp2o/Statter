@@ -68,8 +68,8 @@ function startGame() {
 // --- Game Loop ---
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  moveStarDots();
   drawGridDots();
+  moveStarDots();
   drawStarDots();
   drawPlayer();
   drawCoins();
@@ -90,10 +90,22 @@ function gameLoop() {
 }
 
 // --- Star Dots ---
+function generateStarDots() {
+  for (let i = 0; i < 100; i++) {
+    starDots.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 3 + 1,
+      speedX: (Math.random() - 0.5) * 0.5,
+      speedY: (Math.random() - 0.5) * 0.5
+    });
+  }
+}
+
 function moveStarDots() {
   starDots.forEach(dot => {
-    dot.x += dot.speedX || 0.5;
-    dot.y += dot.speedY || 0.5;
+    dot.x += dot.speedX;
+    dot.y += dot.speedY;
 
     if (dot.x > canvas.width) dot.x = 0;
     if (dot.x < 0) dot.x = canvas.width;
@@ -106,12 +118,20 @@ function drawStarDots() {
   ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
   starDots.forEach(dot => {
     ctx.beginPath();
-    ctx.arc(dot.x, dot.y, dot.size || 3, 0, Math.PI * 2);
+    ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
     ctx.fill();
   });
 }
 
 // --- Grid Dots ---
+function generateGridDots() {
+  for (let x = 0; x < canvas.width; x += 50) {
+    for (let y = 0; y < canvas.height; y += 50) {
+      gridDots.push({ x, y });
+    }
+  }
+}
+
 function drawGridDots() {
   ctx.fillStyle = "grey";
   gridDots.forEach(dot => {
@@ -121,7 +141,16 @@ function drawGridDots() {
   });
 }
 
+// --- Draw Player ---
 function drawPlayer() {
   ctx.fillStyle = player.color;
   ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
+}
+
+// --- Draw Coins ---
+function drawCoins() {
+  ctx.fillStyle = "white";
+  ctx.font = "20px Arial";
+  ctx.textAlign = "right";
+  ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
 }
