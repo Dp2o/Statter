@@ -32,6 +32,11 @@ let shopItems = [];
 let starDots = [];
 let gridDots = [];
 
+// --- Fullscreen ---
+function enterFullscreen() {
+  if (canvas.requestFullscreen) canvas.requestFullscreen();
+}
+
 // --- Canvas Setup ---
 const canvas = document.createElement("canvas");
 canvas.id = "gameCanvas";
@@ -155,9 +160,4 @@ function drawCoins() {
   ctx.font = "20px Arial";
   ctx.textAlign = "right";
   ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
-}
-
-// --- Fullscreen ---
-function enterFullscreen() {
-  if (canvas.requestFullscreen) canvas.requestFullscreen();
 }
