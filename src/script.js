@@ -124,6 +124,7 @@ function gameLoop() {
 
 // --- Grid Dots ---
 function generateGridDots() {
+  gridDots = []; // reset the array
   for (let x = 0; x < canvas.width; x += 50) {
     for (let y = 0; y < canvas.height; y += 50) {
       gridDots.push({
@@ -136,14 +137,12 @@ function generateGridDots() {
   }
 }
 
-function moveGridDotsWithKeys() {
-  let speed = 2; // Adjust speed of movement as needed
-
+function moveGridDotsWithKeys() { 
   gridDots.forEach((dot) => {
-    if (keyState.w) dot.y += speed; // Move up
-    if (keyState.a) dot.x += speed; // Move left
-    if (keyState.s) dot.y -= speed; // Move down
-    if (keyState.d) dot.x -= speed; // Move right
+    if (keyState.w) dot.y += walkspeed; // Move up
+    if (keyState.a) dot.x += walkSpeed; // Move left
+    if (keyState.s) dot.y -= walkSpeed; // Move down
+    if (keyState.d) dot.x -= walkSpeed; // Move right
 
     // Wrap around the canvas boundaries
     if (dot.x > canvas.width) dot.x = 0;
@@ -218,7 +217,7 @@ function drawCoins() {
 function drawTimer() {
   ctx.fillStyle = "red";
   ctx.font = "20px Arial";
-  ctx.textAlign = "right";
+  ctx.textAlign = "top";
   ctx.fillText(`Timer: ${timer}`, canvas.width - 20, 30);
 }
 
@@ -231,6 +230,7 @@ setInterval(changeTimer, 1000);
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  generateGridDots(); // Regenerate grid dots to fit new canvas size
 });
 
 const DEBUG = false;
