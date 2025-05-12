@@ -20,6 +20,7 @@ let explosionsize = 1;
 let ProjectileRichochet = false;
 
 // --- Game State ---
+let timer = false;
 let gamestarted = false;
 let gambling = false;
 let Difficulty = 0;
@@ -100,8 +101,10 @@ function gameLoop() {
   moveGridDotsWithKeys(); // Add this to move grid dots with WASD keys
   drawGridDots();
   moveStarDots();
+  drawEnemies();
   drawStarDots();
   drawPlayer();
+  drawEnemies();
   drawCoins();
 
   if (inRound) {
@@ -195,10 +198,14 @@ function drawStarDots() {
 
 // --- Draw Player ---
 function drawPlayer() {
-  console.log(`Player Position: x=${player.x}, y=${player.y}`);
   ctx.fillStyle = player.color;
   ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
 }
+
+function drawEnemies() {
+  // draws Enemies on the map.
+}
+  
 
 // --- Draw Coins ---
 function drawCoins() {
@@ -206,4 +213,28 @@ function drawCoins() {
   ctx.font = "20px Arial";
   ctx.textAlign = "right";
   ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
+}
+
+function drawTimer() {
+  ctx.fillStyle = "red";
+  ctx.font = "20px Arial";
+  ctx.textAlign = "right";
+  ctx.fillText(`Timer: ${timer}`, canvas.width - 20, 30);
+}
+
+function changeTimer() {
+  timer -= 1
+}
+
+setInterval(changeTimer, 1000);
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+const DEBUG = false;
+
+function logDebug(message) {
+  if (DEBUG) console.log(message);
 }
