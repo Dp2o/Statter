@@ -137,10 +137,10 @@ function moveGridDotsWithKeys() {
   let speed = 2; // Adjust speed of movement as needed
 
   gridDots.forEach((dot) => {
-    if (keyState.w) dot.y -= speed; // Move up
-    if (keyState.a) dot.x -= speed; // Move left
-    if (keyState.s) dot.y += speed; // Move down
-    if (keyState.d) dot.x += speed; // Move right
+    if (keyState.w) dot.y += speed; // Move up
+    if (keyState.a) dot.x += speed; // Move left
+    if (keyState.s) dot.y -= speed; // Move down
+    if (keyState.d) dot.x -= speed; // Move right
 
     // Wrap around the canvas boundaries
     if (dot.x > canvas.width) dot.x = 0;
