@@ -36,8 +36,8 @@ let starDots = [];
 let gridDots = [];
 // enemies
 let enemies = [
-  { x: Math.random, y: Math.random, width: 20, height: 20, speed: 1, color: "red" },
-  { x: Math.random, y: Math.random, width: 20, height: 20, speed: 1, color: "red" },
+  { x: Math.random() * canvas.width, y: Math.random() * canvas.height, width: 20, height: 20, speed: 1, color: "red" },
+  { x: Math.random() * canvas.width, y: Math.random() * canvas.height, width: 20, height: 20, speed: 1, color: "red" },
 ];
   
 
@@ -265,7 +265,7 @@ function drawCoins() {
 function drawTimer() {
   ctx.fillStyle = "red";
   ctx.font = "20px Arial";
-  ctx.fillText(`Timer: ${timer}`, canvas.width - 20, 30);
+  ctx.fillText(`Timer: ${timeLeft}`, canvas.width - 20, 30);
 }
 
 function drawHealth() {
@@ -311,6 +311,7 @@ function changeTimer() {
   } else {
     inRound = false; // end the round
     showUpgradeMenu();
+  }
 }
 
 setInterval(changeTimer, 1000);
@@ -373,13 +374,65 @@ Downgrades = [
 ]
 
 function decreaseRandomStat() {
-
+  const stats = ["Damage", "Health", "AttackSpeed", "Walkspeed"];
+  const randomStat = stats[Math.floor(Math.random() * stats.length)];
+  //-----------------------------------------------------------------
+  switch (randomStat) {
+    case "Damage":
+      Damage = Math.max(0, Damage - 5);
+      break;
+    case "Health":
+      Health = Math.max(0, Health - 10);
+      break;
+    case "AttackSpeed":
+      AttackSpeed = Math.max(0.1, AttackSpeed - 0.2);
+      break;
+    case "Walkspeed":
+      Walkspeed = Math.max(1, Walkspeed - 0.5);
+      player.speed = Walkspeed; // Update player speed
+      break;
 }
 
-
-// Upgrade menu
 function GetUpgrades() {
-  
+  // Adjust probabilities based on luck
+  const adjustedProbabilities = { ...baseProbabilities };
+  adjustedProbabilities.legendary += luck * 0.01;
+  adjustedProbabilities.rare += luck * 0.005;
+  adjustedProbabilities.common -= luck * 0.015;
+
+  // Normalize probabilities
+  const totalProbability = Object.values(adjustedProbabilities).reduce((a, b) => a + b, 0);
+  for (const rarity in adjustedProbabilities) {
+    adjustedProbabilities[rarity] /= totalProbability;
+  }
+
+  // Randomly select an upgrade
+  const random = Math.random();
+  let cumulative = 0;
+  let selectedRarity = "common"; // Default to common
+
+  for (const rarity in adjustedProbabilities) {
+    cumulative += adjustedProbabilities[rarity];
+    if (random < cumulative) {
+      selectedRarity = rarity;
+      break;
+    }
+  }
+
+  // Filter upgrades by selected rarity
+  const possibleUpgrades = Upgrades.filter(upgrade => upgrade.rarity === selectedRarity);
+
+  // Randomly pick one upgrade from the list
+  const selectedUpgrade = possibleUpgrades[Math.floor(Math.random() * possibleUpgrades.length)];
+
+  console.log(`Upgrade chosen: ${selectedUpgrade.name} (${selectedUpgrade.rarity})`);
+  return selectedUpgrade;
+}
+
+function showUpgradeMenu() {
+  console.log("Upgrade menu opened.");
+  const selectedUpgrade = GetUpgrades(); // Assume GetUpgrades() is implemented
+  selectedUpgrade.effect();
 }
 
 
