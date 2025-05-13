@@ -1,4 +1,4 @@
-// --- Stats ---
+// --- 1. Stats ---
 let Damage = 1;
 let AttackSpeed = 1;
 let Health = 100;
@@ -6,9 +6,9 @@ let Level = 1;
 let Experience = 0;
 let NeededExperience = 100;
 let coins = 100;
-let Walkspeed = 2;
+let WalkSpeed = 2;
 
-// --- Secondary Stats ---
+// --- 2. Secondary Stats ---
 let luck = 1;
 let CritChance = 0;
 let ProjectileDamageMultiplier = 1;
@@ -16,10 +16,10 @@ let MeleeDamageMultiplier = 1;
 let Interest = 5;
 let TrackingProjectiles = false;
 let ExplodingProjectiles = false;
-let explosionsize = 1;
+let ExplosionSize = 1;
 let ProjectileRichochet = false;
 
-// --- Game State ---
+// --- 3. Game State ---
 let roundDuration = 60; // 60 seconds per round
 let timeLeft = roundDuration;
 let timerInterval; // Updated to handle timer overlaps
@@ -36,10 +36,10 @@ let starDots = [];
 let gridDots = [];
 let wave = 1;
 
-// enemies
+// Enemies
 let enemies = [];
 
-// --- Fullscreen ---
+// --- 4. Fullscreen Functionality ---
 function enterFullscreen() {
   if (canvas.requestFullscreen) {
     canvas.requestFullscreen();
@@ -48,7 +48,7 @@ function enterFullscreen() {
   }
 }
 
-// --- Canvas Setup ---
+// --- 5. Canvas Setup ---
 const canvas = document.createElement("canvas");
 canvas.id = "gameCanvas";
 canvas.width = window.innerWidth;
@@ -57,7 +57,7 @@ canvas.style.display = "none";
 document.body.appendChild(canvas);
 const ctx = canvas.getContext("2d");
 
-// --- Player Setup ---
+// --- 6. Player Setup ---
 let player = {
   x: canvas.width / 2,
   y: canvas.height / 2,
@@ -67,7 +67,7 @@ let player = {
   speed: 1 * Walkspeed,
 };
 
-// --- Start Game ---
+// --- 7. Game Start ---
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
 function startGame() {
@@ -86,7 +86,7 @@ function startGame() {
   gameLoop();
 }
 
-// --- Key States ---
+// --- 8. Key States ---
 let keyState = {
   w: false,
   a: false,
@@ -109,7 +109,7 @@ document.addEventListener("keyup", (event) => {
   if (event.key === "d") keyState.d = false;
 });
 
-// --- Game Loop ---
+// --- 9. Game Loop ---
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas every frame
   moveGridDotsWithKeys();
@@ -138,7 +138,7 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// --- Grid Dots ---
+// --- 10. Grid Dots ---
 function generateGridDots() {
   gridDots = []; // Reset the array
   for (let x = 0; x < canvas.width; x += 50) {
@@ -177,7 +177,7 @@ function drawGridDots() {
   });
 }
 
-// --- Star Dots ---
+// --- 11. Star Dots ---
 function generateStarDots() {
   starDots = []; // Reset star dots
   for (let i = 0; i < 100; i++) {
@@ -212,18 +212,7 @@ function drawStarDots() {
   });
 }
 
-// --- Draw Player ---
-function drawPlayer() {
-  ctx.fillStyle = player.color;
-  ctx.fillRect(
-    player.x - player.width / 2,
-    player.y - player.height / 2,
-    player.width,
-    player.height
-  );
-}
-
-// --- Enemies ---
+// --- 12. Enemies ---
 function spawnEnemies() {
   enemies = []; // Reset enemies
   for (let i = 0; i < wave * 5; i++) {
@@ -261,7 +250,7 @@ function drawEnemies() {
   });
 }
 
-// --- Collision ---
+// --- 13. Collision Handling ---
 function checkCollision(rect1, rect2) {
   return (
     rect1.x < rect2.x + rect2.width &&
@@ -285,7 +274,91 @@ function handleCollisions() {
   });
 }
 
-// --- Draw Coins ---
+// --- 14. Upgrades ---
+const Upgrades = [
+  // Health
+  { name: "Health1", rarity: "common", effect: () => { Health += 5 } },
+  { name: "Health2", rarity: "uncommon", effect: () => { Health += 10 } },
+  { name: "Health3", rarity: "rare", effect: () => { Health += 25 } },
+  { name: "Health4", rarity: "legendary", effect: () => { Health += 50 } },
+  { name: "Health5", rarity: "exotic", effect: () => { Health += 100 } },
+  { name: "Health6", rarity: "godly", effect: () => { Health += 250 } },
+  { name: "Health7", rarity: "demonic", effect: () => { Health += 1000, decreaseRandomStat() } },
+  // WalkSpeed
+  { name: "WalkSpeed1", rarity: "common", effect: () => { WalkSpeed += 0.25 } },
+  { name: "WalkSpeed2", rarity: "uncommon", effect: () => { WalkSpeed += 0.5 } },
+  { name: "WalkSpeed3", rarity: "rare", effect: () => { WalkSpeed += 0.75 } },
+  { name: "WalkSpeed4", rarity: "legendary", effect: () => { WalkSpeed += 1 } },
+  { name: "WalkSpeed5", rarity: "exotic", effect: () => { WalkSpeed += 1.25 } },
+  { name: "WalkSpeed6", rarity: "godly", effect: () => { WalkSpeed += 1.5 } },
+  { name: "WalkSpeed7", rarity: "demonic", effect: () => { WalkSpeed += 4, decreaseRandomStat() } },
+  // Damage
+  { name: "Damage1", rarity: "common", effect: () => { Damage += 10 } },
+  { name: "Damage2", rarity: "uncommon", effect: () => { Damage += 25 } },
+  { name: "Damage3", rarity: "rare", effect: () => { Damage += 50 } },
+  { name: "Damage4", rarity: "legendary", effect: () => { Damage += 75 } },
+  { name: "Damage5", rarity: "exotic", effect: () => { Damage += 100 } },
+  { name: "Damage6", rarity: "godly", effect: () => { Damage += 200 } },
+  { name: "Damage7", rarity: "demonic", effect: () => { WalkSpeed += 500, decreaseRandomStat() } },
+  // Unknown, gives a random stat a massive amount
+  { name: "Unknown", rarity: "unknown", effect: () => { upgradeRandomStat() } },
+];
+
+function decreaseRandomStat() {
+  const stats = ["Damage", "Health", "AttackSpeed", "Walkspeed"];
+  const randomStat = stats[Math.floor(Math.random() * stats.length)];
+  switch (randomStat) {
+    case "Damage":
+      Damage = Math.max(0, Damage / 2);
+      break;
+    case "Health":
+      Health = Math.max(0, Health / 2);
+      break;
+    case "AttackSpeed":
+      AttackSpeed = Math.max(0.1, AttackSpeed / 2);
+      break;
+    case "Walkspeed":
+      Walkspeed = Math.max(1, Walkspeed / 2);
+      player.speed = Walkspeed; // Update player speed
+      break;
+  }
+}
+
+function upgradeRandomStat() {
+  const stats = ["Damage", "Health", "AttackSpeed", "Walkspeed", "Luck"];
+  const randomStat = stats[Math.floor(Math.random() * stats.length)];
+  switch (randomStat) {
+    case "Damage":
+      Damage = Math.max(0, Damage + 500);
+      break;
+    case "Health":
+      Health = Math.max(0, Health + 2000);
+      break;
+    case "AttackSpeed":
+      AttackSpeed = Math.max(0.1, AttackSpeed + 1);
+      break;
+    case "Walkspeed":
+      Walkspeed = Math.max(1, Walkspeed + 3);
+      player.speed = Walkspeed; // Update player speed
+      break;
+    case "Luck":
+      Luck = Math.max(1, Luck + 50);
+      break;
+  }
+}
+
+function showUpgradeMenu() {
+  console.log("Upgrade menu opened.");
+  const selectedUpgrade = GetUpgrades();
+  selectedUpgrade.effect();
+}
+
+function GetUpgrades() {
+  const possibleUpgrades = Upgrades.filter(upgrade => upgrade.rarity === "common"); // Simplify for now
+  return possibleUpgrades[Math.floor(Math.random() * possibleUpgrades.length)];
+}
+
+// --- 15. UI Elements ---
 function drawCoins() {
   ctx.fillStyle = "white";
   ctx.font = "20px Arial";
@@ -293,14 +366,12 @@ function drawCoins() {
   ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
 }
 
-// --- Draw Timer ---
 function drawTimer() {
   ctx.fillStyle = "red";
   ctx.font = "20px Arial";
   ctx.fillText(`Timer: ${timeLeft}`, canvas.width - 150, 30); // Adjust position
 }
 
-// --- Draw Health ---
 function drawHealth() {
   ctx.fillStyle = "red";
   ctx.fillRect(20, 50, Health * 2, 20); // Health bar
@@ -312,6 +383,7 @@ function drawHealth() {
   ctx.fillText(`Health: ${Health}`, 20, 45);
 }
 
+// --- 16. Timer and Resize Handling ---
 function changeTimer() {
   if (timeLeft > 0) {
     timeLeft--;
@@ -328,7 +400,7 @@ window.addEventListener("resize", () => {
   generateGridDots(); // Regenerate grid dots to fit new canvas size
 });
 
-// --- Debugging ---
+// --- 17. Debugging ---
 const DEBUG = false;
 
 function logDebug(message) {
