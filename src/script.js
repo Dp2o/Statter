@@ -67,6 +67,12 @@ let player = {
   speed: 1 * WalkSpeed,
 };
 
+// --- Draw Player ---
+function drawPlayer() {
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
+}
+
 // --- 7. Game Start ---
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
