@@ -64,7 +64,7 @@ let player = {
   width: 30,
   height: 30,
   color: "blue",
-  speed: 1 * Walkspeed,
+  speed: 1 * WalkSpeed,
 };
 
 // --- 7. Game Start ---
@@ -155,10 +155,10 @@ function generateGridDots() {
 
 function moveGridDotsWithKeys() {
   gridDots.forEach((dot) => {
-    if (keyState.w) dot.y += Walkspeed; // Move up
-    if (keyState.a) dot.x += Walkspeed; // Move left
-    if (keyState.s) dot.y -= Walkspeed; // Move down
-    if (keyState.d) dot.x -= Walkspeed; // Move right
+    if (keyState.w) dot.y += WalkSpeed; // Move up
+    if (keyState.a) dot.x += WalkSpeed; // Move left
+    if (keyState.s) dot.y -= WalkSpeed; // Move down
+    if (keyState.d) dot.x -= WalkSpeed; // Move right
 
     // Wrap around the canvas boundaries
     if (dot.x > canvas.width) dot.x = 0;
@@ -317,8 +317,8 @@ function decreaseRandomStat() {
     case "AttackSpeed":
       AttackSpeed = Math.max(0.1, AttackSpeed / 2);
       break;
-    case "Walkspeed":
-      Walkspeed = Math.max(1, Walkspeed / 2);
+    case "WalkSpeed":
+      WalkSpeed = Math.max(1, WalkSpeed / 2);
       player.speed = Walkspeed; // Update player speed
       break;
   }
@@ -338,8 +338,8 @@ function upgradeRandomStat() {
       AttackSpeed = Math.max(0.1, AttackSpeed + 1);
       break;
     case "Walkspeed":
-      Walkspeed = Math.max(1, Walkspeed + 3);
-      player.speed = Walkspeed; // Update player speed
+      WalkSpeed = Math.max(1, WalkSpeed + 3);
+      player.speed = WalkSpeed; // Update player speed
       break;
     case "Luck":
       Luck = Math.max(1, Luck + 50);
