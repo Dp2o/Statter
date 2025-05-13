@@ -9,7 +9,7 @@ let coins = 100;
 let WalkSpeed = 2;
 
 // --- 2. Secondary Stats ---
-let luck = 1;
+let Luck = 1; // Luck now affects upgrade rarity
 let CritChance = 0;
 let ProjectileDamageMultiplier = 1;
 let MeleeDamageMultiplier = 1;
@@ -160,6 +160,7 @@ function generateGridDots() {
 }
 
 function moveGridDotsWithKeys() {
+  // Move grid dots
   gridDots.forEach((dot) => {
     if (keyState.w) dot.y += WalkSpeed; // Move up
     if (keyState.a) dot.x += WalkSpeed; // Move left
@@ -171,6 +172,14 @@ function moveGridDotsWithKeys() {
     if (dot.x < 0) dot.x = canvas.width;
     if (dot.y > canvas.height) dot.y = 0;
     if (dot.y < 0) dot.y = canvas.height;
+  });
+
+  // Move enemies along with the map
+  enemies.forEach((enemy) => {
+    if (keyState.w) enemy.y += WalkSpeed; // Move up
+    if (keyState.a) enemy.x += WalkSpeed; // Move left
+    if (keyState.s) enemy.y -= WalkSpeed; // Move down
+    if (keyState.d) enemy.x -= WalkSpeed; // Move right
   });
 }
 
@@ -240,12 +249,6 @@ function moveEnemies() {
     if (enemy.x > player.x) enemy.x -= enemy.speed;
     if (enemy.y < player.y) enemy.y += enemy.speed;
     if (enemy.y > player.y) enemy.y -= enemy.speed;
-
-    // Add boundary wrapping
-    if (enemy.x > canvas.width) enemy.x = 0;
-    if (enemy.x < 0) enemy.x = canvas.width;
-    if (enemy.y > canvas.height) enemy.y = 0;
-    if (enemy.y < 0) enemy.y = canvas.height;
   });
 }
 
@@ -280,88 +283,51 @@ function handleCollisions() {
   });
 }
 
-// --- 14. Upgrades ---
-const Upgrades = [
-  // Health
-  { name: "Health1", rarity: "common", effect: () => { Health += 5 } },
-  { name: "Health2", rarity: "uncommon", effect: () => { Health += 10 } },
-  { name: "Health3", rarity: "rare", effect: () => { Health += 25 } },
-  { name: "Health4", rarity: "legendary", effect: () => { Health += 50 } },
-  { name: "Health5", rarity: "exotic", effect: () => { Health += 100 } },
-  { name: "Health6", rarity: "godly", effect: () => { Health += 250 } },
-  { name: "Health7", rarity: "demonic", effect: () => { Health += 1000, decreaseRandomStat() } },
-  // WalkSpeed
-  { name: "WalkSpeed1", rarity: "common", effect: () => { WalkSpeed += 0.25 } },
-  { name: "WalkSpeed2", rarity: "uncommon", effect: () => { WalkSpeed += 0.5 } },
-  { name: "WalkSpeed3", rarity: "rare", effect: () => { WalkSpeed += 0.75 } },
-  { name: "WalkSpeed4", rarity: "legendary", effect: () => { WalkSpeed += 1 } },
-  { name: "WalkSpeed5", rarity: "exotic", effect: () => { WalkSpeed += 1.25 } },
-  { name: "WalkSpeed6", rarity: "godly", effect: () => { WalkSpeed += 1.5 } },
-  { name: "WalkSpeed7", rarity: "demonic", effect: () => { WalkSpeed += 4, decreaseRandomStat() } },
-  // Damage
-  { name: "Damage1", rarity: "common", effect: () => { Damage += 10 } },
-  { name: "Damage2", rarity: "uncommon", effect: () => { Damage += 25 } },
-  { name: "Damage3", rarity: "rare", effect: () => { Damage += 50 } },
-  { name: "Damage4", rarity: "legendary", effect: () => { Damage += 75 } },
-  { name: "Damage5", rarity: "exotic", effect: () => { Damage += 100 } },
-  { name: "Damage6", rarity: "godly", effect: () => { Damage += 200 } },
-  { name: "Damage7", rarity: "demonic", effect: () => { WalkSpeed += 500, decreaseRandomStat() } },
-  // Unknown, gives a random stat a massive amount
-  { name: "Unknown", rarity: "unknown", effect: () => { upgradeRandomStat() } },
-];
-
-function decreaseRandomStat() {
-  const stats = ["Damage", "Health", "AttackSpeed", "Walkspeed"];
-  const randomStat = stats[Math.floor(Math.random() * stats.length)];
-  switch (randomStat) {
-    case "Damage":
-      Damage = Math.max(0, Damage / 2);
-      break;
-    case "Health":
-      Health = Math.max(0, Health / 2);
-      break;
-    case "AttackSpeed":
-      AttackSpeed = Math.max(0.1, AttackSpeed / 2);
-      break;
-    case "WalkSpeed":
-      WalkSpeed = Math.max(1, WalkSpeed / 2);
-      player.speed = Walkspeed; // Update player speed
-      break;
-  }
-}
-
-function upgradeRandomStat() {
-  const stats = ["Damage", "Health", "AttackSpeed", "Walkspeed", "Luck"];
-  const randomStat = stats[Math.floor(Math.random() * stats.length)];
-  switch (randomStat) {
-    case "Damage":
-      Damage = Math.max(0, Damage + 500);
-      break;
-    case "Health":
-      Health = Math.max(0, Health + 2000);
-      break;
-    case "AttackSpeed":
-      AttackSpeed = Math.max(0.1, AttackSpeed + 1);
-      break;
-    case "Walkspeed":
-      WalkSpeed = Math.max(1, WalkSpeed + 3);
-      player.speed = WalkSpeed; // Update player speed
-      break;
-    case "Luck":
-      Luck = Math.max(1, Luck + 50);
-      break;
-  }
-}
-
-function showUpgradeMenu() {
-  console.log("Upgrade menu opened.");
-  const selectedUpgrade = GetUpgrades();
-  selectedUpgrade.effect();
-}
+// --- 14. Upgrades with Luck Integration ---
+const baseProbabilities = {
+  common: 0.4,
+  uncommon: 0.3,
+  rare: 0.2,
+  legendary: 0.05,
+  godly: 0.025,
+  demonic: 0.02,
+  unknown: 0.005,
+};
 
 function GetUpgrades() {
-  const possibleUpgrades = Upgrades.filter(upgrade => upgrade.rarity === "common"); // Simplify for now
-  return possibleUpgrades[Math.floor(Math.random() * possibleUpgrades.length)];
+  // Adjust probabilities based on Luck
+  const adjustedProbabilities = { ...baseProbabilities };
+  adjustedProbabilities.legendary += Luck * 0.01;
+  adjustedProbabilities.rare += Luck * 0.005;
+  adjustedProbabilities.common -= Luck * 0.015;
+
+  // Normalize probabilities
+  const totalProbability = Object.values(adjustedProbabilities).reduce((a, b) => a + b, 0);
+  for (const rarity in adjustedProbabilities) {
+    adjustedProbabilities[rarity] /= totalProbability;
+  }
+
+  // Randomly select an upgrade
+  const random = Math.random();
+  let cumulative = 0;
+  let selectedRarity = "common"; // Default to common
+
+  for (const rarity in adjustedProbabilities) {
+    cumulative += adjustedProbabilities[rarity];
+    if (random < cumulative) {
+      selectedRarity = rarity;
+      break;
+    }
+  }
+
+  // Filter upgrades by selected rarity
+  const possibleUpgrades = Upgrades.filter(upgrade => upgrade.rarity === selectedRarity);
+
+  // Randomly pick one upgrade from the list
+  const selectedUpgrade = possibleUpgrades[Math.floor(Math.random() * possibleUpgrades.length)];
+
+  console.log(`Upgrade chosen: ${selectedUpgrade.name} (${selectedUpgrade.rarity})`);
+  return selectedUpgrade;
 }
 
 // --- 15. UI Elements ---
@@ -375,7 +341,7 @@ function drawCoins() {
 function drawTimer() {
   ctx.fillStyle = "red";
   ctx.font = "20px Arial";
-  ctx.fillText(`Timer: ${timeLeft}`, canvas.width - 150, 30); // Adjust position
+  ctx.fillText(`Timer: ${timeLeft}`, canvas.width - 150, 30);
 }
 
 function drawHealth() {
@@ -410,5 +376,5 @@ window.addEventListener("resize", () => {
 const DEBUG = false;
 
 function logDebug(message) {
-  if (DEBUG) console.log(message);
+  if (DEBUG) console.log(`[DEBUG]: ${message}`);
 }
