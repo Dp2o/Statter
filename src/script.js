@@ -244,11 +244,17 @@ function spawnEnemies() {
 
 function moveEnemies() {
   enemies.forEach((enemy) => {
-    // Simple chasing logic: move towards the player
+    /* Simple chasing logic: move towards the player
     if (enemy.x < player.x) enemy.x += enemy.speed;
     if (enemy.x > player.x) enemy.x -= enemy.speed;
     if (enemy.y < player.y) enemy.y += enemy.speed;
     if (enemy.y > player.y) enemy.y -= enemy.speed;
+    */
+
+    // AI
+
+    
+    
   });
 }
 
