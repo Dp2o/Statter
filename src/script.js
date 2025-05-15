@@ -369,6 +369,8 @@ function changeTimer() {
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  player.x = canvas.width / 2;
+  player.y = canvas.height / 2;
   generateGridDots(); // Regenerate grid dots to fit new canvas size
 });
 
