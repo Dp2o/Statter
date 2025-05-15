@@ -380,3 +380,56 @@ const DEBUG = false;
 function logDebug(message) {
   if (DEBUG) console.log(`[DEBUG]: ${message}`);
 }
+
+// --- 18. Upgrade Menu ---
+function showUpgradeMenu() {
+  // Pause the game loop
+  inRound = false;
+
+  // Create a semi-transparent overlay
+  const overlay = document.createElement("div");
+  overlay.id = "upgradeOverlay";
+  overlay.style.position = "absolute";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = "10";
+
+  // Add title
+  const title = document.createElement("h1");
+  title.innerText = "Choose Your Upgrade";
+  title.style.color = "white";
+  title.style.marginBottom = "20px";
+  overlay.appendChild(title);
+
+  // Create upgrade options
+  const upgrades = [
+    { name: "Increase Damage", effect: () => (Damage += 1) },
+    { name: "Increase Walk Speed", effect: () => (WalkSpeed += 0.5) },
+    { name: "Increase Health", effect: () => (Health += 20) },
+  ];
+
+  upgrades.forEach((upgrade) => {
+    const button = document.createElement("button");
+    button.innerText = upgrade.name;
+    button.style.padding = "10px 20px";
+    button.style.margin = "10px";
+    button.style.fontSize = "18px";
+    button.style.cursor = "pointer";
+    button.addEventListener("click", () => {
+      upgrade.effect(); // Apply upgrade effect
+      document.body.removeChild(overlay); // Remove overlay
+      inRound = true; // Resume the game loop
+    });
+    overlay.appendChild(button);
+  });
+
+  // Append overlay to the body
+  document.body.appendChild(overlay);
+}
