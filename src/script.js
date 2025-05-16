@@ -5,7 +5,7 @@ let Health = 100;
 let Level = 1;
 let Experience = 0;
 let NeededExperience = 100;
-let coins = 100;
+let Coins = 100;
 let WalkSpeed = 2;
 
 // --- 2. Secondary Stats ---
@@ -394,7 +394,7 @@ function drawCoins() {
   ctx.fillStyle = "white";
   ctx.font = "20px Arial";
   ctx.textAlign = "right";
-  ctx.fillText(`Coins: ${coins}`, canvas.width - 20, 30);
+  ctx.fillText(`Coins: ${Coins}`, canvas.width - 20, 30);
 }
 
 function drawTimer() {
