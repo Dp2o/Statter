@@ -11,6 +11,7 @@ let WalkSpeed = 2;
 // --- 2. Secondary Stats ---
 let Luck = 1; // Luck now affects upgrade rarity
 let CritChance = 0;
+let CritDamageMultiplier = 1;
 let ProjectileDamageMultiplier = 1;
 let MeleeDamageMultiplier = 1;
 let Interest = 5;
@@ -25,7 +26,6 @@ let timeLeft = roundDuration;
 let timerInterval; // Updated to handle timer overlaps
 let gamestarted = false;
 let gambling = false;
-let Difficulty = 0;
 let upgradeQueue = 0;
 let inRound = true;
 let Itemlist = [];
@@ -35,6 +35,36 @@ let shopItems = [];
 let starDots = [];
 let gridDots = [];
 let wave = 1;
+
+// Difficulty
+
+let Difficulty = 0;
+
+/*
+
+--Difficulty 0--
+Default stats
+
+--Difficulty 1--
+Enemy speed and damage increased by half, as well as making the ai better (memory - 0.5)
+
+--Difficulty 2--
+Enemy Health doubles
+
+--Difficulty 3--
+Player starts with half health
+
+--Difficulty 4--
+Enemys now perfectly track the player, removes their ai.
+
+--Difficulty 5--
+Player does half damage, enemys take half damage from crit attacks
+
+*/
+
+if Difficulty > 4 {
+  CritDamageMultiplier / 2
+}
 
 // Enemies
 let enemies = [];
@@ -174,7 +204,7 @@ function moveGridDotsWithKeys() {
     if (dot.y < 0) dot.y = canvas.height;
   });
 
-  // Move enemies along with the map
+  // Move enemies along with the map to make it look like the player is moving
   enemies.forEach((enemy) => {
     if (keyState.w) enemy.y += WalkSpeed; // Move up
     if (keyState.a) enemy.x += WalkSpeed; // Move left
@@ -248,7 +278,7 @@ function moveEnemies() {
     // AI
 
     // Move towards the player
-
+    let speed = enemy.speed
     let Xpos = enemy.x;
     let Ypos = enemy.y;
 
@@ -260,10 +290,23 @@ function moveEnemies() {
     Xpos += Memory;
     Ypos += Memory; 
 
-    if (Xpos < player.x) enemy.x += enemy.speed;
-    if (Xpos > player.x) enemy.x -= enemy.speed;
-    if (Ypos < player.y) enemy.y += enemy.speed;
-    if (Ypos > player.y) enemy.y -= enemy.speed;
+    if Difficulty > 0 {
+      speed * 1.25
+    }
+
+    if Difficulty < 3 {
+      if (Xpos < player.x) enemy.x += enemy.speed;
+      if (Xpos > player.x) enemy.x -= enemy.speed;
+      if (Ypos < player.y) enemy.y += enemy.speed;
+      if (Ypos > player.y) enemy.y -= enemy.speed;
+    }
+
+    if Difficulty > 3 {
+      if (enemy.x < player.x) enemy.x += enemy.speed;
+      if (enemy.x > player.x) enemy.x -= enemy.speed;
+      if (enemy.y < player.y) enemy.y += enemy.speed;
+      if (enemy.y > player.y) enemy.y -= enemy.speed;
+    }
   });
 }
 
