@@ -245,10 +245,7 @@ function spawnEnemies() {
 function moveEnemies() {
   enemies.forEach((enemy) => {
     // Simple chasing logic: move towards the player
-
-
     // AI
-    
 
     // Move towards the player
 
@@ -261,15 +258,11 @@ function moveEnemies() {
 
     Xpos += Memory;
     Ypos += Memory; 
-    
 
-    if (Xpos < player.x) enemy.x = (Xpos += enemy.speed);
-    if (Xpos > player.x) enemy.x = (Xpos -= enemy.speed);
-    if (Ypos < player.y) enemy.y = (Ypos += enemy.speed);
-    if (Ypos > player.y) enemy.y = (Ypos -= enemy.speed);
-    
-    
-    
+    if (Xpos < player.x) enemy.x += enemy.speed);
+    if (Xpos > player.x) enemy.x -= enemy.speed);
+    if (Ypos < player.y) enemy.y += enemy.speed);
+    if (Ypos > player.y) enemy.y -= enemy.speed);
   });
 }
 
