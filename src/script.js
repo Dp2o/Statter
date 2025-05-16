@@ -252,7 +252,26 @@ function moveEnemies() {
     */
 
     // AI
+    
 
+    // Move towards the player
+
+    Xpos = enemy.x
+    Ypos = enemy.y
+
+    // change Xpos and Ypos a little bit randomly
+
+    Memory = Math.max(1 - (0.1 * wave), 0)
+
+    Xpos += Memory;
+    Ypos += Memory; 
+    
+
+    if (Xpos < player.x) Xpos += enemy.speed;
+    if (Xpos > player.x) Xpos -= enemy.speed;
+    if (Ypos < player.y) Ypos += enemy.speed;
+    if (Ypos > player.y) Ypos -= enemy.speed;
+    
     
     
   });
