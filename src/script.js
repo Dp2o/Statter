@@ -285,10 +285,11 @@ function moveEnemies() {
     // change Xpos and Ypos a little bit randomly
 
     let maxMemory = Math.max(5 - (0.05 * wave), 0);
-    let Memory = Math.random() * maxMemory;
+    let MemoryX = Math.random() * maxMemory;
+    let MemoryY = Math.random() * maxMemory;
 
-    Xpos += Memory;
-    Ypos += Memory; 
+    Xpos += MemoryX;
+    Ypos += MemoryY; 
 
     if Difficulty > 0 {
       speed * 1.25
