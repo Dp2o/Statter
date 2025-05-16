@@ -259,10 +259,10 @@ function moveEnemies() {
     Xpos += Memory;
     Ypos += Memory; 
 
-    if (Xpos < player.x) enemy.x += enemy.speed);
-    if (Xpos > player.x) enemy.x -= enemy.speed);
-    if (Ypos < player.y) enemy.y += enemy.speed);
-    if (Ypos > player.y) enemy.y -= enemy.speed);
+    if (Xpos < player.x) enemy.x += enemy.speed;
+    if (Xpos > player.x) enemy.x -= enemy.speed;
+    if (Ypos < player.y) enemy.y += enemy.speed;
+    if (Ypos > player.y) enemy.y -= enemy.speed;
   });
 }
 
