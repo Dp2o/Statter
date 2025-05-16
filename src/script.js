@@ -249,12 +249,13 @@ function moveEnemies() {
 
     // Move towards the player
 
-    Xpos = enemy.x
-    Ypos = enemy.y
+    let Xpos = enemy.x;
+    let Ypos = enemy.y;
 
     // change Xpos and Ypos a little bit randomly
 
-    Memory = Math.max(1 - (0.1 * wave), 0)
+    let maxMemory = Math.max(5 - (0.05 * wave), 0);
+    let Memory = Math.random() * maxMemory;
 
     Xpos += Memory;
     Ypos += Memory; 
