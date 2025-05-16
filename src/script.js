@@ -155,6 +155,7 @@ function gameLoop() {
   moveEnemies();
   drawEnemies();
   drawPlayer();
+  handleCollisions();
   drawCoins();
   drawTimer();
   drawHealth();
