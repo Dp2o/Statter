@@ -62,8 +62,8 @@ Player does half damage, enemys take half damage from crit attacks
 
 */
 
-if Difficulty >= 4 {
-  CritDamageMultiplier / 2
+if (Difficulty >= 4) {
+  CritDamageMultiplier /= 2
 }
 
 // Enemies
@@ -291,18 +291,18 @@ function moveEnemies() {
     Xpos += MemoryX;
     Ypos += MemoryY; 
 
-    if Difficulty > 0 {
-      speed * 1.25
+    if (Difficulty > 0) {
+      speed = speed * 1.25
     }
 
-    if Difficulty <= 3 {
+    if (Difficulty <= 3) {
       if (Xpos < player.x) enemy.x += enemy.speed;
       if (Xpos > player.x) enemy.x -= enemy.speed;
       if (Ypos < player.y) enemy.y += enemy.speed;
       if (Ypos > player.y) enemy.y -= enemy.speed;
     }
 
-    if Difficulty >= 3 {
+    if (Difficulty >= 3) {
       if (enemy.x < player.x) enemy.x += enemy.speed;
       if (enemy.x > player.x) enemy.x -= enemy.speed;
       if (enemy.y < player.y) enemy.y += enemy.speed;
