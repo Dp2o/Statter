@@ -493,3 +493,29 @@ function showUpgradeMenu() {
   // Append overlay to the body
   document.body.appendChild(overlay);
 }
+
+// Reset
+
+function resetGame() {
+  // Reset player stats
+  Health = 100;
+  Level = 1;
+  Experience = 0;
+  NeededExperience = 100;
+  coins = 100;
+  WalkSpeed = 2;
+
+  // Reset game state
+  gamestarted = false;
+  inRound = true;
+  wave = 1;
+  enemies = [];
+  generateGridDots();
+  generateStarDots();
+
+  // Show Play button and header again if you want
+  document.getElementById("PlayButton").style.display = "block";
+  document.getElementById("header").style.display = "block";
+  canvas.style.display = "none";
+  clearInterval(timerInterval);
+}
