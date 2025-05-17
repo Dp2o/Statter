@@ -274,9 +274,17 @@ function spawnEnemies() {
       width: 20,
       height: 20,
       speed: 1 + wave * 0.1, // Increase speed with waves
-      color: "red",
+      color: "green",
+      lastAttackTime: 0,
+      damage: 5 * (wave / 2),
     });
   }
+}
+
+function isEnemyNearPlayer(enemy, distance = 40) {
+  const dx = enemy.x - player.x;
+  const dy = enemy.y - player.y;
+  return Math.sqrt(dx * dx + dy * dy) < distance;
 }
 
 function moveEnemies() {
@@ -336,15 +344,19 @@ function checkCollision(rect1, rect2) {
 }
 
 function handleCollisions() {
-  // Check collision with enemies
+  const now = Date.now();
   enemies.forEach((enemy) => {
-    if (checkCollision(player, enemy)) {
-      console.log("Player hit by enemy!");
-      Health -= 10; // Reduce health
-      if (Health <= 0) {
-        console.log("Game Over!");
-        enemies = []
-        resetGame(); // Add game reset logic
+    if (isEnemyNearPlayer(enemy, 40)) {
+      if (now - enemy.lastAttackTime >= 1000) { // 1 second delay
+        Health -= 10; // or whatever damage value
+        enemy.lastAttackTime = now; // update last attack time
+        console.log("Player hit by enemy!");
+
+        if (Health <= 0) {
+          console.log("Game Over!");
+          enemies = [];
+          resetGame();
+        }
       }
     }
   });
