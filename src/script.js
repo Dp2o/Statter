@@ -342,7 +342,7 @@ function moveEnemies() {
         enemies[j].y -= oy;
       }
     }
-  });
+  }
 }
 
 function drawEnemies() {
