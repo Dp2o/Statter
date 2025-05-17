@@ -337,6 +337,7 @@ function handleCollisions() {
       Health -= 10; // Reduce health
       if (Health <= 0) {
         console.log("Game Over!");
+        enemies = []
         resetGame(); // Add game reset logic
       }
     }
