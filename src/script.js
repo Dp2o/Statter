@@ -447,7 +447,8 @@ function drawHealth() {
 
   ctx.fillStyle = "white";
   ctx.font = "16px Arial";
-  ctx.fillText(`Health: ${Health}`, 20, 45);
+  ctx.textAlign = "left";
+  ctx.fillText(`${Health}`, 30, 65);
 }
 
 // --- 16. Timer and Resize Handling ---
