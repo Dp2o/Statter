@@ -322,23 +322,25 @@ function moveEnemies() {
       if (enemy.x > player.x) enemy.x -= enemy.speed;
       if (enemy.y < player.y) enemy.y += enemy.speed;
       if (enemy.y > player.y) enemy.y -= enemy.speed;
-
-        // Enemy separation logic
-    const minDistance = 24; // Minimum allowed distance between enemy centers
-    for (let i = 0; i < enemies.length; i++) {
-      for (let j = i + 1; j < enemies.length; j++) {
-        const dx = enemies[i].x - enemies[j].x;
-        const dy = enemies[i].y - enemies[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < minDistance && dist > 0) {
-          // Calculate how much to push each enemy apart
-          const overlap = (minDistance - dist) / 2;
-          const ox = (dx / dist) * overlap;
-          const oy = (dy / dist) * overlap;
-          enemies[i].x += ox;
-          enemies[i].y += oy;
-          enemies[j].x -= ox;
-          enemies[j].y -= oy;
+      
+    }
+    // Enemy separation logic
+  const minDistance = 24; // Minimum allowed distance between enemy centers
+  for (let i = 0; i < enemies.length; i++) {
+    for (let j = i + 1; j < enemies.length; j++) {
+      const dx = enemies[i].x - enemies[j].x;
+      const dy = enemies[i].y - enemies[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < minDistance && dist > 0) {
+        // Calculate how much to push each enemy apart
+        const overlap = (minDistance - dist) / 2;
+        const ox = (dx / dist) * overlap;
+        const oy = (dy / dist) * overlap;
+        enemies[i].x += ox;
+        enemies[i].y += oy;
+        enemies[j].x -= ox;
+        enemies[j].y -= oy;
+      }
     }
   });
 }
