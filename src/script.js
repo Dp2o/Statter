@@ -39,7 +39,7 @@ let wave = 1;
 // timer anim
 let timerAnimElapsed = 0;
 let timerAnimDuration = 1000; // 1 second
-let timerBaseFontSize = 20;
+let timerBaseFontSize = 80;
 let timerPopScale = 1.4;
 
 // Difficulty
