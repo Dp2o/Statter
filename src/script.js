@@ -344,6 +344,7 @@ function moveEnemies() {
     }
   }
 }
+}
 
 function drawEnemies() {
   enemies.forEach((enemy) => {
