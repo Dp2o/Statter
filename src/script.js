@@ -348,7 +348,7 @@ function handleCollisions() {
   enemies.forEach((enemy) => {
     if (isEnemyNearPlayer(enemy, 40)) {
       if (now - enemy.lastAttackTime >= 1000) { // 1 second delay
-        Health -= 10; // or whatever damage value
+        Health -= enemy.damage; // or whatever damage value
         enemy.lastAttackTime = now; // update last attack time
         console.log("Player hit by enemy!");
 
