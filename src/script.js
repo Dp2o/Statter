@@ -400,9 +400,12 @@ function drawCoins() {
 }
 
 function drawTimer() {
-  ctx.fillStyle = "red";
+  ctx.fillStyle = "white";
   ctx.font = "20px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
   ctx.fillText(`Timer: ${timeLeft}`, canvas.width - 150, 30);
+  ctx.restore();
 }
 
 function drawHealth() {
