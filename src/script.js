@@ -435,7 +435,7 @@ function drawTimer() {
   ctx.font = `${timerBaseFontSize * scale}px Arial`;
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  ctx.fillText(`Timer: ${timeLeft}`, canvas.width / 2, 10);
+  ctx.fillText(`${timeLeft}`, canvas.width / 2, 10);
   ctx.restore();
 }
 
@@ -448,7 +448,8 @@ function drawHealth() {
   ctx.fillStyle = "white";
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
-  ctx.fillText(`${Health}`, 30, 65);
+  ctx.textBaseline = "middle";
+  ctx.fillText(`${Health}`, 30, 60);
 }
 
 // --- 16. Timer and Resize Handling ---
