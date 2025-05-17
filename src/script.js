@@ -36,6 +36,12 @@ let starDots = [];
 let gridDots = [];
 let wave = 1;
 
+// timer anim
+let timerAnimElapsed = 0;
+let timerAnimDuration = 1000; // 1 second
+let timerBaseFontSize = 20;
+let timerPopScale = 1.4;
+
 // Difficulty
 
 let Difficulty = 0;
@@ -399,12 +405,25 @@ function drawCoins() {
   ctx.fillText(`Coins: ${Coins}`, canvas.width - 20, 30);
 }
 
+// In your gameLoop function:
+timerAnimElapsed += 1000 / 60; // assuming 60fps, adjust if you use delta timing
+
+if (timerAnimElapsed >= timerAnimDuration) {
+    timerAnimElapsed = 0;
+}
+
 function drawTimer() {
-  ctx.fillStyle = "white";
-  ctx.font = "20px Arial";
+  // Calculate scale based on time elapsed
+  let progress = timerAnimElapsed / timerAnimDuration;
+  // Ease out for "pop" effect
+  let scale = 1 + (timerPopScale - 1) * Math.pow(progress, 0.5);
+
+  ctx.save();
+  ctx.fillStyle = "red";
+  ctx.font = `${timerBaseFontSize * scale}px Arial`;
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  ctx.fillText(`Timer: ${timeLeft}`, canvas.width - 150, 30);
+  ctx.fillText(`Timer: ${timeLeft}`, canvas.width / 2, 10);
   ctx.restore();
 }
 
@@ -423,6 +442,7 @@ function drawHealth() {
 function changeTimer() {
   if (timeLeft > 0) {
     timeLeft--;
+    timerAnimElapsed = 0;
   } else {
     inRound = false; // End the round
     showUpgradeMenu();
