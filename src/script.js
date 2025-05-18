@@ -108,8 +108,11 @@ let player = {
 
 // --- Draw Player ---
 function drawPlayer() {
+  ctx.beginPath();
+  ctx.arc(player.x, player.y, player.width / 2, 0, Math.PI * 2);
   ctx.fillStyle = player.color;
-  ctx.fillRect(player.x - player.width / 2, player.y - player.height / 2, player.width, player.height);
+  ctx.fill();
+  ctx.closePath();
 }
 
 // --- 7. Game Start ---
