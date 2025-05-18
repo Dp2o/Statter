@@ -484,6 +484,54 @@ function changeTimer() {
   }
 }
 
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) {
+    pauseGameForFullscreen();
+  }
+});
+
+function pauseGameForFullscreen() {
+  inRound = false; // This pauses the game loop
+  showFullscreenPopup();
+}
+
+function showFullscreenPopup() {
+  if (document.getElementById("fullscreenPopup")) return; // Prevent multiple popups
+
+  const overlay = document.createElement("div");
+  overlay.id = "fullscreenPopup";
+  overlay.style.position = "absolute";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100vw";
+  overlay.style.height = "100vh";
+  overlay.style.backgroundColor = "rgba(0,0,0,0.85)";
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = "1000";
+
+  const message = document.createElement("h2");
+  message.innerText = "Game paused. Please return to fullscreen to continue!";
+  message.style.color = "white";
+  message.style.marginBottom = "20px";
+
+  const button = document.createElement("button");
+  button.innerText = "Return to Fullscreen";
+  button.style.fontSize = "20px";
+  button.style.padding = "10px 30px";
+  button.onclick = () => {
+    enterFullscreen();
+    overlay.remove();
+    inRound = true; // Resume game
+  };
+
+  overlay.appendChild(message);
+  overlay.appendChild(button);
+  document.body.appendChild(overlay);
+}
+
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
