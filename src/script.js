@@ -375,11 +375,10 @@ function checkCollision(rect1, rect2) {
 function handleCollisions() {
   const now = Date.now();
   enemies.forEach((enemy) => {
-    if (isEnemyNearPlayer(enemy, 40)) {
-      if (now - enemy.lastAttackTime >= 1000) { // 1 second delay
+    if (isEnemyNearPlayer(enemy, 30)) {
+      if (now - enemy.lastAttackTime >= 500) { // half a second delay
         Health -= enemy.damage; // or whatever damage value
         enemy.lastAttackTime = now; // update last attack time
-        console.log("Player hit by enemy!");
 
         if (Health <= 0) {
           console.log("Game Over!");
