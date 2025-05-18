@@ -36,6 +36,9 @@ let starDots = [];
 let gridDots = [];
 let wave = 1;
 
+// FullScreen
+let pausedForFullscreen = false;
+
 // timer anim
 let timerAnimElapsed = 0;
 let timerAnimDuration = 1000; // 1 second
@@ -174,7 +177,7 @@ function gameLoop() {
       NeededExperience = Math.floor(NeededExperience * 1.5);
       upgradeQueue++;
     }
-  } else {
+  } else if (!pausedForFullscreen) {
     showUpgradeMenu();
   }
 
@@ -491,7 +494,8 @@ document.addEventListener("fullscreenchange", () => {
 });
 
 function pauseGameForFullscreen() {
-  inRound = false; // This pauses the game loop
+  pausedForFullscreen = true;
+  inRound = false;
   showFullscreenPopup();
 }
 
@@ -524,7 +528,8 @@ function showFullscreenPopup() {
   button.onclick = () => {
     enterFullscreen();
     overlay.remove();
-    inRound = true; // Resume game
+    pausedForFullscreen = false;
+    inRound = true;
   };
 
   overlay.appendChild(message);
