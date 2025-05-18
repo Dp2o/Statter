@@ -529,7 +529,10 @@ function showFullscreenPopup() {
     enterFullscreen();
     overlay.remove();
     pausedForFullscreen = false;
-    inRound = true;
+    // Only resume the game if the upgrade menu is NOT open
+    if (!document.getElementById("upgradeOverlay")) {
+      inRound = true;
+    }
   };
 
   overlay.appendChild(message);
