@@ -157,14 +157,17 @@ document.addEventListener("keyup", (event) => {
 // --- 9. Game Loop ---
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas every frame
-  moveGridDotsWithKeys();
+  if (inRound) {
+    moveGridDotsWithKeys();
+    moveStarDots();
+    moveEnemies();
+    handleCollisions();
+  }
+  
   drawGridDots();
-  moveStarDots();
   drawStarDots();
-  moveEnemies();
   drawEnemies();
   drawPlayer();
-  handleCollisions();
   drawCoins();
   drawTimer();
   drawHealth();
