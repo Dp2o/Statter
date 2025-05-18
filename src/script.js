@@ -480,13 +480,15 @@ function drawHealth() {
 
 // --- 16. Timer and Resize Handling ---
 function changeTimer() {
-  if (timeLeft > 0) {
-    timeLeft--;
-    timerAnimElapsed = 0;
-  } else {
-    inRound = false; // End the round
-    showUpgradeMenu();
-    clearInterval(timerInterval);
+  if (inRound) {
+    if (timeLeft > 0) {
+      timeLeft--;
+      timerAnimElapsed = 0;
+    } else {
+      inRound = false; // End the round
+      showUpgradeMenu();
+      clearInterval(timerInterval);
+    }
   }
 }
 
