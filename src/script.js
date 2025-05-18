@@ -454,7 +454,7 @@ function drawTimer() {
   let scale = 1 + (timerPopScale - 1) * Math.pow(progress, 0.5);
 
   ctx.save();
-  ctx.fillStyle = "red";
+  ctx.fillStyle = "white";
   ctx.font = `${timerBaseFontSize * scale}px Arial`;
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
