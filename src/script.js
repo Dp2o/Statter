@@ -139,6 +139,7 @@ function startGame() {
   canvas.style.display = "block"; // Make canvas visible
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("header").style.display = "none";
+  document.getElementById("SettingsButton").style.display = "none";
   enterFullscreen();
   generateStarDots();
   generateGridDots();
