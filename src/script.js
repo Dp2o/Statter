@@ -166,7 +166,8 @@ function gameLoop() {
     moveEnemies();
     handleCollisions();
   }
-  
+
+  drawlevel();
   drawGridDots();
   drawStarDots();
   drawEnemies();
