@@ -10,9 +10,23 @@
     <!-- Title -->
     <h1 id="header">Statter</h1>
 
-    <!-- Play Button -->
+    <!-- Main Menu Buttons -->
     <button id="PlayButton">Play</button>
-    
+    <button id="SettingsButton">Settings</button>
+
+    <!-- Character Select Screen (hidden by default) -->
+    <div id="CharacterSelectScreen" style="display:none;">
+      <div id="CharacterSelectTop">
+        <!-- Character description and difficulty selection go here -->
+        <div id="CharacterDescription"></div>
+        <div id="DifficultySelection"></div>
+      </div>
+      <div id="CharacterButtons">
+        <!-- Character buttons go here -->
+      </div>
+      <button id="BackToMenuButton">Back</button>
+    </div>
+
     <!-- Game Script -->
     <script src="src/script.js"></script>
   </body>
