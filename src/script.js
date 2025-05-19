@@ -179,10 +179,18 @@ function gameLoop() {
     moveEnemies();
     handleCollisions();
   }
+
+  // keep in order
+  
+  // map
   drawGridDots();
   drawStarDots();
+
+  // entities
   drawEnemies();
   drawPlayer();
+
+  // UI
   drawCoins();
   drawTimer();
   drawHealth();
