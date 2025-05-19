@@ -579,6 +579,9 @@ function logDebug(message) {
 
 // --- 18. Upgrade Menu ---
 function showUpgradeMenu() {
+    
+  if (document.getElementById('upgradeOverlay')) return;
+  
   // Pause the game loop
   inRound = false;
 
@@ -629,9 +632,6 @@ function showUpgradeMenu() {
   // Append overlay to the body
   document.body.appendChild(overlay);
 }
-
-if (document.getElementById('upgradeOverlay')) return;
-
 // --- Reset ---
 function resetGame() {
   location.reload();
