@@ -503,7 +503,14 @@ function drawHealth() {
 
 // Draw Level/Experience
 function drawLevel() {
-  // Bar background
+  
+    // background 
+  ctx.fillStyle = "grey";
+  ctx.fillRect(20, 100, 200, 20); 
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(20, 100, 200, 20); // Bar border
+  
+  // Bar
   ctx.fillStyle = "white";
   ctx.fillRect(20, 100, (Experience / NeededExperience) * 200, 20); // Exp bar, normalized to bar width
   ctx.strokeStyle = "white";
@@ -520,12 +527,6 @@ function drawLevel() {
     100 + 20 / 2
     
   );
-
-    // background
-  ctx.fillStyle = "grey";
-  ctx.fillRect(20, 100, 100, 20); // Exp bar, normalized to bar width
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(20, 100, 200, 20); // Bar border
 }
 
 // --- 16. Timer and Resize Handling ---
