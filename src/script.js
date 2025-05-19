@@ -489,7 +489,7 @@ function drawHealth() {
   ctx.fillStyle = "black";
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
-  ctx.textBaseline = "middle";
+  ctx.textBaseline = "top";
   ctx.fillText(`${Health}`, 30, 62);
 }
 
@@ -502,7 +502,7 @@ function drawLevel() {
   ctx.fillStyle = "Black";
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
-  ctx.textBaseline = "middle";
+  ctx.textBaseline = "top";
   ctx.fillText(`Level ${Level}`, 30, 112);
 }
 
