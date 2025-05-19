@@ -179,8 +179,6 @@ function gameLoop() {
     moveEnemies();
     handleCollisions();
   }
-
-  drawLevel();
   drawGridDots();
   drawStarDots();
   drawEnemies();
@@ -188,6 +186,7 @@ function gameLoop() {
   drawCoins();
   drawTimer();
   drawHealth();
+  drawLevel();
 
   if (inRound) {
     Experience += 0.05;
