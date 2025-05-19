@@ -515,7 +515,7 @@ function drawLevel() {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText(
-    `EXP: ${Math.floor(Experience)} / ${NeededExperience}  |  Level: ${Level}`,
+    `${Math.floor(Experience)} / ${NeededExperience}           Level: ${Level}`,
     20 + 200 / 2,
     100 + 20 / 2
   );
