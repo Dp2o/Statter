@@ -130,6 +130,15 @@ function getBackgroundColorAt(x, y) {
 // --- 7. Game Start ---
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
+// Settings
+document.getElementById("SettingsButton").addEventListener("click", settings);
+
+function settings() {
+  // open settings
+  document.getElementById("PlayButton").style.display = "none";
+  document.getElementById("SettingsButton").style.display = "none";
+}
+
 function startGame() {
   gamestarted = true;
   inRound = true; // Ensure round state is reset
