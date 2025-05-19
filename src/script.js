@@ -501,7 +501,7 @@ function drawTimer() {
 function drawHealth() {
   const x = 20, y = 50, w = 200, h = 20;
   const healthWidth = Math.max(0, Math.min(w, Health * 2)); // clamp
-  const label = `HP: ${Health}  |  LVL: ${Level}`;
+  const label = `HP: ${Health}`;
   const cx = x + w / 2;
   const cy = y + h / 2;
 
@@ -541,7 +541,7 @@ function drawLevel() {
   const x = 20, y = 100, w = 200, h = 20;
   const progress = Math.max(0, Math.min(1, Experience / NeededExperience));
   const filledWidth = w * progress;
-  const label = `EXP: ${Math.floor(Experience)} / ${NeededExperience}  |  LVL: ${Level}`;
+  const label = `EXP: ${Math.floor(Experience)} / ${NeededExperience}     LVL: ${Level}`;
   const cx = x + w / 2;
   const cy = y + h / 2;
 
