@@ -518,7 +518,14 @@ function drawLevel() {
     `${Math.floor(Experience)} / ${NeededExperience}           Level: ${Level}`,
     20 + 200 / 2,
     100 + 20 / 2
+    
   );
+
+    // background
+  ctx.fillStyle = "grey";
+  ctx.fillRect(20, 100, 100, 20); // Exp bar, normalized to bar width
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(20, 100, 200, 20); // Bar border
 }
 
 // --- 16. Timer and Resize Handling ---
