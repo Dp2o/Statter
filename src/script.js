@@ -486,10 +486,7 @@ function drawHealth() {
   ctx.fillRect(20, 50, Health * 2, 20); // Health bar
   ctx.strokeStyle = "white";
   ctx.strokeRect(20, 50, 200, 20); // Health bar border
-
-  // Determine text color based on bar background (sample center of health bar)
-  const bg = getBackgroundColorAt(30, 62);
-  ctx.fillStyle = getContrastYIQ(bg.r, bg.g, bg.b);
+  ctx.fillStyle = "black";
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
   ctx.textBaseline = "middle";
@@ -502,10 +499,7 @@ function drawLevel() {
   ctx.fillRect(20, 100, Experience * 2, 20); // Level bar
   ctx.strokeStyle = "white";
   ctx.strokeRect(20, 100, 200, 20); // Level bar border
-
-  // Determine text color based on bar background (sample center of level bar)
-  const bg = getBackgroundColorAt(30, 112);
-  ctx.fillStyle = getContrastYIQ(bg.r, bg.g, bg.b);
+  ctx.fillStyle = "Black";
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
   ctx.textBaseline = "middle";
