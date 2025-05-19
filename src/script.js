@@ -167,7 +167,7 @@ function gameLoop() {
     handleCollisions();
   }
 
-  drawlevel();
+  drawLevel();
   drawGridDots();
   drawStarDots();
   drawEnemies();
@@ -629,6 +629,8 @@ function showUpgradeMenu() {
   // Append overlay to the body
   document.body.appendChild(overlay);
 }
+
+if (document.getElementById('upgradeOverlay')) return;
 
 // --- Reset ---
 function resetGame() {
