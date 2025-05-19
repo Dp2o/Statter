@@ -494,7 +494,7 @@ function drawHealth() {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText(
-    `HP: ${Health}  |  LVL: ${Level}`,
+    `${Health}`,
     20 + 200 / 2,
     50 + 20 / 2
   );
@@ -514,7 +514,7 @@ function drawLevel() {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText(
-    `EXP: ${Math.floor(Experience)} / ${NeededExperience}  |  LVL: ${Level}`,
+    `EXP: ${Math.floor(Experience)} / ${NeededExperience}  |  Level: ${Level}`,
     20 + 200 / 2,
     100 + 20 / 2
   );
