@@ -615,8 +615,7 @@ function showUpgradeMenu() {
   document.body.appendChild(overlay);
 }
 
-// Reset
-
+// --- Reset ---
 function resetGame() {
   location.reload();
 }
