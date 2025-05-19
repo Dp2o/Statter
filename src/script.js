@@ -481,52 +481,83 @@ function drawTimer() {
   ctx.restore();
 }
 
-// Draw Health
+// Draw Health Bar (with dual color text for readability)
 function drawHealth() {
-  // Bar background
-  ctx.fillStyle = "green";
-  ctx.fillRect(20, 50, Health * 2, 20); // Health bar
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(20, 50, 200, 20); // Health bar border
+  const x = 20, y = 50, w = 200, h = 20;
+  const healthWidth = Math.max(0, Math.min(w, Health * 2)); // clamp
+  const label = `HP: ${Health}  |  LVL: ${Level}`;
+  const cx = x + w / 2;
+  const cy = y + h / 2;
 
-  // Centered text
+  // Draw health bar
+  ctx.fillStyle = "green";
+  ctx.fillRect(x, y, healthWidth, h);
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(x, y, w, h);
+
+  // Draw black text on filled (green) part
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(x, y, healthWidth, h);
+  ctx.clip();
   ctx.fillStyle = "black";
   ctx.font = "16px Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(
-    `${Health}`,
-    20 + 200 / 2,
-    50 + 20 / 2
-  );
+  ctx.fillText(label, cx, cy);
+  ctx.restore();
+
+  // Draw white text on unfilled (dark) part
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(x + healthWidth, y, w - healthWidth, h);
+  ctx.clip();
+  ctx.fillStyle = "white";
+  ctx.font = "16px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, cx, cy);
+  ctx.restore();
 }
 
-// Draw Level/Experience
+// Draw Experience Bar (with dual color text for readability)
 function drawLevel() {
-  
-    // background 
-  ctx.fillStyle = "grey";
-  ctx.fillRect(20, 100, 200, 20); 
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(20, 100, 200, 20); // Bar border
-  
-  // Bar
-  ctx.fillStyle = "white";
-  ctx.fillRect(20, 100, (Experience / NeededExperience) * 200, 20); // Exp bar, normalized to bar width
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(20, 100, 200, 20); // Bar border
+  const x = 20, y = 100, w = 200, h = 20;
+  const progress = Math.max(0, Math.min(1, Experience / NeededExperience));
+  const filledWidth = w * progress;
+  const label = `EXP: ${Math.floor(Experience)} / ${NeededExperience}  |  LVL: ${Level}`;
+  const cx = x + w / 2;
+  const cy = y + h / 2;
 
-  // Centered text
+  // Draw exp bar
+  ctx.fillStyle = "white";
+  ctx.fillRect(x, y, filledWidth, h);
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(x, y, w, h);
+
+  // Draw black text on filled (white) part
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(x, y, filledWidth, h);
+  ctx.clip();
   ctx.fillStyle = "black";
   ctx.font = "16px Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(
-    `${Math.floor(Experience)} / ${NeededExperience}           Level: ${Level}`,
-    20 + 200 / 2,
-    100 + 20 / 2
-    
-  );
+  ctx.fillText(label, cx, cy);
+  ctx.restore();
+
+  // Draw white text on unfilled (dark) part
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(x + filledWidth, y, w - filledWidth, h);
+  ctx.clip();
+  ctx.fillStyle = "white";
+  ctx.font = "16px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, cx, cy);
+  ctx.restore();
 }
 
 // --- 16. Timer and Resize Handling ---
