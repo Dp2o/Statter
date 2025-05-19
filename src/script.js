@@ -115,6 +115,18 @@ function drawPlayer() {
   ctx.closePath();
 }
 
+// Helper to get contrast color (black or white) based on background color
+function getContrastYIQ(r, g, b) {
+  const yiq = (r*299 + g*587 + b*114) / 1000;
+  return yiq >= 128 ? "black" : "white";
+}
+
+// Helper to get pixel color from canvas at (x, y)
+function getBackgroundColorAt(x, y) {
+  const data = ctx.getImageData(x, y, 1, 1).data;
+  return { r: data[0], g: data[1], b: data[2] };
+}
+
 // --- 7. Game Start ---
 document.getElementById("PlayButton").addEventListener("click", startGame);
 
@@ -468,13 +480,16 @@ function drawTimer() {
   ctx.restore();
 }
 
+// Draw Health
 function drawHealth() {
   ctx.fillStyle = "green";
   ctx.fillRect(20, 50, Health * 2, 20); // Health bar
   ctx.strokeStyle = "white";
   ctx.strokeRect(20, 50, 200, 20); // Health bar border
 
-  ctx.fillStyle = "white";
+  // Determine text color based on bar background (sample center of health bar)
+  const bg = getBackgroundColorAt(30, 62);
+  ctx.fillStyle = getContrastYIQ(bg.r, bg.g, bg.b);
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
   ctx.textBaseline = "middle";
@@ -484,11 +499,13 @@ function drawHealth() {
 // Draw Level
 function drawLevel() {
   ctx.fillStyle = "white";
-  ctx.fillRect(20, 100, Experience * 2, 20); // Health bar
+  ctx.fillRect(20, 100, Experience * 2, 20); // Level bar
   ctx.strokeStyle = "white";
-  ctx.strokeRect(20, 100, 200, 20); // Health bar border
+  ctx.strokeRect(20, 100, 200, 20); // Level bar border
 
-  ctx.fillStyle = "black";
+  // Determine text color based on bar background (sample center of level bar)
+  const bg = getBackgroundColorAt(30, 112);
+  ctx.fillStyle = getContrastYIQ(bg.r, bg.g, bg.b);
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
   ctx.textBaseline = "middle";
