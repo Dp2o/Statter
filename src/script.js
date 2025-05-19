@@ -490,7 +490,7 @@ function drawHealth() {
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
-  ctx.fillText(`${Health}`, 30, 62);
+  ctx.fillText(`${Health}`, 30, 60);
 }
 
 // Draw Level
@@ -503,7 +503,7 @@ function drawLevel() {
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
-  ctx.fillText(`Level ${Level}`, 30, 112);
+  ctx.fillText(`Level ${Level}`, 30, 110);
 }
 
 // --- 16. Timer and Resize Handling ---
