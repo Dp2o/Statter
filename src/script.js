@@ -482,28 +482,42 @@ function drawTimer() {
 
 // Draw Health
 function drawHealth() {
+  // Bar background
   ctx.fillStyle = "green";
   ctx.fillRect(20, 50, Health * 2, 20); // Health bar
   ctx.strokeStyle = "white";
   ctx.strokeRect(20, 50, 200, 20); // Health bar border
+
+  // Centered text
   ctx.fillStyle = "black";
   ctx.font = "16px Arial";
-  ctx.textAlign = "left";
-  ctx.textBaseline = "top";
-  ctx.fillText(`${Health}`, 30, 60);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(
+    `HP: ${Health}  |  LVL: ${Level}`,
+    20 + 200 / 2,
+    50 + 20 / 2
+  );
 }
 
-// Draw Level
+// Draw Level/Experience
 function drawLevel() {
+  // Bar background
   ctx.fillStyle = "white";
-  ctx.fillRect(20, 100, Experience * 2, 20); // Level bar
+  ctx.fillRect(20, 100, (Experience / NeededExperience) * 200, 20); // Exp bar, normalized to bar width
   ctx.strokeStyle = "white";
-  ctx.strokeRect(20, 100, 200, 20); // Level bar border
-  ctx.fillStyle = "Black";
+  ctx.strokeRect(20, 100, 200, 20); // Bar border
+
+  // Centered text
+  ctx.fillStyle = "black";
   ctx.font = "16px Arial";
-  ctx.textAlign = "left";
-  ctx.textBaseline = "top";
-  ctx.fillText(`Level ${Level}`, 30, 110);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(
+    `EXP: ${Math.floor(Experience)} / ${NeededExperience}  |  LVL: ${Level}`,
+    20 + 200 / 2,
+    100 + 20 / 2
+  );
 }
 
 // --- 16. Timer and Resize Handling ---
