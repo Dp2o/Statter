@@ -484,7 +484,7 @@ function drawHealth() {
 // Draw Level
 function drawLevel() {
   ctx.fillStyle = "white";
-  ctx.fillRect(20, 50, Experience * 2, 20); // Health bar
+  ctx.fillRect(20, 100, Experience * 2, 20); // Health bar
   ctx.strokeStyle = "white";
   ctx.strokeRect(20, 100, 200, 20); // Health bar border
 
@@ -492,7 +492,7 @@ function drawLevel() {
   ctx.font = "16px Arial";
   ctx.textAlign = "left";
   ctx.textBaseline = "middle";
-  ctx.fillText(`${Level}`, 30, 120);
+  ctx.fillText(`Level ${Level}`, 30, 110);
 }
 
 // --- 16. Timer and Resize Handling ---
