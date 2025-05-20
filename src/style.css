@@ -33,6 +33,7 @@ body {
 
 /* Character Select Screen */
 #characterSelectScreen {
+  position: relative;
   display: none; /* Default hidden, shown via JS */
   position: fixed;
   top: 0; left: 0;
@@ -86,6 +87,11 @@ body {
   margin-top: 12px;
   font-size: 1.1rem;
   transition: background 0.2s;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  /* Optional: style as you like */
+  z-index: 2;
 }
 #BackToMenuButton:hover {
   background: #910d0d;
