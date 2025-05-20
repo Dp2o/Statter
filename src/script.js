@@ -129,7 +129,7 @@ function getBackgroundColorAt(x, y) {
 }
 
 // --- 7. Game Start ---
-document.getElementById("PlayButton").addEventListener("click", startGame);
+document.getElementById("PlayButton").addEventListener("click", characterSelect);
 
 // Settings
 document.getElementById("SettingsButton").addEventListener("click", settings);
@@ -140,6 +140,13 @@ function settings() {
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
 }
+
+function characterSelect() {
+  document.getElementById("PlayButton").style.display = "none";
+  document.getElementById("SettingsButton").style.display = "none";
+  document.getElementById("header").style.display = "none";
+  document.getElementById("characterSelectScreen").style.display = "none";
+  
 
 function startGame() {
   gamestarted = true;
