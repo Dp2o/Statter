@@ -146,7 +146,7 @@ function characterSelect() {
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   document.getElementById("characterSelectScreen").style.display = "none";
-  
+}
 
 function startGame() {
   gamestarted = true;
