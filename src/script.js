@@ -69,6 +69,7 @@ Enemys now perfectly track the player, removes their ai.
 --Difficulty 5--
 Player does half damage, enemys take half damage from crit attacks
 
+// difficulty does not go past 6
 */
 
 if (Difficulty >= 4) {
