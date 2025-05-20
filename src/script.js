@@ -145,7 +145,7 @@ function characterSelect() {
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
-  document.getElementById("characterSelectScreen").style.display = "canvas";
+  document.getElementById("CharacterSelectScreen").style.display = "canvas";
   document.getElementById("CharacterSelectTop").style.display = "canvas";
   document.getElementById("CharacterDescription").style.display = "block";
   document.getElementById("DifficultySelection").style.display = "button";
