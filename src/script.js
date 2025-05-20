@@ -137,6 +137,7 @@ function settings() {
   // open settings
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("SettingsButton").style.display = "none";
+  document.getElementById("header").style.display = "none";
 }
 
 function startGame() {
