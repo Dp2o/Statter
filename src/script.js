@@ -156,6 +156,8 @@ function characterSelect() {
     document.getElementById("PlayButton").style.display = "inline-block";
     document.getElementById("SettingsButton").style.display = "inline-block";
     document.getElementById("header").style.display = "block";
+    document.getElementById("DifficultySelection").style.display = "none";
+    document.getElementById("CharacterButtons").style.display = "none";
   });
 }
 
