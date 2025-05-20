@@ -151,7 +151,12 @@ function characterSelect() {
   document.getElementById("DifficultySelection").style.display = "block";
   document.getElementById("CharacterButtons").style.display = "block";
   document.getElementById("BackToMenuButton").style.display = "block";
-  document.getElementById("BackToMenuButton").addEventListener("click", location.reload());
+  document.getElementById("BackToMenuButton").addEventListener("click", function() {
+    document.getElementById("CharacterSelectScreen").style.display = "none";
+    document.getElementById("PlayButton").style.display = "inline-block";
+    document.getElementById("SettingsButton").style.display = "inline-block";
+    document.getElementById("header").style.display = "block";
+  });
 }
 
 function startGame() {
