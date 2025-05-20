@@ -151,6 +151,7 @@ function characterSelect() {
   document.getElementById("DifficultySelection").style.display = "block";
   document.getElementById("CharacterButtons").style.display = "block";
   document.getElementById("BackToMenuButton").style.display = "block";
+  document.getElementById("BackToMenuButton").addEventListener("click", location.reload());
 }
 
 function startGame() {
