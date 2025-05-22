@@ -22,7 +22,7 @@ body {
   }
   button:hover {
   color: #fff;
-  text-shadow: -1 6px 20px #000;
+  text-shadow: 0 6px 20px #000;
   outline: none;
   }
   button {
