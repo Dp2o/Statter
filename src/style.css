@@ -21,10 +21,22 @@ body {
     transition: background-color 0.3s ease;
   }
   button:hover {
-    background-color: #020402; /* Slightly darker on hover */
+    background: linear-gradient(90deg, #92fe9d 0%, #00c9ff 100%);
+    transform: scale(1.07);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.25), 0 3px 6px #2dcee0 inset;
   }
   button {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
+    color: #222;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 18px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25), 0 1.5px 3px #2dcee0 inset;
+    margin: 12px 0;
   }
   
   button:active {
