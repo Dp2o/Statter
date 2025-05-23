@@ -2,6 +2,7 @@
 let Damage = 1;
 let AttackSpeed = 1;
 let Health = 100;
+let MaxHealth = 100;
 let Level = 1;
 let Experience = 0;
 let NeededExperience = 100;
@@ -79,6 +80,36 @@ if (Difficulty >= 4) {
 // Enemies
 let enemies = [];
 
+// characters
+const characters = [
+  {
+    name: "Basic",
+    desc: "Start with average stats and coins",
+    stats: {
+      Damage: 10, 
+      Coins: 100,
+    }
+  },
+  {
+    name: "Energised",
+    desc: "High walk speed but low health",
+    stats: {
+      WalkSpeed: 5,
+      MaxHealth: 80,
+      Health: 80,
+    }
+  },
+  {
+    name: "Big",
+    desc: "High Health and damage but low speed and attack speed.",
+    stats: {
+      WalkSpeed: 1,
+      MaxHealth: 150,
+      Health: 150,
+      Damage: 25,
+  }
+];
+
 // --- 4. Fullscreen Functionality ---
 function enterFullscreen() {
   if (canvas.requestFullscreen) {
@@ -88,6 +119,9 @@ function enterFullscreen() {
   }
 }
 
+const playerImg = new Image();
+playerImg.src = "Images/player.png";  // Adjust the path as needed
+
 // --- 5. Canvas Setup ---
 const canvas = document.createElement("canvas");
 canvas.id = "gameCanvas";
@@ -96,6 +130,10 @@ canvas.height = window.innerHeight;
 canvas.style.display = "none";
 document.body.appendChild(canvas);
 const ctx = canvas.getContext("2d");
+
+// --- character select screen setup
+
+
 
 // --- 6. Player Setup ---
 let player = {
@@ -109,11 +147,17 @@ let player = {
 
 // --- Draw Player ---
 function drawPlayer() {
-  ctx.beginPath();
-  ctx.arc(player.x, player.y, player.width / 2, 0, Math.PI * 2);
-  ctx.fillStyle = player.color;
-  ctx.fill();
-  ctx.closePath();
+  // Optionally, wait until the image is loaded
+  if (playerImg.complete) {
+    // Draw the image centered on player.x, player.y
+    ctx.drawImage(
+      playerImg,
+      player.x - player.width / 2,
+      player.y - player.height / 2,
+      player.width,
+      player.height
+    );
+  }
 }
 
 // Helper to get contrast color (black or white) based on background color
@@ -142,6 +186,8 @@ function settings() {
 }
 
 function characterSelect() {
+
+  // show the character select screen
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
@@ -151,13 +197,18 @@ function characterSelect() {
   document.getElementById("DifficultySelection").style.display = "block";
   document.getElementById("CharacterButtons").style.display = "block";
   document.getElementById("BackToMenuButton").style.display = "block";
+  
   document.getElementById("BackToMenuButton").addEventListener("click", function() {
+    
+    // show the main menu
     document.getElementById("CharacterSelectScreen").style.display = "none";
     document.getElementById("PlayButton").style.display = "inline-block";
     document.getElementById("SettingsButton").style.display = "inline-block";
     document.getElementById("header").style.display = "block";
     document.getElementById("DifficultySelection").style.display = "none";
     document.getElementById("CharacterButtons").style.display = "none";
+
+    
   });
 }
 
