@@ -110,6 +110,13 @@ const characters = [
   }
 ];
 
+function selectCharacter(character) {
+  Damage = character.stats.Damage;
+  Coins = character.stats.Coins;
+  Health = character.stats.Health;
+  // Set any stat you want here, using defaults if needed
+}
+
 // --- 4. Fullscreen Functionality ---
 function enterFullscreen() {
   if (canvas.requestFullscreen) {
