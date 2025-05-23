@@ -115,7 +115,10 @@ function selectCharacter(character) {
   Damage = character.stats.Damage;
   Coins = character.stats.Coins;
   Health = character.stats.Health;
+  WalkSpeed = character.stats.Health;
   // Set any stat you want here, using defaults if needed
+  document.getElementById('CharacterSelectScreen').style.display = 'none';
+  startGame(); // Or whatever your start function is
 }
 
 // --- 4. Fullscreen Functionality ---
@@ -141,7 +144,50 @@ const ctx = canvas.getContext("2d");
 
 // --- character select screen setup
 
+let selectedCharacterIndex = 0;
 
+function showCharacterSelect() {
+  document.getElementById('CharacterSelectScreen').style.display = 'block';
+
+  // Render character display
+  renderCharacterDisplay();
+}
+
+// This function renders the character card
+function renderCharacterDisplay() {
+  const char = characters[selectedCharacterIndex];
+  const charDesc = document.getElementById('CharacterDescription');
+  charDesc.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;gap:32px;">
+      <button id="CharPrevBtn" style="font-size:2rem;background:none;border:none;color:#2dcee0;cursor:pointer;">&#8592;</button>
+      <div style="text-align:center;">
+        <img src="${char.img}" alt="${char.name}" style="height:120px;display:block;margin:0 auto 10px;">
+        <div style="font-size:1.4rem;font-weight:bold;color:#fff;margin-bottom:6px;">${char.name}</div>
+        <div style="color:#ccc;">${char.desc}</div>
+        <div style="color:#87fbe5;margin-top:10px;font-size:1.1rem;">
+          Damage: ${char.stats.Damage} | Coins: ${char.stats.Coins} | Health: ${char.stats.Health}
+        </div>
+      </div>
+      <button id="CharNextBtn" style="font-size:2rem;background:none;border:none;color:#2dcee0;cursor:pointer;">&#8594;</button>
+    </div>
+    <button id="CharSelectBtn" style="margin-top:20px;padding:10px 28px;font-size:1.2rem;border-radius:10px;color:#fff;background:#2dcee0;border:none;cursor:pointer;">
+      Select ${char.name}
+    </button>
+  `;
+
+  // Add navigation button listeners
+  document.getElementById('CharPrevBtn').onclick = () => {
+    selectedCharacterIndex = (selectedCharacterIndex - 1 + characters.length) % characters.length;
+    renderCharacterDisplay();
+  };
+  document.getElementById('CharNextBtn').onclick = () => {
+    selectedCharacterIndex = (selectedCharacterIndex + 1) % characters.length;
+    renderCharacterDisplay();
+  };
+  document.getElementById('CharSelectBtn').onclick = () => {
+    selectCharacter(characters[selectedCharacterIndex]);
+  };
+}
 
 // --- 6. Player Setup ---
 let player = {
