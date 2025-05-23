@@ -107,6 +107,7 @@ const characters = [
       MaxHealth: 150,
       Health: 150,
       Damage: 25,
+    }
   }
 ];
 
