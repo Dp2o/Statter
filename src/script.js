@@ -153,7 +153,6 @@ function showCharacterSelect() {
   renderCharacterDisplay();
 }
 
-// This function renders the character card
 function renderCharacterDisplay() {
   const char = characters[selectedCharacterIndex];
   const charDesc = document.getElementById('CharacterDescription');
@@ -161,11 +160,11 @@ function renderCharacterDisplay() {
     <div style="display:flex;align-items:center;justify-content:center;gap:32px;">
       <button id="CharPrevBtn" style="font-size:2rem;background:none;border:none;color:#2dcee0;cursor:pointer;">&#8592;</button>
       <div style="text-align:center;">
-        <img src="${char.img}" alt="${char.name}" style="height:120px;display:block;margin:0 auto 10px;">
+        <div style="width:60px;height:60px;border-radius:50%;background:#2dcee0;display:block;margin:0 auto 10px;"></div>
         <div style="font-size:1.4rem;font-weight:bold;color:#fff;margin-bottom:6px;">${char.name}</div>
         <div style="color:#ccc;">${char.desc}</div>
         <div style="color:#87fbe5;margin-top:10px;font-size:1.1rem;">
-          Damage: ${char.stats.Damage} | Coins: ${char.stats.Coins} | Health: ${char.stats.Health}
+          Damage: ${char.stats.Damage ?? "-"} | Coins: ${char.stats.Coins ?? "-"} | Health: ${char.stats.Health ?? "-"}
         </div>
       </div>
       <button id="CharNextBtn" style="font-size:2rem;background:none;border:none;color:#2dcee0;cursor:pointer;">&#8594;</button>
@@ -175,7 +174,6 @@ function renderCharacterDisplay() {
     </button>
   `;
 
-  // Add navigation button listeners
   document.getElementById('CharPrevBtn').onclick = () => {
     selectedCharacterIndex = (selectedCharacterIndex - 1 + characters.length) % characters.length;
     renderCharacterDisplay();
