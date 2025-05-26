@@ -77,6 +77,14 @@ if (Difficulty >= 4) {
   CritDamageMultiplier /= 2
 }
 
+// Development
+const Dev = {
+  command: Mode {
+  console.log("dev mode activated")
+  document.getElementById("DevButton").style.display = "block";
+  }
+};
+
 // Enemies
 let enemies = [];
 
