@@ -139,6 +139,7 @@ document.getElementById("BackToMenuButton").addEventListener("click", function()
     document.getElementById("header").style.display = "block";
     document.getElementById("DifficultySelection").style.display = "none";
     document.getElementById("CharacterButtons").style.display = "none";
+    document.getElementById("BackToMenuButton").style.display = "none";
     
   });
 
