@@ -84,6 +84,7 @@ const Dev = {
   document.getElementById("DevButton").style.display = "block";
   }
 };
+console.log('%cClick here to activate dev mode', 'color:blue;text-decoration:underline;cursor:pointer;', '\nDev.Mode()');
 
 // Enemies
 let enemies = [];
