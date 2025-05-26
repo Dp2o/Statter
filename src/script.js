@@ -84,7 +84,7 @@ const Dev = {
   document.getElementById("DevButton").style.display = "block";
   }
 };
-console.log('%cClick here to activate dev mode', 'color:blue;text-decoration:underline;cursor:pointer;', '\nDev.Mode()');
+console.log('Dev.Mode()');
 document.getElementById("DevButton").addEventListener("click", OpenDevMenu);
 
 function OpenDevMenu() {
