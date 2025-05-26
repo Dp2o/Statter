@@ -78,12 +78,18 @@ if (Difficulty >= 4) {
 }
 
 // Development
+let DevMode = false;
 const Dev = {
   Mode: function() {
   console.log("dev mode activated")
   document.getElementById("DevButton").style.display = "block";
   }
 };
+
+if (DevMode = true) {
+  document.getElementById("DevButton").style.display = "block";
+}
+
 console.log('Dev.Mode()');
 document.getElementById("DevButton").addEventListener("click", OpenDevMenu);
 
