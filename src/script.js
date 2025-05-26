@@ -85,6 +85,14 @@ const Dev = {
   }
 };
 console.log('%cClick here to activate dev mode', 'color:blue;text-decoration:underline;cursor:pointer;', '\nDev.Mode()');
+document.getElementById("DevButton").addEventListener("click", OpenDevMenu);
+
+function OpenDevMenu {
+  document.getElementById("PlayButton").style.display = "none";
+  document.getElementById("SettingsButton").style.display = "none";
+  document.getElementById("header").style.display = "none";
+  documnet.getElementById("BackToMenuButton").style.display = "block";
+}
 
 // Enemies
 let enemies = [];
