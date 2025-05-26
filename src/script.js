@@ -77,24 +77,6 @@ if (Difficulty >= 4) {
   CritDamageMultiplier /= 2
 }
 
-// Developer
-async function getDeveloperPassword() {
-  const response = await axios.get("https://raw.githubusercontent.com/Dp2o/Statter/main/Removedfeatures.md");
-  return response.data.trim(); // get the file contents as password, trim whitespace
-}
-
-async function DevLogin(userPassword) {
-  const Developerpswd = await getDeveloperPassword();
-  if (userPassword === ("Dp2o" + Developerpswd)) {
-    console.log("Developer guessed password right.");
-    // Developer features unlocked
-    return true;
-  } else {
-    console.log("Wrong password");
-    return false;
-  }
-}
-
 // Enemies
 let enemies = [];
 
