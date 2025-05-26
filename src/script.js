@@ -86,10 +86,6 @@ const Dev = {
   }
 };
 
-if (DevMode = true) {
-  document.getElementById("DevButton").style.display = "block";
-}
-
 console.log('Dev.Mode()');
 document.getElementById("DevButton").addEventListener("click", OpenDevMenu);
 
@@ -146,6 +142,11 @@ document.getElementById("BackToMenuButton").addEventListener("click", function()
     document.getElementById("DifficultySelection").style.display = "none";
     document.getElementById("CharacterButtons").style.display = "none";
     document.getElementById("BackToMenuButton").style.display = "none";
+
+    // dev mode
+    if (DevMode = true) {
+      document.getElementById("DevButton").style.display = "block";
+    }
     
   });
 
