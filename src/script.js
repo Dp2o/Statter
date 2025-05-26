@@ -78,8 +78,7 @@ if (Difficulty >= 4) {
 }
 
 // Developer
-
-let Developerpswd = https:"//github.com/Dp2o/Statter/blob/main/Removedfeatures.md"
+const Developerpswd = await axios.get("https://raw.githubusercontent.com/Dp2o/Statter/blob/main/Removedfeatures.md") ;
 const Dev = {
   command: DevLogin(Password) {
     if (Password == ("Dp2o" + Developerpswd) {
