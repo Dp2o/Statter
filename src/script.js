@@ -129,6 +129,19 @@ const characters = [
   }
 ];
 
+// Back to menu button
+document.getElementById("BackToMenuButton").addEventListener("click", function() {
+    
+    // show the main menu
+    document.getElementById("CharacterSelectScreen").style.display = "none";
+    document.getElementById("PlayButton").style.display = "inline-block";
+    document.getElementById("SettingsButton").style.display = "inline-block";
+    document.getElementById("header").style.display = "block";
+    document.getElementById("DifficultySelection").style.display = "none";
+    document.getElementById("CharacterButtons").style.display = "none";
+    
+  });
+
 function selectCharacter(character) {
   Damage = character.stats.Damage;
   Coins = character.stats.Coins;
@@ -253,7 +266,6 @@ function settings() {
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
-  documnet.getElementById("BackToMenuButton").style.display = "block";
 }
 
 function characterSelect() {
@@ -268,19 +280,6 @@ function characterSelect() {
   document.getElementById("DifficultySelection").style.display = "block";
   document.getElementById("CharacterButtons").style.display = "block";
   document.getElementById("BackToMenuButton").style.display = "block";
-  
-  document.getElementById("BackToMenuButton").addEventListener("click", function() {
-    
-    // show the main menu
-    document.getElementById("CharacterSelectScreen").style.display = "none";
-    document.getElementById("PlayButton").style.display = "inline-block";
-    document.getElementById("SettingsButton").style.display = "inline-block";
-    document.getElementById("header").style.display = "block";
-    document.getElementById("DifficultySelection").style.display = "none";
-    document.getElementById("CharacterButtons").style.display = "none";
-
-    
-  });
 }
 
 function startGame() {
