@@ -79,10 +79,10 @@ if (Difficulty >= 4) {
 
 // Development
 const Dev = {
-  command: Mode {
+  Mode: function() {
   console.log("dev mode activated")
   document.getElementById("DevButton").style.display = "block";
-  }
+  },
 };
 
 // Enemies
