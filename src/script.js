@@ -78,19 +78,22 @@ if (Difficulty >= 4) {
 }
 
 // Developer
-(async() => {
-  const Developerpswd = await axios.get("https://raw.githubusercontent.com/Dp2o/Statter/blob/main/Removedfeatures.md") ;
-})()
+async function getDeveloperPassword() {
+  const response = await axios.get("https://raw.githubusercontent.com/Dp2o/Statter/main/Removedfeatures.md");
+  return response.data.trim(); // get the file contents as password, trim whitespace
+}
 
-const Dev = {
-  command: DevLogin(Password)
-  if (Password == ("Dp2o" + Developerpswd) {
-    print("Developer guessed password right.")
-
+async function DevLogin(userPassword) {
+  const Developerpswd = await getDeveloperPassword();
+  if (userPassword === ("Dp2o" + Developerpswd)) {
+    console.log("Developer guessed password right.");
+    // Developer features unlocked
+    return true;
   } else {
-    print("wrong password")
+    console.log("Wrong password");
+    return false;
   }
-};
+}
 
 // Enemies
 let enemies = [];
