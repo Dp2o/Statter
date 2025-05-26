@@ -92,6 +92,7 @@ function OpenDevMenu() {
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   documnet.getElementById("BackToMenuButton").style.display = "block";
+  document.getElementById("DevButton").style.display = "none";
 }
 
 // Enemies
