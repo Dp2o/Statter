@@ -83,13 +83,12 @@ if (Difficulty >= 4) {
 })()
 
 const Dev = {
-  command: DevLogin(Password) {
-    if (Password == ("Dp2o" + Developerpswd) {
-      print("Developer guessed password right.")
+  command: DevLogin(Password)
+  if (Password == ("Dp2o" + Developerpswd) {
+    print("Developer guessed password right.")
 
-    } else {
-      print("wrong password")
-    }
+  } else {
+    print("wrong password")
   }
 };
 
