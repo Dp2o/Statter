@@ -144,7 +144,7 @@ document.getElementById("BackToMenuButton").addEventListener("click", function()
     document.getElementById("BackToMenuButton").style.display = "none";
 
     // dev mode
-    if (DevMode = true) {
+    if (DevMode == true) {
       document.getElementById("DevButton").style.display = "block";
     }
     
@@ -275,6 +275,7 @@ function settings() {
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   document.getElementById("BackToMenuButton").style.display = "block";
+  document.getElementById("DevButton").style.display = "block";
 }
 
 function characterSelect() {
