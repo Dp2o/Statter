@@ -89,6 +89,8 @@ const Dev = {
 
 console.log('Dev.Mode()');
 document.getElementById("DevButton").addEventListener("click", OpenDevMenu);
+// start the game without character select menu
+document.getElementById("DevPlay").addEventListener("click", startGame);
 
 function OpenDevMenu() {
   document.getElementById("PlayButton").style.display = "none";
