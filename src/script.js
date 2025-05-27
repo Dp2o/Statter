@@ -7,7 +7,7 @@ let Level = 1;
 let Experience = 0;
 let NeededExperience = 100;
 let Coins = 100;
-let WalkSpeed = 10;
+let WalkSpeed = 2;
 
 // --- 2. Secondary Stats ---
 let Luck = 1; // Luck now affects upgrade rarity
