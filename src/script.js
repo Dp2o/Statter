@@ -108,7 +108,7 @@ const buttons = document.querySelectorAll('button');
 
 buttons.forEach(button => {
   button.addEventListener('mouseover', () => {
-    if (!button.getElementById("BackToMenuButton")) {
+    if (!button.getElementById("BackToMenuButton") == true) {
       button.classList.add('wobbling');
     }
   });
