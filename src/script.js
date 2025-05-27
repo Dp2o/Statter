@@ -253,8 +253,8 @@ function renderCharacterDisplay() {
 let player = {
   x: canvas.width / 2,
   y: canvas.height / 2,
-  width: 30,
-  height: 30,
+  width: 50,
+  height: 50,
   color: "blue",
   speed: 1 * WalkSpeed,
 };
