@@ -83,6 +83,7 @@ const Dev = {
   Mode: function() {
   console.log("dev mode activated")
   document.getElementById("DevButton").style.display = "block";
+  DevMode = true;
   }
 };
 
