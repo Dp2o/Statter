@@ -145,6 +145,8 @@ document.getElementById("BackToMenuButton").addEventListener("click", function()
     document.getElementById("DifficultySelection").style.display = "none";
     document.getElementById("CharacterButtons").style.display = "none";
     document.getElementById("BackToMenuButton").style.display = "none";
+    document.getElementById("DevPlay").style.display = "none";
+    document.getElementById("DevSettings").style.display = "none";
 
     // dev mode
     if (DevMode == true) {
