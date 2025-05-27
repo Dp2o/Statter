@@ -291,6 +291,7 @@ function characterSelect() {
   document.getElementById("DifficultySelection").style.display = "block";
   document.getElementById("CharacterButtons").style.display = "block";
   document.getElementById("BackToMenuButton").style.display = "block";
+  document.getElementById("DevButton").style.display = "none";
 }
 
 function startGame() {
