@@ -96,6 +96,8 @@ function OpenDevMenu() {
   document.getElementById("header").style.display = "none";
   document.getElementById("BackToMenuButton").style.display = "block";
   document.getElementById("DevButton").style.display = "none";
+  document.getElementById("DevPlay").style.display = "block";
+  document.getElementById("DevSettings").style.display = "block";
 }
 
 // Enemies
