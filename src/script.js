@@ -275,7 +275,7 @@ function settings() {
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   document.getElementById("BackToMenuButton").style.display = "block";
-  document.getElementById("DevButton").style.display = "block";
+  document.getElementById("DevButton").style.display = "none";
 }
 
 function characterSelect() {
