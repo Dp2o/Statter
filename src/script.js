@@ -310,6 +310,9 @@ function startGame() {
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   document.getElementById("SettingsButton").style.display = "none";
+  document.getElementById("BackToMenuButton").style.display = "none";
+  document.getElementById("DevPlay").style.display = "none";
+  document.getElementById("DevSettings").style.display = "none";
   enterFullscreen();
   generateStarDots();
   generateGridDots();
