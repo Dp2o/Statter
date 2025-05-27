@@ -102,6 +102,20 @@ function OpenDevMenu() {
   document.getElementById("DevSettings").style.display = "block";
 }
 
+// Button animations
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => {
+  button.addEventListener('mouseover', () => {
+    button.classList.add('wobbling');
+  });
+
+  button.addEventListener('animationend', () => {
+    button.classList.remove('wobbling');
+  });
+});
+
 // Enemies
 let enemies = [];
 
