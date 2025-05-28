@@ -163,6 +163,7 @@ function DevSettings() {
 
   if (DebugMode == false) {
     document.getElementById("DebugOnButton").style.display = "block";
+    document.getElementById("DebugOffButton").style.display = "none";
   } else {
     document.getElementById("DebugOnButton").style.display = "none";
     document.getElementById("DebugOffButton").style.display = "block";
@@ -258,6 +259,8 @@ document.getElementById("BackToMenuButton").addEventListener("click", function()
     document.getElementById("DevOnSettingButton").style.display = "none";
     document.getElementById("DevModeNotice").style.display = "none";
     document.getElementById("BottomText").style.display = "block";
+    document.getElementById("DebugOnButton").style.display = "none";
+    document.getElementById("DebugOffButton").style.display = "none";
 
     // dev mode
     if (DevMode == true) {
