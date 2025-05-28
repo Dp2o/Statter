@@ -105,6 +105,8 @@ function OpenDevMenu() {
   document.getElementById("DevButton").style.display = "none";
   document.getElementById("DevPlay").style.display = "block";
   document.getElementById("DevSettings").style.display = "block";
+  document.getElementById("BottomText").style.display = "none";
+  document.getElementById("DevModeNotice").style.display = "block";
 }
 
 // --- Custom In-Game Console ---
@@ -389,6 +391,7 @@ function settings() {
   document.getElementById("BackToMenuButton").style.display = "block";
   document.getElementById("DevButton").style.display = "none";
   document.getElementById("DevModeNotice").style.display = "block";
+  document.getElementById("BottomText").style.display = "none";
 
   if (DevMode == true) {
     document.getElementById("DevOnSettingButton").style.display = "none";
