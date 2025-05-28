@@ -136,13 +136,13 @@ toggleBtn.style.cssText = `
   left:12px;
   z-index:10000;
   font-size:15px;
-  background:#2dcee0;
   color:#111;
   border:none;
   border-radius:7px;
   padding:6px 16px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   cursor:pointer;
+  display: none;
 `;
 toggleBtn.onclick = () => {
   customConsole.style.display = customConsole.style.display === 'none' ? 'block' : 'none';
@@ -173,6 +173,7 @@ function DevSettings() {
   document.getElementById("DevButton").style.display = "none";
   document.getElementById("DevPlay").style.display = "none";
   document.getElementById("DevSettings").style.display = "none";
+  document.getElementById("ToggleBtn").style.display = "block";
   
 
   if (DebugMode == false) {
