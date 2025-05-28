@@ -252,6 +252,8 @@ document.getElementById("BackToMenuButton").addEventListener("click", function()
     document.getElementById("DevPlay").style.display = "none";
     document.getElementById("DevSettings").style.display = "none";
     document.getElementById("customConsole").style.display = "none";
+    document.getElementById("DevOffSettingButton").style.display = "none";
+    document.getElementById("DevOnSettingButton").style.display = "none";
 
     // dev mode
     if (DevMode == true) {
@@ -386,6 +388,16 @@ function settings() {
   document.getElementById("header").style.display = "none";
   document.getElementById("BackToMenuButton").style.display = "block";
   document.getElementById("DevButton").style.display = "none";
+  document.getElementById("DevModeNotice").style.display = "block";
+
+  if (DevMode == true) {
+    document.getElementById("DevOnSettingButton").style.display = "none";
+    document.getElementById("DevOffSettingButton").style.display = "block";
+  } else {
+    document.getElementById("DevOnSettingButton").style.display = "block";
+    document.getElementById("DevOffSettingButton").style.display = "none";
+  }
+  
 }
 
 function characterSelect() {
