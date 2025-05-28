@@ -18,9 +18,7 @@
     <!-- Setting menu -->
     <button style="margin-left: -1000px; display: none;" id="DevOnSettingButton">Turn dev mode on</button>
     <button style="margin-left: -1000px; display: none;" id="DevOffSettingButton">Turn dev mode off</button>
-
-    <p  id="DevModeNotice" style=" top: -100px; margin-left: 0px; display: none; color: #808080;" >Using Dev mode turns off progress until you reload the page. Any game progress will not be saved during this time.</p>
-
+    
     <!-- Dev Button -->
     <button id="DevButton" style=" display: none; margin-left: -1000px; margin-top: 10px; ">Dev</button>
 
@@ -38,8 +36,14 @@
 
     <!-- bottom text -->
     <p  id="BottomText" style=" margin-top: -100px; margin-left: 0px; color: #808080;" >This game was made by Dp2o on Github</p>
+    <p  id="DevModeNotice" style=" margin-top: -100px; margin-left: 0px; display: none; color: #808080;" >Using Dev mode turns off progress until you reload the page. Any game progress will not be saved during this time.</p>
+
     <style>
       #BottomText {
+        position: fixed;
+        top: 700px;
+      }
+      #DevModeNotice {
         position: fixed;
         top: 700px;
       }
