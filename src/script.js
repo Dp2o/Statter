@@ -116,7 +116,7 @@ function DevSettings() {
   document.getElementById("DevButton").style.display = "none";
 
   document.getElementById("DevOffButton").addEventListener("click", function() {
-    DevMode = false:
+    DevMode = false;
   });
 
   document.getElementById("DebugOnButton").addEventListener("click", function() {
