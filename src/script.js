@@ -40,6 +40,9 @@ let wave = 1;
 // FullScreen
 let pausedForFullscreen = false;
 
+// Debug Mode
+let DebugMode = false;
+
 // timer anim
 let timerAnimElapsed = 0;
 let timerAnimDuration = 1000; // 1 second
@@ -114,6 +117,20 @@ function DevSettings() {
 
   document.getElementById("DevOffButton").addEventListener("click", function() {
     DevMode = false:
+  });
+
+  document.getElementById("DebugOnButton").addEventListener("click", function() {
+    document.getElementById("DebugOffButton").style.display = "block";
+    DebugMode = true;
+    document.getElementById("DebugOnButton").style.display = "none";
+    console.log("Debug mode on");
+  });
+
+  document.getElementById("DebugOffButton").addEventListener("click", function() {
+    document.getElementById("DebugOnButton").style.display = "block";
+    DebugMode = false;
+    document.getElementById("DebugOffButton").style.display = "none";
+    console.log("Debug mode off");
   });
   
 }
