@@ -96,6 +96,10 @@ document.getElementById("DevButton").addEventListener("click", OpenDevMenu);
 document.getElementById("DevPlay").addEventListener("click", startGame);
 // Developer settings
 document.getElementById("DevSettings").addEventListener("click", DevSettings);
+// Open Dev Menu
+document.getElementById("DevOnSettingButton").addEventListener("click", Dev.Mode);
+
+
 
 function OpenDevMenu() {
   document.getElementById("PlayButton").style.display = "none";
