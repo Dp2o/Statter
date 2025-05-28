@@ -41,7 +41,7 @@ let wave = 1;
 let pausedForFullscreen = false;
 
 // Debug Mode
-let DebugMode = false;
+let DebugMode = true;
 
 // timer anim
 let timerAnimElapsed = 0;
@@ -109,11 +109,23 @@ function OpenDevMenu() {
 
 function DevSettings() {
   // open settings
+  if (DebugMode == true) {
+    console.log("Opened Developer Settings")
+  }
+  
   document.getElementById("PlayButton").style.display = "none";
   document.getElementById("SettingsButton").style.display = "none";
   document.getElementById("header").style.display = "none";
   document.getElementById("BackToMenuButton").style.display = "block";
   document.getElementById("DevButton").style.display = "none";
+
+  if (DebugMode == false {
+    document.getElementById("DebugOnButton").style.display = "block";
+  } else {
+    document.getElementById("DebugOnButton").style.display = "none";
+    document.getElementById("DebugOffButton").style.display = "block";
+  }
+    
 
   document.getElementById("DevOffButton").addEventListener("click", function() {
     DevMode = false;
