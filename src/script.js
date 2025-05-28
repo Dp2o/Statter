@@ -91,6 +91,8 @@ console.log('Dev.Mode()');
 document.getElementById("DevButton").addEventListener("click", OpenDevMenu);
 // start the game without character select menu
 document.getElementById("DevPlay").addEventListener("click", startGame);
+// Developer settings
+document.getElementById("DevSettings").addEventListener("click", DevSettings);
 
 function OpenDevMenu() {
   document.getElementById("PlayButton").style.display = "none";
@@ -100,6 +102,20 @@ function OpenDevMenu() {
   document.getElementById("DevButton").style.display = "none";
   document.getElementById("DevPlay").style.display = "block";
   document.getElementById("DevSettings").style.display = "block";
+}
+
+function DevSettings() {
+  // open settings
+  document.getElementById("PlayButton").style.display = "none";
+  document.getElementById("SettingsButton").style.display = "none";
+  document.getElementById("header").style.display = "none";
+  document.getElementById("BackToMenuButton").style.display = "block";
+  document.getElementById("DevButton").style.display = "none";
+
+  document.getElementById("DevOffButton").addEventListener("click", function() {
+    DevMode = false:
+  });
+  
 }
 
 // Button animations
