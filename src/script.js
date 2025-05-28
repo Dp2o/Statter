@@ -119,7 +119,7 @@ function DevSettings() {
   document.getElementById("BackToMenuButton").style.display = "block";
   document.getElementById("DevButton").style.display = "none";
 
-  if (DebugMode == false {
+  if (DebugMode == false) {
     document.getElementById("DebugOnButton").style.display = "block";
   } else {
     document.getElementById("DebugOnButton").style.display = "none";
