@@ -129,7 +129,7 @@ customConsole.style.cssText = `
 document.body.appendChild(customConsole);
 
 function myConsoleLog(...args) {
-  if (DevMode == true;) {
+  if (DevMode == true) {
     customConsole.style.display = 'block';
   } else {
     customConsole.style.display = 'none';
