@@ -107,6 +107,59 @@ function OpenDevMenu() {
   document.getElementById("DevSettings").style.display = "block";
 }
 
+// --- Custom In-Game Console ---
+const customConsole = document.createElement('div');
+customConsole.id = 'customConsole';
+customConsole.style.cssText = `
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  max-height:180px;
+  background:rgba(20,20,20,0.92);
+  color:#fff;
+  font-family:monospace;
+  font-size:14px;
+  overflow-y:auto;
+  z-index:9999;
+  display:none;
+  padding:8px 12px;
+  border-top:2px solid #2dcee0;
+`;
+document.body.appendChild(customConsole);
+
+const toggleBtn = document.createElement('button');
+toggleBtn.innerText = 'Toggle Console';
+toggleBtn.style.cssText = `
+  position:fixed;
+  bottom:190px;
+  left:12px;
+  z-index:10000;
+  font-size:15px;
+  background:#2dcee0;
+  color:#111;
+  border:none;
+  border-radius:7px;
+  padding:6px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  cursor:pointer;
+`;
+toggleBtn.onclick = () => {
+  customConsole.style.display = customConsole.style.display === 'none' ? 'block' : 'none';
+};
+document.body.appendChild(toggleBtn);
+
+function myConsoleLog(...args) {
+  customConsole.style.display = 'block';
+  customConsole.innerHTML += args.map(a =>
+    typeof a === 'object' ? JSON.stringify(a) : a
+  ).join(' ') + '<br>';
+  customConsole.scrollTop = customConsole.scrollHeight;
+}
+
+// Optionally override the default console.log
+console.log = myConsoleLog;
+
 function DevSettings() {
   // open settings
   if (DebugMode == true) {
