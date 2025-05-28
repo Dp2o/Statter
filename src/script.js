@@ -256,6 +256,8 @@ document.getElementById("BackToMenuButton").addEventListener("click", function()
     document.getElementById("customConsole").style.display = "none";
     document.getElementById("DevOffSettingButton").style.display = "none";
     document.getElementById("DevOnSettingButton").style.display = "none";
+    document.getElementById("DevModeNotice").style.display = "none";
+    document.getElementById("BottomText").style.display = "block";
 
     // dev mode
     if (DevMode == true) {
