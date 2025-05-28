@@ -118,6 +118,9 @@ function DevSettings() {
   document.getElementById("header").style.display = "none";
   document.getElementById("BackToMenuButton").style.display = "block";
   document.getElementById("DevButton").style.display = "none";
+  document.getElementById("DevPlay").style.display = "none";
+  document.getElementById("DevSettings").style.display = "none";
+  
 
   if (DebugMode == false) {
     document.getElementById("DebugOnButton").style.display = "block";
