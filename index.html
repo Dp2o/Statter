@@ -8,31 +8,41 @@
     <link rel="stylesheet" href="src/style.css" />
   </head>
   <body>
-    <!-- Title -->
-    <h1 id="header"><img src="Images/Logo.png" alt="Statter Logo" style="height: 200px; margin-left: -750px; margin-top: -200px;"></h1>
-
-    <!-- Main Menu Buttons -->
-    <button style="margin-left: -1000px;" id="PlayButton">Play</button>
-    <button style="margin-left: -1000px;" id="SettingsButton">Settings</button>
-
-    <!-- Setting menu -->
-    <button style="margin-left: -1000px; display: none;" id="DevOnSettingButton">Turn dev mode on</button>
-    <button style="margin-left: -1000px; display: none;" id="DevOffSettingButton">Turn dev mode off</button>
     
-    <!-- Dev Button -->
-    <button id="DevButton" style=" display: none; margin-left: -1000px; margin-top: 10px; ">Dev</button>
+    <div data-screen="main-menu">Main Menu Content</div>
+      
+      <!-- Title -->
+      <h1 id="header"><img src="Images/Logo.png" alt="Statter Logo" style="height: 200px; margin-left: -750px; margin-top: -200px;"></h1>
+
+      <!-- Main Menu Buttons -->
+      <button style="margin-left: -1000px;" id="PlayButton">Play</button>
+      <button style="margin-left: -1000px;" id="SettingsButton">Settings</button>
+    
+    <div data-screen="settings">Settings Content</div>
+
+      <!-- Setting menu -->
+      <button style="margin-left: -1000px; display: none;" id="DevOnSettingButton">Turn dev mode on</button>
+      <button style="margin-left: -1000px; display: none;" id="DevOffSettingButton">Turn dev mode off</button>
+      
+    <div data-screen="Dev">Dev menu Content</div>
+
+      <!-- Dev Button -->
+      <button id="DevButton" style=" display: none; margin-left: -1000px; margin-top: 10px; ">Dev</button>
+
+      <!-- Dev Menu -->
+      <button style="margin-left: -1000px; display: none;" id="DevPlay">Play without character select</button>
+      <button style="margin-left: -1000px; display: none;" id="DevSettings">Developer Settings</button>
+
+    <div data-screen="Dev">Dev Settings Content</div>
+
+      <!-- Developer Settings -->
+      <button style="margin-left: -1000px; display: none;" id="DevOffButton">Turn Dev mode off</button>
+      <button style="margin-left: -1000px; display: none;" id="DebugOnButton">Turn on Debug mode</button>
+      <button style="margin-left: -1000px; display: none;" id="DebugOffButton">Turn off Debug mode</button>
+    
 
     <!-- back to menu button -->
     <button id="BackToMenuButton" style=" display: none;" >Back</button>
-
-    <!-- Dev Menu -->
-    <button style="margin-left: -1000px; display: none;" id="DevPlay">Play without character select</button>
-    <button style="margin-left: -1000px; display: none;" id="DevSettings">Developer Settings</button>
-
-    <!-- Developer Settings -->
-    <button style="margin-left: -1000px; display: none;" id="DevOffButton">Turn Dev mode off</button>
-    <button style="margin-left: -1000px; display: none;" id="DebugOnButton">Turn on Debug mode</button>
-    <button style="margin-left: -1000px; display: none;" id="DebugOffButton">Turn off Debug mode</button>
 
     <!-- bottom text -->
     <p  id="BottomText" style=" margin-top: -100px; margin-left: 0px; color: #808080;" >This game was made by Dp2o on Github</p>
