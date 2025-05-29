@@ -25,6 +25,24 @@ button.wobbling {
   animation: wobble 0.6s forwards; /* 'forwards' keeps the final state */
 }
 
+MainMenu {
+
+}
+
+SettingsMenu {
+
+}
+
+DevMenu {
+
+}
+
+DevSettings {
+
+}
+
+
+
   button {
     background-color: #fff 
     color: #fff;
