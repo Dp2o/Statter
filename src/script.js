@@ -84,8 +84,7 @@ if (Difficulty >= 4) {
 let DevMode = false;
 const Dev = {
   Mode: function() {
-  console.log("dev mode activated")
-  document.getElementById("DevButton").style.display = "block";
+  console.log("dev mode activated";
   DevMode = true;
   }
 };
