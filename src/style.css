@@ -1,17 +1,44 @@
 body {
-    background: rgb(54,57,62); /* Make it white if you need */
-    color: #2dcee0;
-    padding: 0 6px;
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, Helvetica, sans-serif, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+  background: rgb(54,57,62);
+  color: #2dcee0;
+  margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, Helvetica, sans-serif, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  @keyframes wobble {
+/* Data screen toggling */
+[data-screen] { display: none; }
+[data-screen].active { display: block; }
+
+/* Buttons */
+button {
+  background: #222;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 12px 24px;
+  margin: 12px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.2s, text-shadow 0.2s;
+  text-shadow: 0 2px 8px #000a;
+}
+button:hover {
+  background: #2dcee0;
+  color: #222;
+  text-shadow: 0 6px 20px #000;
+}
+button:active {
+  transform: scale(0.90);
+}
+
+/* Wobble animation */
+@keyframes wobble {
   0% { transform: rotate(0deg); }
   15% { transform: rotate(-5deg); }
   30% { transform: rotate(3deg); }
@@ -20,123 +47,39 @@ body {
   75% { transform: rotate(-1deg); }
   100% { transform: rotate(0deg); }
 }
-
 button.wobbling {
-  animation: wobble 0.6s forwards; /* 'forwards' keeps the final state */
+  animation: wobble 0.6s forwards;
 }
 
-[data-screen] {
-  display: none;
-}
-[data-screen].active {
-  display: block;
-}
-
-
-
-  button {
-    background-color: #fff 
-    color: #fff;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  button:hover {
-  color: #fff;
-  text-shadow: 0 6px 20px #000;
-  outline: none;
-  }
-  button {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 8px 0;
-  margin: 12px 0;
-  cursor: pointer;
-  transition: color 0.2s, text-shadow 0.2s;
-  text-shadow: 0 2px 8px #000a;
-  }
-  
-  button:active {
-    transform: scale(0.90);
-  }
-
-/* Character Select Screen */
-#characterSelectScreen {
-  position: relative;
-  display: none; /* Default hidden, shown via JS */
+/* Character select screen (hidden by default) */
+#CharacterSelectScreen {
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(34, 36, 40, 0.95);
   z-index: 20;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-#CharacterSelectTop {
-  font-size: 2rem;
-  color: #fff;
-  margin-bottom: 18px;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 6px #0008;
-}
-
-#CharacterDescription {
-  color: #cdefff;
-  margin-bottom: 22px;
-  max-width: 400px;
-  text-align: center;
-  font-size: 1.2rem;
-  background: rgba(20,24,28,0.7);
-  padding: 12px 24px;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px #0006;
-}
-
-#DifficultySelection {
-  margin-bottom: 18px;
-  color: #f8e71c;
-  font-weight: bold;
-}
-
-#CharacterButtons {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 18px;
-}
-
-#BackToMenuButton {
-  background-color: #bd2323;
-  color: #fff;
-  border-radius: 6px;
-  padding: 10px 30px;
-  margin-top: 12px;
-  font-size: 1.1rem;
-  transition: background 0.2s;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  /* Optional: style as you like */
-  z-index: 2;
-}
-#BackToMenuButton:hover {
-  background: #910d0d;
-}
-#header {
-  margin-top: 32px;   /* Adjust this value to move it up or down */
-  margin-bottom: 24px;
-}
+/* Header image */
 #header img {
   display: block;
   margin: 0 auto;
 }
 
+/* Bottom text */
+#BottomText, #DevModeNotice {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #808080;
+  margin: 0;
+  z-index: 100;
+}
+#DevModeNotice { display: none; }
