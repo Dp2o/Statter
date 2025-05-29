@@ -22,6 +22,7 @@ let ExplosionSize = 1;
 let ProjectileRichochet = false;
 
 // --- 3. Game State ---
+let Acceleration = 0; // acceleration for the submarine
 let roundDuration = 60; // 60 seconds per round
 let timeLeft = roundDuration;
 let timerInterval; // Updated to handle timer overlaps
