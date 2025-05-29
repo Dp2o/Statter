@@ -97,7 +97,7 @@ if (Difficulty >= 4) {
 let DevMode = false;
 const Dev = {
   Mode: function() {
-  console.log("dev mode activated";
+  console.log("dev mode activated");
   DevMode = true;
   }
 };
