@@ -76,6 +76,19 @@ Player does half damage, enemys take half damage from crit attacks
 // difficulty does not go past 6
 */
 
+function showScreen(screenName) {
+  document.querySelectorAll('[data-screen]').forEach(el => {
+    if (el.getAttribute('data-screen') === screenName) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
+  });
+}
+// To show main menu: showScreen('main-menu')
+// To show settings: showScreen('settings')
+// To show Dev: showScreen('Dev')
+
 if (Difficulty >= 4) {
   CritDamageMultiplier /= 2
 }
