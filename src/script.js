@@ -39,12 +39,15 @@ let shopItems = [];
 let starDots = [];
 let gridDots = [];
 let wave = 1;
+const oceanAccel = 0.03;    // Slower to speed up
+const oceanFriction = 0.01; // Slower to slow down
+const maxSpeed = WalkSpeed; // Or set a lower speed if desired
 
 // FullScreen
 let pausedForFullscreen = false;
 
 // Debug Mode
-let DebugMode = true;
+let DebugMode = false;
 
 // timer anim
 let timerAnimElapsed = 0;
@@ -518,57 +521,53 @@ function gameLoop() {
   drawTimer();
   drawHealth();
   drawLevel();
-
+  
   function UpdateAcceleration() {
-    const accel = 0.1;
-    const maxSpeed = WalkSpeed;
-    const friction = 0.05;
-
     // Vertical
     if (keyState.w) {
-      AccelerationY -= accel;
+      AccelerationY -= oceanAccel;
     }
     if (keyState.s) {
-      AccelerationY += accel;
+      AccelerationY += oceanAccel;
     }
     // Horizontal
     if (keyState.a) {
-      AccelerationX -= accel;
+      AccelerationX -= oceanAccel;
     }
     if (keyState.d) {
-      AccelerationX += accel;
+      AccelerationX += oceanAccel;
     }
 
-    // Clamp to max speed (both positive and negative)
+    // Clamp speed (in both directions)
     if (AccelerationX > maxSpeed) AccelerationX = maxSpeed;
     if (AccelerationX < -maxSpeed) AccelerationX = -maxSpeed;
     if (AccelerationY > maxSpeed) AccelerationY = maxSpeed;
     if (AccelerationY < -maxSpeed) AccelerationY = -maxSpeed;
 
-    // Apply friction when no key is pressed
+    // Apply friction when not pressing keys
     if (!keyState.a && !keyState.d) {
       if (AccelerationX > 0) {
-        AccelerationX -= friction;
+        AccelerationX -= oceanFriction;
         if (AccelerationX < 0) AccelerationX = 0;
       }
       if (AccelerationX < 0) {
-        AccelerationX += friction;
+        AccelerationX += oceanFriction;
         if (AccelerationX > 0) AccelerationX = 0;
       }
     }
     if (!keyState.w && !keyState.s) {
       if (AccelerationY > 0) {
-        AccelerationY -= friction;
+        AccelerationY -= oceanFriction;
         if (AccelerationY < 0) AccelerationY = 0;
       }
       if (AccelerationY < 0) {
-        AccelerationY += friction;
+        AccelerationY += oceanFriction;
         if (AccelerationY > 0) AccelerationY = 0;
       }
     }
   }
 
-const AccelerationInterval = setInterval(UpdateAcceleration, 1000);
+  const AccelerationInterval = setInterval(UpdateAcceleration, 1000);
 
   if (inRound) {
     Experience += 0.05;
