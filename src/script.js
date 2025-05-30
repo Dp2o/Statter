@@ -544,41 +544,41 @@ function generateGridDots() {
 
 function UpdateAcceleration() {
   if (keyState.w = true) {
-    if (!Acceleration >= WalkSpeed) {
+    if (!AccelerationY >= WalkSpeed) {
       AccelerationY += 0.1
     }
   } else {
-    if (!Acceleration <= 0) {
+    if (!AccelerationY <= 0) {
       AccelerationY -= 0.1
     }
   }
 
   if (keyState.a = true) {
-    if (!Acceleration >= WalkSpeed) {
+    if (!AccelerationX >= WalkSpeed) {
       AccelerationX += 0.1
     }
   } else {
-    if (!Acceleration <= 0) {
+    if (!AccelerationX <= 0) {
       AccelerationX -= 0.1
     }
   }
 
   if (keyState.s = true) {
-    if (!Acceleration >= WalkSpeed) {
+    if (!AccelerationY >= WalkSpeed) {
       AccelerationY += 0.1
     }
   } else {
-    if (!Acceleration <= 0) {
+    if (!AccelerationY <= 0) {
       AccelerationY -= 0.1
     }
   }
 
   if (keyState.d = true) {
-    if (!Acceleration >= WalkSpeed) {
+    if (!AccelerationX >= WalkSpeed) {
       AccelerationX += 0.1
     }
   } else {
-    if (!Acceleration <= 0) {
+    if (!AccelerationX <= 0) {
       AccelerationX -= 0.1
     }
   }
