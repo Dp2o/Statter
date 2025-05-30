@@ -860,7 +860,6 @@ function drawHealth() {
 
   // Draw health bar
   ctx.fillStyle = "green";
-  ctx.style.borderRadius = 20px;
   ctx.fillRect(x, y, healthWidth, h);
   ctx.strokeStyle = "white";
   ctx.strokeRect(x, y, w, h);
@@ -902,7 +901,6 @@ function drawLevel() {
   // Draw exp bar
   ctx.fillStyle = "white";
   ctx.fillRect(x, y, filledWidth, h);
-  ctx.style.borderRadius = 20px;
   ctx.strokeStyle = "white";
   ctx.strokeRect(x, y, w, h);
 
