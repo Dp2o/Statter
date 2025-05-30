@@ -519,51 +519,54 @@ function gameLoop() {
   drawHealth();
   drawLevel();
 
-function UpdateAcceleration() {
-  // Acceleration constants
-  const accel = 0.1;
-  const friction = 0.05; // How quickly you slow down when not pressing a key
+  function UpdateAcceleration() {
+    const accel = 0.1;
+    const maxSpeed = WalkSpeed;
+    const friction = 0.05;
 
-  // Y axis (up/down)
-  if (keyState.w) {
-    AccelerationY -= accel;
-    if (AccelerationY < -WalkSpeed) AccelerationY = -WalkSpeed;
-  } else if (keyState.s) {
-    AccelerationY += accel;
-    if (AccelerationY > WalkSpeed) AccelerationY = WalkSpeed;
-  } else {
-    // Apply friction to slow down
-    if (AccelerationY > 0) {
-      AccelerationY -= friction;
-      if (AccelerationY < 0) AccelerationY = 0;
-    } else if (AccelerationY < 0) {
-      AccelerationY += friction;
-      if (AccelerationY > 0) AccelerationY = 0;
+    // Vertical
+    if (keyState.w) {
+      AccelerationY -= accel;
+    }
+    if (keyState.s) {
+      AccelerationY += accel;
+    }
+    // Horizontal
+    if (keyState.a) {
+      AccelerationX -= accel;
+    }
+    if (keyState.d) {
+      AccelerationX += accel;
+    }
+
+    // Clamp to max speed (both positive and negative)
+    if (AccelerationX > maxSpeed) AccelerationX = maxSpeed;
+    if (AccelerationX < -maxSpeed) AccelerationX = -maxSpeed;
+    if (AccelerationY > maxSpeed) AccelerationY = maxSpeed;
+    if (AccelerationY < -maxSpeed) AccelerationY = -maxSpeed;
+
+    // Apply friction when no key is pressed
+    if (!keyState.a && !keyState.d) {
+      if (AccelerationX > 0) {
+        AccelerationX -= friction;
+        if (AccelerationX < 0) AccelerationX = 0;
+      }
+      if (AccelerationX < 0) {
+        AccelerationX += friction;
+        if (AccelerationX > 0) AccelerationX = 0;
+      }
+    }
+    if (!keyState.w && !keyState.s) {
+      if (AccelerationY > 0) {
+        AccelerationY -= friction;
+        if (AccelerationY < 0) AccelerationY = 0;
+      }
+      if (AccelerationY < 0) {
+        AccelerationY += friction;
+        if (AccelerationY > 0) AccelerationY = 0;
+      }
     }
   }
-
-  // X axis (left/right)
-  if (keyState.a) {
-    AccelerationX -= accel;
-    if (AccelerationX < -WalkSpeed) AccelerationX = -WalkSpeed;
-  } else if (keyState.d) {
-    AccelerationX += accel;
-    if (AccelerationX > WalkSpeed) AccelerationX = WalkSpeed;
-  } else {
-    // Apply friction
-    if (AccelerationX > 0) {
-      AccelerationX -= friction;
-      if (AccelerationX < 0) AccelerationX = 0;
-    } else if (AccelerationX < 0) {
-      AccelerationX += friction;
-      if (AccelerationX > 0) AccelerationX = 0;
-    }
-  }
-
-  // Debug output
-  console.log("AccelerationX: " + AccelerationX);
-  console.log("AccelerationY: " + AccelerationY);
-}
 
 const AccelerationInterval = setInterval(UpdateAcceleration, 1000);
 
@@ -600,10 +603,8 @@ function generateGridDots() {
 function moveGridDotsWithKeys() {
   // Move grid dots
   gridDots.forEach((dot) => {
-    if (keyState.w) dot.y += AccelerationY; // Move up
-    if (keyState.a) dot.x += AccelerationX; // Move left
-    if (keyState.s) dot.y -= AccelerationY; // Move down
-    if (keyState.d) dot.x -= AccelerationX; // Move right
+    dot.x += AccelerationX;
+    dot.y += AccelerationY;
 
     // Wrap around the canvas boundaries
     if (dot.x > canvas.width) dot.x = 0;
