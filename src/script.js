@@ -8,6 +8,7 @@ let Experience = 0;
 let NeededExperience = 100;
 let Coins = 100;
 let WalkSpeed = 2;
+let MaxWalkSpeed = 3;
 
 // --- 2. Secondary Stats ---
 let Luck = 1; // Luck now affects upgrade rarity
@@ -22,7 +23,6 @@ let ExplosionSize = 1;
 let ProjectileRichochet = false;
 
 // --- 3. Game State ---
-let CurrentWalkSpeed = 0;
 let AccelerationX = 0; // acceleration for the submarine
 let AccelerationY = 0; // acceleration for the submarine
 let roundDuration = 60; // 60 seconds per round
@@ -590,10 +590,10 @@ function moveGridDotsWithKeys() {
   // Move grid dots
   gridDots.forEach((dot) => {
     CurrentWalkSpeed = Acceleration
-    if (keyState.w) dot.y += CurrentWalkSpeed; // Move up
-    if (keyState.a) dot.x += CurrentWalkSpeed; // Move left
-    if (keyState.s) dot.y -= CurrentWalkSpeed; // Move down
-    if (keyState.d) dot.x -= CurrentWalkSpeed; // Move right
+    if (keyState.w) dot.y += AccelerationY; // Move up
+    if (keyState.a) dot.x += AccelerationX; // Move left
+    if (keyState.s) dot.y -= AccelerationY; // Move down
+    if (keyState.d) dot.x -= AccelerationX; // Move right
 
     // Wrap around the canvas boundaries
     if (dot.x > canvas.width) dot.x = 0;
@@ -604,10 +604,10 @@ function moveGridDotsWithKeys() {
 
   // Move enemies along with the map to make it look like the player is moving
   enemies.forEach((enemy) => {
-    if (keyState.w) enemy.y += WalkSpeed; // Move up
-    if (keyState.a) enemy.x += WalkSpeed; // Move left
-    if (keyState.s) enemy.y -= WalkSpeed; // Move down
-    if (keyState.d) enemy.x -= WalkSpeed; // Move right
+    if (keyState.w) enemy.y += AccelerationY; // Move up
+    if (keyState.a) enemy.x += AccelerationX; // Move left
+    if (keyState.s) enemy.y -= AccelerationY; // Move down
+    if (keyState.d) enemy.x -= AccelerationX; // Move right
   });
 }
 
