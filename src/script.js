@@ -512,37 +512,7 @@ function gameLoop() {
   drawHealth();
   drawLevel();
 
-  if (inRound) {
-    Experience += 0.05;
-    if (Experience >= NeededExperience) {
-      Level++;
-      Experience = 0;
-      NeededExperience = Math.floor(NeededExperience * 1.5);
-      upgradeQueue++;
-    }
-  } else if (!pausedForFullscreen) {
-    showUpgradeMenu();
-  }
-
-  requestAnimationFrame(gameLoop);
-}
-
-// --- 10. Grid Dots ---
-function generateGridDots() {
-  gridDots = []; // Reset the array
-  for (let x = 0; x < canvas.width; x += 50) {
-    for (let y = 0; y < canvas.height; y += 50) {
-      gridDots.push({
-        x,
-        y,
-        speedX: (Math.random() - 0.5) * 0.5, // Horizontal speed
-        speedY: (Math.random() - 0.5) * 0.5, // Vertical speed
-      });
-    }
-  }
-}
-
-function UpdateAcceleration() {
+  function UpdateAcceleration() {
   if (keyState.w = true) {
     if (!AccelerationY >= WalkSpeed) {
       AccelerationY += 0.1
@@ -587,6 +557,36 @@ function UpdateAcceleration() {
 }
 
 const AccelerationInterval = setInterval(UpdateAcceleration, 1000);
+
+  if (inRound) {
+    Experience += 0.05;
+    if (Experience >= NeededExperience) {
+      Level++;
+      Experience = 0;
+      NeededExperience = Math.floor(NeededExperience * 1.5);
+      upgradeQueue++;
+    }
+  } else if (!pausedForFullscreen) {
+    showUpgradeMenu();
+  }
+
+  requestAnimationFrame(gameLoop);
+}
+
+// --- 10. Grid Dots ---
+function generateGridDots() {
+  gridDots = []; // Reset the array
+  for (let x = 0; x < canvas.width; x += 50) {
+    for (let y = 0; y < canvas.height; y += 50) {
+      gridDots.push({
+        x,
+        y,
+        speedX: (Math.random() - 0.5) * 0.5, // Horizontal speed
+        speedY: (Math.random() - 0.5) * 0.5, // Vertical speed
+      });
+    }
+  }
+}
 
 function moveGridDotsWithKeys() {
   // Move grid dots
