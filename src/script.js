@@ -519,48 +519,50 @@ function gameLoop() {
   drawHealth();
   drawLevel();
 
-  function UpdateAcceleration() {
-  if (keyState.w = true) {
-    if (!AccelerationY >= WalkSpeed) {
-      AccelerationY += 0.1
-    }
+function UpdateAcceleration() {
+  // Acceleration constants
+  const accel = 0.1;
+  const friction = 0.05; // How quickly you slow down when not pressing a key
+
+  // Y axis (up/down)
+  if (keyState.w) {
+    AccelerationY -= accel;
+    if (AccelerationY < -WalkSpeed) AccelerationY = -WalkSpeed;
+  } else if (keyState.s) {
+    AccelerationY += accel;
+    if (AccelerationY > WalkSpeed) AccelerationY = WalkSpeed;
   } else {
-    if (!AccelerationY <= 0) {
-      AccelerationY -= 0.1
+    // Apply friction to slow down
+    if (AccelerationY > 0) {
+      AccelerationY -= friction;
+      if (AccelerationY < 0) AccelerationY = 0;
+    } else if (AccelerationY < 0) {
+      AccelerationY += friction;
+      if (AccelerationY > 0) AccelerationY = 0;
     }
   }
 
-  if (keyState.a = true) {
-    if (!AccelerationX >= WalkSpeed) {
-      AccelerationX += 0.1
-    }
+  // X axis (left/right)
+  if (keyState.a) {
+    AccelerationX -= accel;
+    if (AccelerationX < -WalkSpeed) AccelerationX = -WalkSpeed;
+  } else if (keyState.d) {
+    AccelerationX += accel;
+    if (AccelerationX > WalkSpeed) AccelerationX = WalkSpeed;
   } else {
-    if (!AccelerationX <= 0) {
-      AccelerationX -= 0.1
+    // Apply friction
+    if (AccelerationX > 0) {
+      AccelerationX -= friction;
+      if (AccelerationX < 0) AccelerationX = 0;
+    } else if (AccelerationX < 0) {
+      AccelerationX += friction;
+      if (AccelerationX > 0) AccelerationX = 0;
     }
   }
 
-  if (keyState.s = true) {
-    if (!AccelerationY >= WalkSpeed) {
-      AccelerationY += 0.1
-    }
-  } else {
-    if (!AccelerationY <= 0) {
-      AccelerationY -= 0.1
-    }
-  }
-
-  if (keyState.d = true) {
-    if (!AccelerationX >= WalkSpeed) {
-      AccelerationX += 0.1
-    }
-  } else {
-    if (!AccelerationX <= 0) {
-      AccelerationX -= 0.1
-    }
-  }
-  console.log("AccelerationX: " + AccelerationX)
-  console.log("AcceleratioYX: " + AccelerationY)
+  // Debug output
+  console.log("AccelerationX: " + AccelerationX);
+  console.log("AccelerationY: " + AccelerationY);
 }
 
 const AccelerationInterval = setInterval(UpdateAcceleration, 1000);
