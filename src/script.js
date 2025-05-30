@@ -603,8 +603,8 @@ function generateGridDots() {
 function moveGridDotsWithKeys() {
   // Move grid dots
   gridDots.forEach((dot) => {
-    dot.x += AccelerationX;
-    dot.y += AccelerationY;
+    dot.x -= AccelerationX;
+    dot.y -= AccelerationY;
 
     // Wrap around the canvas boundaries
     if (dot.x > canvas.width) dot.x = 0;
@@ -615,10 +615,8 @@ function moveGridDotsWithKeys() {
 
   // Move enemies along with the map to make it look like the player is moving
   enemies.forEach((enemy) => {
-    if (keyState.w) enemy.y += AccelerationY; // Move up
-    if (keyState.a) enemy.x += AccelerationX; // Move left
-    if (keyState.s) enemy.y -= AccelerationY; // Move down
-    if (keyState.d) enemy.x -= AccelerationX; // Move right
+    enemy.y -= AccelerationY; // Move down
+    enemy.x -= AccelerationX; // Move right
   });
 }
 
