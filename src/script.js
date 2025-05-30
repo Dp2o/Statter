@@ -22,6 +22,7 @@ let ExplosionSize = 1;
 let ProjectileRichochet = false;
 
 // --- 3. Game State ---
+let CurrentWalkSpeed = 0;
 let Acceleration = 0; // acceleration for the submarine
 let roundDuration = 60; // 60 seconds per round
 let timeLeft = roundDuration;
@@ -540,13 +541,54 @@ function generateGridDots() {
   }
 }
 
+if (KeyState.w = true) {
+  if (!Acceleration >= WalkSpeed) {
+    Acceleration += 0.1
+  }
+} else {
+  if (!Acceleration <= 0) {
+    Acceleration -= 0.1
+  }
+}
+
+if (KeyState.a = true) {
+  if (!Acceleration >= WalkSpeed) {
+    Acceleration += 0.1
+  }
+} else {
+  if (!Acceleration <= 0) {
+    Acceleration -= 0.1
+  }
+}
+
+if (KeyState.s = true) {
+  if (!Acceleration >= WalkSpeed) {
+    Acceleration += 0.1
+  }
+} else {
+  if (!Acceleration <= 0) {
+    Acceleration -= 0.1
+  }
+}
+
+if (KeyState.d = true) {
+  if (!Acceleration >= WalkSpeed) {
+    Acceleration += 0.1
+  }
+} else {
+  if (!Acceleration <= 0) {
+    Acceleration -= 0.1
+  }
+}
+
 function moveGridDotsWithKeys() {
   // Move grid dots
   gridDots.forEach((dot) => {
-    if (keyState.w) dot.y += WalkSpeed; // Move up
-    if (keyState.a) dot.x += WalkSpeed; // Move left
-    if (keyState.s) dot.y -= WalkSpeed; // Move down
-    if (keyState.d) dot.x -= WalkSpeed; // Move right
+    CurrentWalkSpeed = Acceleration
+    if (keyState.w) dot.y += CurrentWalkSpeed; // Move up
+    if (keyState.a) dot.x += CurrentWalkSpeed; // Move left
+    if (keyState.s) dot.y -= CurrentWalkSpeed; // Move down
+    if (keyState.d) dot.x -= CurrentWalkSpeed; // Move right
 
     // Wrap around the canvas boundaries
     if (dot.x > canvas.width) dot.x = 0;
