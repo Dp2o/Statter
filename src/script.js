@@ -584,12 +584,11 @@ function UpdateAcceleration() {
   }
 }
 
-const AccelerationInterval = setInterval(UpdateAcceletation, 1000);
+const AccelerationInterval = setInterval(UpdateAcceleration, 1000);
 
 function moveGridDotsWithKeys() {
   // Move grid dots
   gridDots.forEach((dot) => {
-    CurrentWalkSpeed = Acceleration
     if (keyState.w) dot.y += AccelerationY; // Move up
     if (keyState.a) dot.x += AccelerationX; // Move left
     if (keyState.s) dot.y -= AccelerationY; // Move down
