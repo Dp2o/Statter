@@ -376,17 +376,24 @@ let player = {
 
 // --- Draw Player ---
 function drawPlayer() {
-  // Optionally, wait until the image is loaded
-  if (playerImg.complete) {
-    // Draw the image centered on player.x, player.y
-    ctx.drawImage(
-      playerImg,
-      player.x - player.width / 2,
-      player.y - player.height / 2,
-      player.width,
-      player.height
-    );
-  }
+  // For now, draw a square centered on player.x, player.y
+  ctx.fillStyle = player.color || "#2dcee0"; // Or any color you like
+  ctx.fillRect(
+    player.x - player.width / 2,
+    player.y - player.height / 2,
+    player.width,
+    player.height
+  );
+  // image
+  // if (playerImg.complete) {
+  //   ctx.drawImage(
+  //     playerImg,
+  //     player.x - player.width / 2,
+  //     player.y - player.height / 2,
+  //     player.width,
+  //     player.height
+  //   );
+  // }
 }
 
 // Helper to get contrast color (black or white) based on background color
