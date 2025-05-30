@@ -541,45 +541,49 @@ function generateGridDots() {
   }
 }
 
-if (KeyState.w = true) {
-  if (!Acceleration >= WalkSpeed) {
-    Acceleration += 0.1
+function UpdateAcceleration() {
+  if (KeyState.w = true) {
+    if (!Acceleration >= WalkSpeed) {
+      Acceleration += 0.1
+    }
+  } else {
+    if (!Acceleration <= 0) {
+      Acceleration -= 0.1
+    }
   }
-} else {
-  if (!Acceleration <= 0) {
-    Acceleration -= 0.1
+
+  if (KeyState.a = true) {
+    if (!Acceleration >= WalkSpeed) {
+      Acceleration += 0.1
+    }
+  } else {
+    if (!Acceleration <= 0) {
+      Acceleration -= 0.1
+    }
+  }
+
+  if (KeyState.s = true) {
+    if (!Acceleration >= WalkSpeed) {
+      Acceleration += 0.1
+    }
+  } else {
+    if (!Acceleration <= 0) {
+      Acceleration -= 0.1
+    }
+  }
+
+  if (KeyState.d = true) {
+    if (!Acceleration >= WalkSpeed) {
+      Acceleration += 0.1
+    }
+  } else {
+    if (!Acceleration <= 0) {
+      Acceleration -= 0.1
+    }
   }
 }
 
-if (KeyState.a = true) {
-  if (!Acceleration >= WalkSpeed) {
-    Acceleration += 0.1
-  }
-} else {
-  if (!Acceleration <= 0) {
-    Acceleration -= 0.1
-  }
-}
-
-if (KeyState.s = true) {
-  if (!Acceleration >= WalkSpeed) {
-    Acceleration += 0.1
-  }
-} else {
-  if (!Acceleration <= 0) {
-    Acceleration -= 0.1
-  }
-}
-
-if (KeyState.d = true) {
-  if (!Acceleration >= WalkSpeed) {
-    Acceleration += 0.1
-  }
-} else {
-  if (!Acceleration <= 0) {
-    Acceleration -= 0.1
-  }
-}
+const AccelerationInterval = setInterval(UpdateAcceletation, 1000);
 
 function moveGridDotsWithKeys() {
   // Move grid dots
