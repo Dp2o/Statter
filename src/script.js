@@ -23,7 +23,8 @@ let ProjectileRichochet = false;
 
 // --- 3. Game State ---
 let CurrentWalkSpeed = 0;
-let Acceleration = 0; // acceleration for the submarine
+let AccelerationX = 0; // acceleration for the submarine
+let AccelerationY = 0; // acceleration for the submarine
 let roundDuration = 60; // 60 seconds per round
 let timeLeft = roundDuration;
 let timerInterval; // Updated to handle timer overlaps
@@ -544,41 +545,41 @@ function generateGridDots() {
 function UpdateAcceleration() {
   if (KeyState.w = true) {
     if (!Acceleration >= WalkSpeed) {
-      Acceleration += 0.1
+      AccelerationY += 0.1
     }
   } else {
     if (!Acceleration <= 0) {
-      Acceleration -= 0.1
+      AccelerationY -= 0.1
     }
   }
 
   if (KeyState.a = true) {
     if (!Acceleration >= WalkSpeed) {
-      Acceleration += 0.1
+      AccelerationX += 0.1
     }
   } else {
     if (!Acceleration <= 0) {
-      Acceleration -= 0.1
+      AccelerationX -= 0.1
     }
   }
 
   if (KeyState.s = true) {
     if (!Acceleration >= WalkSpeed) {
-      Acceleration += 0.1
+      AccelerationY += 0.1
     }
   } else {
     if (!Acceleration <= 0) {
-      Acceleration -= 0.1
+      AccelerationY -= 0.1
     }
   }
 
   if (KeyState.d = true) {
     if (!Acceleration >= WalkSpeed) {
-      Acceleration += 0.1
+      AccelerationX += 0.1
     }
   } else {
     if (!Acceleration <= 0) {
-      Acceleration -= 0.1
+      AccelerationX -= 0.1
     }
   }
 }
