@@ -561,6 +561,7 @@ function gameLoop() {
   // entities
   drawEnemies();
   drawPlayer();
+  drawGuns();
 
   // UI
   drawCoins();
