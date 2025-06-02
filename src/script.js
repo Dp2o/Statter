@@ -419,19 +419,19 @@ function drawGuns() {
     guns.1x - guns.width / 2,
     guns.1y - guns.height / 2,
     guns.width,
-    guns.height
+    guns.height,
     guns.2x - guns.width / 2,
     guns.2y - guns.height / 2,
     guns.width,
-    guns.height
+    guns.height,
     guns.3x - guns.width / 2,
     guns.3y - guns.height / 2,
     guns.width,
-    guns.height
+    guns.height,
     guns.4x - guns.width / 2,
     guns.4y - guns.height / 2,
     guns.width,
-    guns.height
+    guns.height,
   );
   // image
   // if (playerImg.complete) {
