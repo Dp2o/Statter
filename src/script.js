@@ -396,51 +396,27 @@ function drawPlayer() {
 }
 
 let guns = {
-  x1: (canvas.width / 2),
-  y1: (canvas.height / 2) + 20,
-  x2: (canvas.width / 2) + 20,
-  y2: (canvas.height / 2),
-  x3: (canvas.width / 2),
-  y3: (canvas.height / 2) - 20,
-  x4: (canvas.width / 2) - 20,
-  y4: (canvas.height / 2),
-
+  offsets: [
+    { x: 0, y: 20 },
+    { x: 20, y: 0 },
+    { x: 0, y: -20 },
+    { x: -20, y: 0 }
+  ],
   width: 10,
   height: 10,
   color: "blue",
 };
 
-// --- Draw Guns ---
-function drawGuns() {
+function drawGuns(player) {
   ctx.fillStyle = guns.color || "#2dcee0";
-  // Gun 1
-  ctx.fillRect(
-    guns.x1 - guns.width / 2,
-    guns.y1 - guns.height / 2,
-    guns.width,
-    guns.height
-  );
-  // Gun 2
-  ctx.fillRect(
-    guns.x2 - guns.width / 2,
-    guns.y2 - guns.height / 2,
-    guns.width,
-    guns.height
-  );
-  // Gun 3
-  ctx.fillRect(
-    guns.x3 - guns.width / 2,
-    guns.y3 - guns.height / 2,
-    guns.width,
-    guns.height
-  );
-  // Gun 4
-  ctx.fillRect(
-    guns.x4 - guns.width / 2,
-    guns.y4 - guns.height / 2,
-    guns.width,
-    guns.height
-  );
+  guns.offsets.forEach(offset => {
+    ctx.fillRect(
+      player.x + offset.x - guns.width / 2,
+      player.y + offset.y - guns.height / 2,
+      guns.width,
+      guns.height
+    );
+  });
 }
 
 // Helper to get contrast color (black or white) based on background color
