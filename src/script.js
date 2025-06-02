@@ -212,12 +212,10 @@ function DevSettings() {
 }
 
 // Button animations
-
 const buttons = document.querySelectorAll('button');
 
 buttons.forEach(button => {
   button.addEventListener('mouseover', () => {
-    // Skip the button with id 'BackToMenuButton'
     if (button.id !== "BackToMenuButton") {
       button.classList.add('wobbling');
     }
@@ -295,9 +293,8 @@ function selectCharacter(character) {
   Coins = character.stats.Coins;
   Health = character.stats.Health;
   WalkSpeed = character.stats.Health;
-  // Set any stat you want here, using defaults if needed
   document.getElementById('CharacterSelectScreen').style.display = 'none';
-  startGame(); // Or whatever your start function is
+  startGame();
 }
 
 // --- 4. Fullscreen Functionality ---
@@ -379,12 +376,62 @@ let player = {
 // --- Draw Player ---
 function drawPlayer() {
   // For now, draw a square centered on player.x, player.y
-  ctx.fillStyle = player.color || "#2dcee0"; // Or any color you like
+  ctx.fillStyle = player.color || "#2dcee0";
   ctx.fillRect(
     player.x - player.width / 2,
     player.y - player.height / 2,
     player.width,
     player.height
+  );
+  // image
+  // if (playerImg.complete) {
+  //   ctx.drawImage(
+  //     playerImg,
+  //     player.x - player.width / 2,
+  //     player.y - player.height / 2,
+  //     player.width,
+  //     player.height
+  //   );
+  // }
+}
+
+
+let guns = {
+  1x: player.x,
+  1y: player.y + 20,
+  2x: player.x + 20,
+  2y: player.y,
+  3x: player.x,
+  3y: player.y - 20,
+  4x: player.x - 20,
+  4y: player.y,
+  
+  width: 10,
+  height: 10,
+  color: "blue",
+};
+
+// --- Draw Player ---
+function drawGuns() {
+  // For now, draw a square centered on player.x, player.y
+  ctx.fillStyle = guns.color || "#2dcee0";
+  ctx.fillRect(
+    guns.1x - guns.width / 2,
+    guns.1y - guns.height / 2,
+    guns.width,
+    guns.height
+    guns.2x - guns.width / 2,
+    guns.2y - guns.height / 2,
+    guns.width,
+    guns.height
+    guns.3x - guns.width / 2,
+    guns.3y - guns.height / 2,
+    guns.width,
+    guns.height
+    guns.4x - guns.width / 2,
+    guns.4y - guns.height / 2,
+    guns.width,
+    guns.height
   );
   // image
   // if (playerImg.complete) {
