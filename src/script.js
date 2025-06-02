@@ -410,12 +410,14 @@ let guns = {
 function drawGuns(player) {
   ctx.fillStyle = guns.color || "#2dcee0";
   guns.offsets.forEach(offset => {
-    ctx.fillRect(
-      player.x + offset.x - guns.width / 2,
-      player.y + offset.y - guns.height / 2,
-      guns.width,
-      guns.height
-    );
+    if (offset.Visible !== "none") {
+      ctx.fillRect(
+        player.x + offset.x - guns.width / 2,
+        player.y + offset.y - guns.height / 2,
+        guns.width,
+        guns.height
+      );
+    }
   });
 }
 
