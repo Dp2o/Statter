@@ -397,10 +397,10 @@ function drawPlayer() {
 
 let guns = {
   offsets: [
-    { x: 0, y: 20 },
-    { x: 20, y: 0 },
-    { x: 0, y: -20 },
-    { x: -20, y: 0 }
+    { x: 0, y: 40, Visible: "none" },
+    { x: 40, y: 0, Visible: "none" },
+    { x: 0, y: -40, Visible: "none" },
+    { x: -40, y: 0, Visible: "none" }
   ],
   width: 10,
   height: 10,
