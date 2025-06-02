@@ -395,7 +395,6 @@ function drawPlayer() {
   // }
 }
 
-
 let guns = {
   x1: (canvas.width / 2),
   y1: (canvas.height / 2) + 20,
@@ -403,40 +402,45 @@ let guns = {
   y2: (canvas.height / 2),
   x3: (canvas.width / 2),
   y3: (canvas.height / 2) - 20,
-  x4: (player.width / 2) - 20,
-  y4: (player.height / 2),
-  
+  x4: (canvas.width / 2) - 20,
+  y4: (canvas.height / 2),
+
   width: 10,
   height: 10,
   color: "blue",
 };
 
-// --- Draw Player ---
+// --- Draw Guns ---
 function drawGuns() {
-  // For now, draw a square centered on player.x, player.y
   ctx.fillStyle = guns.color || "#2dcee0";
+  // Gun 1
   ctx.fillRect(
-    guns.1x - guns.width / 2,
-    guns.1y - guns.height / 2,
-    guns.2x - guns.width / 2,
-    guns.2y - guns.height / 2,
-    guns.3x - guns.width / 2,
-    guns.3y - guns.height / 2,
-    guns.4x - guns.width / 2,
-    guns.4y - guns.height / 2,
+    guns.x1 - guns.width / 2,
+    guns.y1 - guns.height / 2,
     guns.width,
-    guns.height,
+    guns.height
   );
-  // image
-  // if (playerImg.complete) {
-  //   ctx.drawImage(
-  //     playerImg,
-  //     player.x - player.width / 2,
-  //     player.y - player.height / 2,
-  //     player.width,
-  //     player.height
-  //   );
-  // }
+  // Gun 2
+  ctx.fillRect(
+    guns.x2 - guns.width / 2,
+    guns.y2 - guns.height / 2,
+    guns.width,
+    guns.height
+  );
+  // Gun 3
+  ctx.fillRect(
+    guns.x3 - guns.width / 2,
+    guns.y3 - guns.height / 2,
+    guns.width,
+    guns.height
+  );
+  // Gun 4
+  ctx.fillRect(
+    guns.x4 - guns.width / 2,
+    guns.y4 - guns.height / 2,
+    guns.width,
+    guns.height
+  );
 }
 
 // Helper to get contrast color (black or white) based on background color
