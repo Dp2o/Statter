@@ -38,8 +38,8 @@ let shopItems = [];
 let starDots = [];
 let gridDots = [];
 let wave = 1;
-const oceanAccel = 0.005 * WalkSpeed;    // Slower to speed up
-const oceanFriction = 0.005 * WalkSpeed; // Slower to slow down
+const oceanAccel = 0.01 * WalkSpeed;    // Slower to speed up
+const oceanFriction = 0.002 * WalkSpeed; // Slower to slow down
 const maxSpeed = WalkSpeed; // Or set a lower speed if desired
 
 // FullScreen
