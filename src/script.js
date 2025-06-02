@@ -397,14 +397,14 @@ function drawPlayer() {
 
 
 let guns = {
-  1x: player.x,
-  1y: player.y + 20,
-  2x: player.x + 20,
-  2y: player.y,
-  3x: player.x,
-  3y: player.y - 20,
-  4x: player.x - 20,
-  4y: player.y,
+  1x: (canvas.width / 2),
+  1y: (canvas.height / 2) + 20,
+  2x: (canvas.width / 2) + 20,
+  2y: (canvas.height / 2),
+  3x: (canvas.width / 2),
+  3y: (canvas.height / 2) - 20,
+  4x: (player.width / 2) - 20,
+  4y: (player.height / 2),
   
   width: 10,
   height: 10,
