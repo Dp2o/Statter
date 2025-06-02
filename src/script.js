@@ -896,7 +896,11 @@ function drawTimer() {
   let scale = 1 + (timerPopScale - 1) * Math.pow(progress, 0.5);
 
   ctx.save();
-  ctx.fillStyle = "white";
+  if (timeLeft <= 5) {
+    ctx.fillStyle = "red";
+  } else {
+    ctx.fillStyle = "white";
+  }
   ctx.font = `${timerBaseFontSize * scale}px Arial`;
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
