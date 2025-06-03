@@ -38,8 +38,8 @@ let shopItems = [];
 let starDots = [];
 let gridDots = [];
 let wave = 1;
-const oceanAccel = 0.01 * WalkSpeed;    // Slower to speed up
-const oceanFriction = 0.002 * WalkSpeed; // Slower to slow down
+const AccelIncrease = 0.01 * WalkSpeed;    // Slower to speed up
+const Friction = 0.002 * WalkSpeed; // Slower to slow down
 const maxSpeed = WalkSpeed; // Or set a lower speed if desired
 
 // FullScreen
@@ -548,18 +548,20 @@ function gameLoop() {
   function UpdateAcceleration() {
     // Vertical
     if (keyState.w) {
-      AccelerationY -= oceanAccel;
+      AccelerationY -= AccelIncrease;
     }
     if (keyState.s) {
-      AccelerationY += oceanAccel;
+      AccelerationY += AccelIncrease;
     }
     // Horizontal
     if (keyState.a) {
-      AccelerationX -= oceanAccel;
+      AccelerationX -= AccelIncrease;
     }
     if (keyState.d) {
-      AccelerationX += oceanAccel;
+      AccelerationX += AccelIncrease;
     }
+
+    
 
     // Clamp speed (in both directions)
     if (AccelerationX > maxSpeed) AccelerationX = maxSpeed;
@@ -570,21 +572,21 @@ function gameLoop() {
     // Apply friction when not pressing keys
     if (!keyState.a && !keyState.d) {
       if (AccelerationX > 0) {
-        AccelerationX -= oceanFriction;
+        AccelerationX -= Friction;
         if (AccelerationX < 0) AccelerationX = 0;
       }
       if (AccelerationX < 0) {
-        AccelerationX += oceanFriction;
+        AccelerationX += Friction;
         if (AccelerationX > 0) AccelerationX = 0;
       }
     }
     if (!keyState.w && !keyState.s) {
       if (AccelerationY > 0) {
-        AccelerationY -= oceanFriction;
+        AccelerationY -= Friction;
         if (AccelerationY < 0) AccelerationY = 0;
       }
       if (AccelerationY < 0) {
-        AccelerationY += oceanFriction;
+        AccelerationY += Friction;
         if (AccelerationY > 0) AccelerationY = 0;
       }
     }
@@ -699,6 +701,8 @@ function spawnEnemies() {
       color: "green",
       lastAttackTime: 0,
       damage: 5 * (wave / 2),
+      Accelx: 0,
+      Accely: 0,
     });
   }
 }
