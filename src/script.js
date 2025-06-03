@@ -38,9 +38,15 @@ let shopItems = [];
 let starDots = [];
 let gridDots = [];
 let wave = 1;
+
+// Speed and acceleration
+const minAccel = 0.1
 const AccelIncrease = 0.01 * WalkSpeed;    // Slower to speed up
 const Friction = 0.002 * WalkSpeed; // Slower to slow down
-const maxSpeed = WalkSpeed; // Or set a lower speed if desired
+const maxSpeed = WalkSpeed;
+
+AccelerationX = minAccel
+AccelerationY = minAccel
 
 // FullScreen
 let pausedForFullscreen = false;
