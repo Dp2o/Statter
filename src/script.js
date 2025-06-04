@@ -123,7 +123,8 @@ document.getElementById("DevSettings").addEventListener("click", DevSettings);
 document.getElementById("DevOnSettingButton").addEventListener("click", DevChange);
 
 function DevChange() {
-  Dev.Mode
+  Dev.Mode;
+  DevMode = true;
   document.getElementById("DevOnSettingButton").style.display = "none";
   document.getElementById("DevOffSettingButton").style.display = "block";
 }
