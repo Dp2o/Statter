@@ -120,7 +120,13 @@ document.getElementById("DevPlay").addEventListener("click", startGame);
 // Developer settings
 document.getElementById("DevSettings").addEventListener("click", DevSettings);
 // Open Dev Menu
-document.getElementById("DevOnSettingButton").addEventListener("click", Dev.Mode);
+document.getElementById("DevOnSettingButton").addEventListener("click", DevChange);
+
+function DevChange() {
+  Dev.Mode
+  document.getElementById("DevOnSettingButton").style.display = "none";
+  document.getElementById("DevOffSettingButton").style.display = "block";
+}
 
 
 
